@@ -4,7 +4,6 @@
   const sticker = document.getElementById('loader-sticker');
   const fill = document.getElementById('loading-fill');
   const progress = document.getElementById('loading-progress');
-  const percentage = document.getElementById('loading-percentage');
   const status = document.getElementById('loading-status');
   const portfolio = document.getElementById('portfolio');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -60,7 +59,6 @@
     const rounded = Math.floor(value);
     if (rounded !== lastAria) {
       progress.setAttribute('aria-valuenow', rounded);
-      percentage.textContent = `${rounded}%`;
       lastAria = rounded;
     }
   }
