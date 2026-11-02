@@ -8,7 +8,7 @@
   const portfolio = document.getElementById('portfolio');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const preview = new URLSearchParams(location.search).get('preview') === 'loading';
-  const minimumDuration = reducedMotion ? 600 : 6000;
+  const minimumDuration = reducedMotion ? 400 : 2800;
   const start = performance.now();
   const expressions = ['smiling', 'surprised', 'happy', 'kissy', 'determined'];
   const decoded = new Map();
@@ -37,7 +37,7 @@
       resolve();
     };
     image.onerror = resolve;
-    image.src = `./assets/stickers/${name}.webp`;
+    image.src = `./assets/stickers/${name === 'smiling' ? 'smiling-clean' : name}.webp`;
   })));
   const pageImages = images.map(image => task(image.complete ? Promise.resolve() : new Promise(resolve => {
     image.addEventListener('load', resolve, { once: true });
@@ -48,7 +48,7 @@
   Promise.all([...imageTasks, ...pageImages, pageLoad, fonts]).then(() => { ready = true; });
 
   function showExpression(elapsed) {
-    const name = expressions[Math.floor(elapsed / 2000) % expressions.length];
+    const name = expressions[Math.floor(elapsed / 900) % expressions.length];
     if (name !== activeExpression && decoded.has(name)) {
       sticker.src = decoded.get(name).src;
       activeExpression = name;
@@ -71,14 +71,14 @@
       document.body.classList.remove('is-loading');
       loader.classList.add('is-finished');
       setTimeout(() => loader.remove(), reducedMotion ? 0 : 420);
-    }, reducedMotion ? 0 : 250);
+    }, reducedMotion ? 0 : 120);
   }
   function frame(now) {
     const elapsed = now - start;
     if (!reducedMotion) showExpression(elapsed);
     // Progress covers actual resource readiness and the brief introduction together.
     const introProgress = Math.min(elapsed / minimumDuration, 1);
-    const target = preview ? (elapsed % 10000) / 10000 * 96 : Math.min((completed / totalTasks * .65 + introProgress * .35) * 100, 98);
+    const target = preview ? (elapsed % 4000) / 4000 * 100 : Math.min((completed / totalTasks * .2 + introProgress * .8) * 100, 98);
     displayed = preview ? target : Math.max(displayed, displayed + (target - displayed) * .09);
     draw(displayed);
     if (!preview && ready && introProgress === 1) { finish(); return; }
