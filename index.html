@@ -12,7 +12,9 @@
   <link rel="stylesheet" href="./styles/base.css?v=1">
   <link rel="stylesheet" href="./styles/components.css?v=1">
   <link rel="stylesheet" href="./styles.css?v=5">
-  <link rel="stylesheet" href="./styles/landing.css?v=3">
+  <link rel="stylesheet" href="./styles/landing.css?v=4">
+  <link rel="stylesheet" href="./styles/hero.css?v=1">
+  <script src="./hero.js?v=1" defer></script>
   <script src="./desk-intro.js?v=2" defer></script>
   <script src="./loader.js?v=6" defer></script>
 </head>
@@ -32,7 +34,7 @@
   </div>
   <main class="page-shell landing" id="portfolio" inert aria-hidden="true">
     <h1 class="sr-only">Froso Patsalou — Design portfolio</h1>
-    <section class="desk" aria-label="A creative desk with colourful stationery on blue graph paper">
+    <section class="desk" id="home" aria-label="Welcome to Froso's portfolio">
       <div class="desk__canvas" data-animation-frame="first" aria-hidden="true">
         <img class="desk__paper" src="./assets/desk/graph-paper.webp" alt="" width="2400" height="1411" decoding="async" fetchpriority="high">
         <img class="desk__item desk__scissors-top" data-object="scissors-top" src="./assets/desk/scissors.svg" alt="" decoding="async" draggable="false">
@@ -52,6 +54,20 @@
         <img class="desk__item desk__ruler-bottom" data-object="ruler-bottom" src="./assets/desk/ruler-purple.svg" alt="" decoding="async" draggable="false">
         <img class="desk__item desk__scissors-bottom" data-object="scissors-bottom" src="./assets/desk/scissors.svg" alt="" decoding="async" draggable="false">
       </div>
+      <header class="site-header" inert>
+        <a class="site-logo" href="#home" aria-label="Froso — Home"><img src="./assets/hero/logo.svg" alt="" width="218" height="103"></a>
+        <div class="site-header__right">
+          <nav class="nav-pill" aria-label="Main navigation">
+            <a href="#home" aria-current="page">Home</a>
+            <a href="#about" aria-disabled="true" title="About section coming soon">About</a>
+            <a href="#work" aria-disabled="true" title="Work section coming soon">Work</a>
+            <a href="#contact" aria-disabled="true" title="Contact section coming soon">Contact</a>
+          </nav>
+          <button class="site-search" type="button" aria-label="Search — coming soon" aria-disabled="true"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="13.5" cy="13.5" r="9"/><path d="m20 20 8 8"/></svg></button>
+        </div>
+      </header>
+      <div class="hero-name" aria-hidden="true"><img src="./assets/hero/name.svg" alt="" width="1430" height="720" draggable="false"></div>
+      <div class="hero-face" aria-hidden="true"><img src="./assets/stickers/smiling-matched.webp" alt="" width="720" height="606" draggable="false"></div>
     </section>
   </main>
   <noscript><style>.loader{display:none}body{background:#fff}</style></noscript>

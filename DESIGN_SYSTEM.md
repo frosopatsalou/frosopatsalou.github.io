@@ -50,5 +50,5 @@ The animation tone is **fun, energetic, fast and snappy**. Keep this direction f
 
 Use responsive layouts rather than scaling the entire page. Heading sizes are fluid; page/button padding keeps the requested measured values. Motion duration and easing are tokens. Reduced-motion preferences disable decorative animations and button movement. Component-specific geometry can remain local to that component; shared design values should come from tokens.
 
-These are foundation defaults, not additional visible page content. The existing loading screen stays in place; the homepage is still awaiting design instructions.
+After the stationery intro, the logo/navigation pop into place in 200ms. The name sticker stamps down at 220ms, followed by the face sticker at 540ms. The entrance finishes at 800ms and holds still. Reduced-motion preferences reveal the finished composition immediately. Navigation destinations and search will be enabled as their sections are built.
 

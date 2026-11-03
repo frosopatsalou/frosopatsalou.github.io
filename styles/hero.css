@@ -1,0 +1,92 @@
+/* Content enters only after the stationery has reached its final pose. */
+.site-header {
+  position: absolute;
+  z-index: var(--z-navigation);
+  inset: var(--page-padding-block) var(--page-padding-inline) auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-24);
+  visibility: hidden;
+}
+.site-logo { display: block; width: clamp(110px, 13.5vw, 195px); flex-shrink: 0; }
+.site-logo img { display: block; width: 100%; height: auto; }
+.site-header__right { display: flex; align-items: center; gap: var(--space-24); }
+.nav-pill {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-8);
+  background: var(--color-white);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-lg);
+}
+.nav-pill a {
+  display: block;
+  padding: var(--button-padding-block) var(--button-padding-inline);
+  border-radius: var(--radius-pill);
+  color: var(--color-text);
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-label);
+  white-space: nowrap;
+}
+.nav-pill a[aria-current] { background: var(--color-magenta); color: var(--color-white); font-style: italic; }
+.nav-pill a:not([aria-current]):hover { background: var(--color-purple-100); }
+.site-search {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: var(--radius-circle);
+  background: var(--color-white);
+  color: var(--color-purple);
+  box-shadow: var(--shadow-md);
+}
+.site-search svg { width: 36px; height: 36px; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; }
+.hero-name, .hero-face { position: absolute; visibility: hidden; pointer-events: none; }
+.hero-name { left: 21.8%; top: 32.5%; width: min(49%, 69cqh); }
+.hero-face { left: 56.8%; top: 30.2%; width: min(20%, 28cqh); transform: rotate(14deg); }
+.hero-name img, .hero-face img { display: block; width: 100%; height: auto; user-select: none; }
+.site-header.is-entering { visibility: visible; animation: nav-arrive var(--duration-normal) var(--ease-standard) both; }
+.hero-name.is-entering, .hero-face.is-entering { visibility: visible; }
+.hero-name.is-entering img { animation: sticker-stamp 300ms var(--ease-standard) both; }
+.hero-face.is-entering img { animation: sticker-stamp 260ms var(--ease-standard) both; }
+@keyframes nav-arrive {
+  from { opacity: 0; transform: translateY(-18px) scale(.98); }
+  75% { opacity: 1; transform: translateY(3px) scale(1.005); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes sticker-stamp {
+  from { opacity: 0; transform: translateY(-28px) rotate(-7deg) scale(1.2); filter: drop-shadow(8px 18px 8px rgb(35 0 71 / .24)); }
+  58% { opacity: 1; transform: translateY(2px) rotate(1deg) scale(.97); filter: drop-shadow(0 1px 0 rgb(35 0 71 / .12)); }
+  80% { transform: translateY(-1px) rotate(-.5deg) scale(1.015); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+@media (max-width: 1000px) {
+  .site-header { gap: var(--space-12); }
+  .site-header__right { gap: var(--space-12); }
+  .nav-pill { gap: var(--space-0); }
+  .nav-pill a { padding: var(--space-15) var(--space-20); font-size: var(--font-size-md); }
+  .site-search { width: 60px; height: 60px; }
+}
+@media (max-width: 640px) {
+  .site-header { flex-wrap: wrap; }
+  .site-logo { width: 110px; }
+  .site-header__right { width: 100%; gap: var(--space-8); }
+  .nav-pill { flex: 1; padding: var(--space-6); justify-content: space-between; }
+  .nav-pill a { padding: var(--space-12) var(--space-12); font-size: var(--font-size-sm); }
+  .site-search { width: var(--size-touch-target); height: var(--size-touch-target); }
+  .site-search svg { width: 25px; height: 25px; }
+  .hero-name { left: 9%; top: 43%; width: 82%; }
+  .hero-face { left: 61%; top: 29%; width: 30%; }
+}
+@media (max-width: 380px) {
+  .nav-pill a { padding-inline: var(--space-8); font-size: var(--font-size-xs); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header.is-entering, .hero-name.is-entering img, .hero-face.is-entering img { animation: none; }
+}
