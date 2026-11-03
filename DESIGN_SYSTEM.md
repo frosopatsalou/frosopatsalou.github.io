@@ -50,5 +50,7 @@ The animation tone is **fun, energetic, fast and snappy**. Keep this direction f
 
 Use responsive layouts rather than scaling the entire page. Heading sizes are fluid; page/button padding keeps the requested measured values. Motion duration and easing are tokens. Reduced-motion preferences disable decorative animations and button movement. Component-specific geometry can remain local to that component; shared design values should come from tokens.
 
-After the stationery intro, the logo/navigation pop into place in 200ms. The name sticker stamps down at 220ms, followed by the face sticker at 540ms. The entrance finishes at 800ms and holds still. Reduced-motion preferences reveal the finished composition immediately. Navigation destinations and search will be enabled as their sections are built.
+After the stationery intro, the logo/navigation pop into place in 200ms. The name sticker stamps down at 220ms, followed by the face sticker at 540ms. The entrance finishes at 800ms and holds still. Reduced-motion preferences reveal the finished composition immediately. Navigation destinations will be enabled as their sections are built; search has been removed. The selected navigation label uses palette yellow and the self-hosted Cooper LT BT Bold Italic font.
+
+Once the entrance finishes, the face sticker and stationery can be picked up and dropped with mouse, touch or keyboard. The face crossfades to its peeled artwork while held, then flattens when released. Drop positions remain for the current visit; refreshing restores the designed composition and replays the intro. The face's curved “click me” hint disappears after moving it. Keyboard: Space/Enter picks up and drops, arrows move (Shift for larger steps), Escape cancels.
 

@@ -6,6 +6,13 @@
   font-display: swap;
 }
 @font-face {
+  font-family: 'Cooper LT BT';
+  src: url('../assets/fonts/cooper-lt-bt-bold-italic.ttf') format('truetype');
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
   font-family: 'Avant Garde';
   src: url('../assets/fonts/avant-garde-bold.ttf') format('truetype');
   font-style: normal;

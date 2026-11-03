@@ -13,7 +13,11 @@
     timers.forEach(clearTimeout);
     [header, name, face].forEach(reveal);
     header.inert = false;
-    document.querySelector('.desk').dataset.entrance = 'complete';
+    const desk = document.querySelector('.desk');
+    if (desk.dataset.entrance !== 'complete') {
+      desk.dataset.entrance = 'complete';
+      document.dispatchEvent(new Event('portfolio:entrance-complete'));
+    }
   }
   document.addEventListener('portfolio:intro-complete', () => {
     if (started) return;
@@ -26,7 +30,7 @@
     timers.push(setTimeout(finish, 800));
   }, { once: true });
   motion.addEventListener('change', event => { if (event.matches && started) finish(); });
-  // Destinations and search will be enabled as their content is built.
+  // Destinations will be enabled as their content is built.
   header.addEventListener('click', event => {
     if (event.target.closest('[aria-disabled="true"]')) event.preventDefault();
   });
