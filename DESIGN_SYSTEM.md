@@ -46,6 +46,8 @@ Pill radius is the default. Buttons have a 5px drop shadow, hover/pressed states
 
 ## Responsive and motion rules
 
+The animation tone is **fun, energetic, fast and snappy**. Keep this direction for future animations: short, punchy timing and crisp changes. The stationery intro uses four held stop-motion poses over 1.2 seconds, starts after loading, and holds the final pose without looping.
+
 Use responsive layouts rather than scaling the entire page. Heading sizes are fluid; page/button padding keeps the requested measured values. Motion duration and easing are tokens. Reduced-motion preferences disable decorative animations and button movement. Component-specific geometry can remain local to that component; shared design values should come from tokens.
 
 These are foundation defaults, not additional visible page content. The existing loading screen stays in place; the homepage is still awaiting design instructions.

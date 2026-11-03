@@ -10,7 +10,7 @@
   const poses = [
     { name: 'first', at: 0, objects: {} },
     {
-      name: 'second', at: 850,
+      name: 'second', at: 300,
       objects: {
         'scissors-top': [330, 145, 65],
         'ruler-top': [720, 170, 85],
@@ -31,7 +31,7 @@
       },
     },
     {
-      name: 'third', at: 1800,
+      name: 'third', at: 650,
       objects: {
         'scissors-top': [110, 135, 40],
         'ruler-top': [774, 110, 50],
@@ -52,7 +52,7 @@
       },
     },
     {
-      name: 'final', at: 3000,
+      name: 'final', at: 1000,
       objects: {
         'scissors-top': [60, 100, 15],
         'ruler-top': [830, -20, 7],
@@ -74,7 +74,7 @@
     },
   ];
 
-  const duration = 3500;
+  const duration = 1200;
   const items = new Map([...canvas.querySelectorAll('[data-object]')].map(item => [item.dataset.object, item]));
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   let started = false;
