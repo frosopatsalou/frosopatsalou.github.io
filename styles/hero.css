@@ -40,7 +40,7 @@
 .hero-name img, .hero-face img { display: block; width: 100%; height: auto; user-select: none; }
 .site-header.is-entering { visibility: visible; animation: nav-arrive var(--duration-normal) var(--ease-standard) both; }
 .hero-name.is-entering, .hero-face.is-entering { visibility: visible; }
-.hero-name.is-entering img { animation: sticker-stamp 300ms var(--ease-standard) both; }
+.hero-name.is-entering .peel-art { animation: sticker-stamp 300ms var(--ease-standard) both; }
 .hero-face.is-entering .hero-face__art { animation: sticker-stamp 260ms var(--ease-standard) both; }
 @keyframes nav-arrive {
   from { opacity: 0; transform: translateY(-18px) scale(.98); }
@@ -72,5 +72,5 @@
   .nav-pill a { padding-inline: var(--space-8); font-size: var(--font-size-xs); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .site-header.is-entering, .hero-name.is-entering img, .hero-face.is-entering .hero-face__art { animation: none; }
+  .site-header.is-entering, .hero-name.is-entering .peel-art, .hero-face.is-entering .hero-face__art { animation: none; }
 }

@@ -5,6 +5,89 @@
   let active = null;
   let topLayer = 3;
   const announce = text => { status.textContent = text; };
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const peels = new Map();
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const svgNode = (name, attributes = {}) => {
+    const node = document.createElementNS(svgNS, name);
+    for (const [key, value] of Object.entries(attributes)) node.setAttribute(key, value);
+    return node;
+  };
+
+  // Replace only the stationery's outer element: pose and drag transforms stay
+  // on this wrapper, while a single artwork layer is clipped beneath the fold.
+  desk.querySelectorAll('img.desk__item').forEach(image => {
+    const wrapper = document.createElement('div');
+    wrapper.className = image.className;
+    wrapper.dataset.object = image.dataset.object;
+    image.replaceWith(wrapper);
+    image.className = '';
+    image.removeAttribute('data-object');
+    wrapper.append(image);
+  });
+  const items = [...desk.querySelectorAll('.desk__item'), desk.querySelector('.hero-face'), desk.querySelector('.hero-name')];
+  items.forEach((element, index) => {
+    const image = element.querySelector('img');
+    const host = element.querySelector('.hero-face__art') || element;
+    image.classList.add('peel-source');
+    const source = image.getAttribute('src');
+    const id = `paper-peel-${index}`;
+    const svg = svgNode('svg', { viewBox: '0 0 100 100', preserveAspectRatio: 'none', 'aria-hidden': 'true', class: 'peel-art' });
+    const defs = svgNode('defs');
+    const clip = svgNode('clipPath', { id: `${id}-cut`, clipPathUnits: 'userSpaceOnUse' });
+    const cut = svgNode('path');
+    clip.append(cut);
+    const mask = svgNode('mask', { id: `${id}-silhouette`, maskUnits: 'userSpaceOnUse', x: 0, y: 0, width: 100, height: 100, style: 'mask-type:alpha' });
+    const artwork = { href: source, x: 0, y: 0, width: 100, height: 100, preserveAspectRatio: 'none' };
+    mask.append(svgNode('image', artwork));
+    const gradient = svgNode('linearGradient', { id: `${id}-back`, x1: '0%', y1: '0%', x2: '100%', y2: '100%' });
+    [['0%', '#FFFFFF'], ['60%', '#FAF9FC'], ['100%', '#C9C2D5']].forEach(([offset, color]) => gradient.append(svgNode('stop', { offset, 'stop-color': color })));
+    defs.append(clip, mask, gradient);
+    const front = svgNode('image', { ...artwork, 'clip-path': `url(#${id}-cut)` });
+    const fold = svgNode('path', { fill: `url(#${id}-back)`, mask: `url(#${id}-silhouette)` });
+    svg.append(defs, front, fold);
+    host.append(svg);
+    const object = element.dataset.object || '';
+    let corner = 'right', a = 65, b = 32;
+    if (object.includes('scissors')) { a = 62; b = 27; }
+    if (object.includes('ruler')) { a = 72; b = 76; }
+    if (object.includes('notebooks')) { a = 42; b = 43; }
+    if (object.includes('stapler')) { a = 43; b = 43; }
+    if (object.includes('pen') || object.includes('glue')) { corner = 'left'; a = 57; b = 30; }
+    if (object.includes('clip')) { a = 30; b = 32; }
+    if (element.classList.contains('hero-face')) { a = 58; b = 40; }
+    if (element.classList.contains('hero-name')) { corner = 'bottom'; a = 83; b = 23; }
+    const point = (x, y) => corner === 'left' ? [100 - x, y] : corner === 'bottom' ? [x, 100 - y] : [x, y];
+    const pair = (x, y) => point(x, y).join(' ');
+    const draw = progress => {
+      const ax = 100 - (100 - a) * progress;
+      const by = b * progress;
+      cut.setAttribute('d', `M${pair(0, 0)} L${pair(ax, 0)} L${pair(100, by)} L${pair(100, 100)} L${pair(0, 100)} Z`);
+      // Reflect the lifted corner across the fold line to place its paper back.
+      const dx = 100 - ax, length = dx * dx + by * by;
+      const projection = length ? dx * dx / length : 0;
+      const cx = 2 * (ax + projection * dx) - 100;
+      const cy = 2 * projection * by;
+      fold.setAttribute('d', progress < .001 ? '' : `M${pair(ax, 0)} L${pair(100, by)} Q${pair(cx, cy)} ${pair(ax, 0)} Z`);
+      svg.dataset.peel = progress.toFixed(3);
+    };
+    const state = { value: 0, frame: 0, draw };
+    peels.set(element, state);
+    draw(0);
+  });
+  function peel(element, target) {
+    const state = peels.get(element);
+    cancelAnimationFrame(state.frame);
+    if (motion.matches) { state.value = target; state.draw(target); return; }
+    const from = state.value, start = performance.now();
+    const tick = now => {
+      const time = Math.min((now - start) / 220, 1);
+      state.value = from + (target - from) * (1 - (1 - time) ** 3);
+      state.draw(state.value);
+      if (time < 1) state.frame = requestAnimationFrame(tick);
+    };
+    state.frame = requestAnimationFrame(tick);
+  }
 
   function move(x, y) {
     if (!active) return;
@@ -27,6 +110,7 @@
     };
     element.style.zIndex = Math.min(++topLayer, 79);
     element.classList.add('is-held');
+    peel(element, 1);
     element.setAttribute('aria-pressed', 'true');
     announce('Picked up. Move and release to stick.');
   }
@@ -38,6 +122,7 @@
       element.style.setProperty('--drag-y', origin.y);
     } else if (Math.hypot(active.delta.x, active.delta.y) > 3) element.classList.add('has-moved');
     element.classList.remove('is-held');
+    peel(element, 0);
     element.setAttribute('aria-pressed', 'false');
     active = null;
     if (pointer && element.hasPointerCapture(pointer.id)) element.releasePointerCapture(pointer.id);
@@ -45,7 +130,6 @@
   }
   document.addEventListener('portfolio:entrance-complete', () => {
     document.querySelector('.desk__canvas').removeAttribute('aria-hidden');
-    const items = [...desk.querySelectorAll('.desk__item'), desk.querySelector('.hero-face'), desk.querySelector('.hero-name')];
     items.forEach(element => {
       element.classList.add('is-draggable');
       element.tabIndex = 0;

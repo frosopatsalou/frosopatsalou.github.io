@@ -15,12 +15,12 @@
 }
 .desk__item.is-held, .hero-name.is-held { scale: 1.05; filter: drop-shadow(6px 14px 7px rgb(35 0 71 / .25)); }
 .hero-face__art { position: relative; width: 100%; aspect-ratio: 720 / 606; }
-.hero-face .hero-face__peeled { position: absolute; inset: 0; height: 100%; object-fit: contain; opacity: 0; }
-.hero-face__flat, .hero-face__peeled { transition: opacity 240ms var(--ease-standard), transform 240ms var(--ease-standard), filter 240ms var(--ease-standard); }
-.hero-face.is-held .hero-face__flat { opacity: 0; }
-.hero-face.is-held .hero-face__peeled { opacity: 1; filter: drop-shadow(5px 14px 8px rgb(35 0 71 / .25)); }
+.peel-source { display: block; width: 100%; height: auto; visibility: hidden; pointer-events: none; }
+.peel-art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; overflow: visible; pointer-events: none; }
+.hero-face__art { transition: filter var(--duration-normal) var(--ease-standard); }
+.hero-face.is-held .hero-face__art { filter: drop-shadow(5px 14px 8px rgb(35 0 71 / .25)); }
 .is-draggable:focus-visible { outline-offset: var(--space-8); border-radius: var(--radius-md); }
 @media (prefers-reduced-motion: reduce) {
-  .desk__item.is-draggable, .hero-name.is-draggable, .hero-face__flat, .hero-face__peeled { transition: none; }
+  .desk__item.is-draggable, .hero-name.is-draggable, .hero-face__art { transition: none; }
   .desk__item.is-held, .hero-name.is-held { scale: 1; }
 }
