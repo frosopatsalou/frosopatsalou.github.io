@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="677" height="1145" viewBox="128 65 677 1145">
+<defs><g id="pen">
+<rect x="-12" y="-42" width="24" height="80" rx="12" fill="#7300ED" />
+<path d="M0 0 Q-80 55 -80 190 V800 H80 V190 Q80 55 0 0Z" fill="#F00FA9" />
+<path d="M-80 170H80V190H-80Z" fill="#7300ED" />
+<path d="M-80 780H80V1090Q80 1180 0 1180Q-80 1180 -80 1090Z" fill="#546FFA" />
+<rect x="-104" y="775" width="43" height="330" rx="13" fill="#7300ED" />
+</g></defs>
+<g transform="translate(180 130) rotate(-28)">
+<use href="#pen" stroke="white" stroke-width="44" stroke-linejoin="round" stroke-linecap="round" />
+<use href="#pen" />
+</g></svg>

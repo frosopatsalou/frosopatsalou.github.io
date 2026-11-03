@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1238" height="1117" viewBox="79 48 1238 1117">
+<defs><g id="stapler">
+<path fill="#C34BE6" d="M277 1016 L493 803 L658 916 L361 1081 Z" />
+<path fill="#E7E5E6" d="M449 788 L943 316 L1055 432 Q1082 462 1053 486 L548 883 Z" />
+<path fill="#594652" d="M496 811 L871 499 Q884 486 894 498 Q905 510 890 524 L519 837 Z" />
+<path fill="#594652" d="M900 380 L931 352 L962 392 Q969 403 958 412 L944 423 Q936 428 928 418 Z" />
+<ellipse cx="978" cy="465" rx="32" ry="36" transform="rotate(35 978 465)" fill="#C8C1C7" />
+<path fill="#F00FA9" d="M129 846 L782 126 Q864 40 944 121 L1030 205 Q1065 238 1030 276 L516 773 Q489 798 511 829 Q524 852 493 884 L307 1014 Q231 1055 160 997 Q85 939 129 846 Z" />
+<path fill="#7300ED" d="M185 730 L253 650 Q269 632 289 648 Q308 664 291 687 L219 761 Q202 773 185 758 Q171 745 185 730 Z" />
+<circle cx="237" cy="921" r="65" fill="#7300ED" />
+<path fill="#E7E5E6" d="M972 719 Q960 685 992 672 L1096 627 Q1125 616 1145 645 L1158 663 Z" />
+<path fill="#C8C1C7" d="M1039 694 Q1032 687 1044 680 L1083 661 Q1095 656 1100 663 Q1104 670 1094 675 L1052 696 Q1045 699 1039 694 Z" />
+<path fill="#7300ED" d="M306 1096 L1275 691 Q1304 754 1240 785 L394 1122 Q337 1149 306 1096 Z" />
+<path fill="#7300ED" d="M306 1096 Q276 1053 316 1031 L1184 646 Q1249 613 1275 691 Z" />
+</g></defs>
+<use href="#stapler" stroke="white" stroke-width="58" stroke-linejoin="round" stroke-linecap="round" />
+<use href="#stapler" />
+</svg>

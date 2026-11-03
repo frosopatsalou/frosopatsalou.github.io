@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="726" height="994" viewBox="274 90 726 994">
+<defs><g id="glue">
+<rect x="-235" y="295" width="470" height="675" rx="88" fill="#FBE4DF" />
+<rect x="-181" y="430" width="362" height="450" rx="53" fill="#546FFA" />
+<path d="M-4 493 C-42 482 -108 657 -105 730 C-102 793 -48 788 24 771 C96 754 140 731 118 688 C96 642 32 508 -4 493Z" fill="#F00FA9" />
+<rect x="-147" y="185" width="294" height="160" rx="31" fill="#F00FA9" />
+<path d="M-76 185 C-75 128 -35 2 0 0 C35 2 75 128 76 185Z" fill="#F00FA9" />
+<path d="M-76 185 Q0 199 76 185" fill="none" stroke="#CB128D" stroke-width="10" stroke-linecap="round" />
+<g stroke="#CB128D" stroke-width="11" stroke-linecap="round">
+<path d="M-112 218V310 M-68 218V310 M-23 218V310 M23 218V310 M68 218V310 M112 218V310" />
+</g></g></defs>
+<g transform="translate(340 120) rotate(-28)">
+<use href="#glue" stroke="white" stroke-width="48" stroke-linejoin="round" stroke-linecap="round" />
+<use href="#glue" />
+</g></svg>

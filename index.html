@@ -12,7 +12,8 @@
   <link rel="stylesheet" href="./styles/base.css?v=1">
   <link rel="stylesheet" href="./styles/components.css?v=1">
   <link rel="stylesheet" href="./styles.css?v=5">
-  <script src="./loader.js?v=4" defer></script>
+  <link rel="stylesheet" href="./styles/landing.css?v=1">
+  <script src="./loader.js?v=5" defer></script>
 </head>
 <body class="is-loading">
   <div class="loader" id="loader" aria-label="Loading Froso's portfolio">
@@ -28,7 +29,30 @@
       <span class="sr-only" role="status" id="loading-status">Loading portfolio</span>
     </div>
   </div>
-  <main class="page-shell" id="portfolio" inert aria-hidden="true"></main>
+  <main class="page-shell landing" id="portfolio" inert aria-hidden="true">
+    <h1 class="sr-only">Froso Patsalou — Design portfolio</h1>
+    <section class="desk" aria-label="A creative desk with colourful stationery on blue graph paper">
+      <div class="desk__canvas" data-animation-frame="first" aria-hidden="true">
+        <img class="desk__paper" src="./assets/desk/graph-paper.webp" alt="" width="2400" height="1411" decoding="async" fetchpriority="high">
+        <img class="desk__item desk__scissors-top" data-object="scissors-top" src="./assets/desk/scissors.svg" alt="" decoding="async" draggable="false">
+        <img class="desk__item desk__ruler-top" data-object="ruler-top" src="./assets/desk/ruler.svg" alt="" decoding="async" draggable="false">
+        <img class="desk__item desk__clip-top-a" data-object="clip-top-a" src="./assets/desk/clip-magenta.svg" alt="" decoding="async" draggable="false">
+        <img class="desk__item desk__clip-top-b" data-object="clip-top-b" src="./assets/desk/clip-magenta.svg" alt="" decoding="async" draggable="false">
+        <img class="desk__item desk__clip-top-c" data-object="clip-top-c" src="./assets/desk/clip-magenta.svg" alt="" decoding="async" draggable="false">
+        <img class="desk__item desk__notebooks" data-object="notebooks" src="./assets/desk/notebooks.svg" alt="" decoding="async" draggable="false">
+        <img class="desk__item desk__pen" data-object="pen" src="./assets/desk/pen.svg" alt="" decoding="async" draggable="false">
+        <img class="desk__item desk__clip-pink" data-object="clip-pink" src="./assets/desk/clip-pink.svg" alt="" decoding="async" draggable="false">
+        <img class="desk__item desk__clip-lime" data-object="clip-lime" src="./assets/desk/clip-lime.svg" alt="" decoding="async" draggable="false">
+        <img class="desk__item desk__clip-yellow" data-object="clip-yellow" src="./assets/desk/clip-yellow.svg" alt="" decoding="async" draggable="false">
+        <img class="desk__item desk__clip-magenta" data-object="clip-magenta" src="./assets/desk/clip-magenta.svg" alt="" decoding="async" draggable="false">
+        <img class="desk__item desk__stapler-yellow" data-object="stapler-yellow" src="./assets/desk/stapler.svg" alt="" decoding="async" draggable="false">
+        <img class="desk__item desk__glue" data-object="glue" src="./assets/desk/glue.svg" alt="" decoding="async" draggable="false">
+        <img class="desk__item desk__stapler-purple" data-object="stapler-purple" src="./assets/desk/stapler-purple.svg" alt="" decoding="async" draggable="false">
+        <img class="desk__item desk__ruler-bottom" data-object="ruler-bottom" src="./assets/desk/ruler-purple.svg" alt="" decoding="async" draggable="false">
+        <img class="desk__item desk__scissors-bottom" data-object="scissors-bottom" src="./assets/desk/scissors.svg" alt="" decoding="async" draggable="false">
+      </div>
+    </section>
+  </main>
   <noscript><style>.loader{display:none}body{background:#fff}</style></noscript>
 </body>
 </html>

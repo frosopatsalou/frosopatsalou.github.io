@@ -39,7 +39,7 @@
     image.onerror = resolve;
     image.src = `./assets/stickers/${name === 'smiling' ? 'smiling-matched' : name}.webp`;
   })));
-  const pageImages = images.map(image => task(image.complete ? Promise.resolve() : new Promise(resolve => {
+  const pageImages = images.map(image => task(image.complete ? image.decode().catch(() => {}) : new Promise(resolve => {
     image.addEventListener('load', resolve, { once: true });
     image.addEventListener('error', resolve, { once: true });
   })));

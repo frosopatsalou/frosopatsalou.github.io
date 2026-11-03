@@ -1,0 +1,51 @@
+/* Frame 1: positions are based on the 1440 × 1024 Figma composition.
+   Each object stays separate for the future stop-motion sequence. */
+.landing { max-width: none; }
+.desk {
+  position: relative;
+  width: 100%;
+  height: calc(100svh - var(--page-padding-block) * 2);
+  overflow: hidden;
+  container-type: size;
+  background: var(--color-sky-200);
+  background-image: url('../assets/desk/graph-paper.webp');
+  background-size: cover;
+  background-position: center;
+}
+.desk__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.desk__paper { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; user-select: none; }
+.desk__item {
+  position: absolute;
+  left: calc(var(--x) / 1440 * 100%);
+  top: calc(var(--y) / 1024 * 100%);
+  width: min(calc(var(--width) / 1440 * 100cqw), calc(var(--width) / 1024 * 100cqh));
+  max-width: none;
+  height: auto;
+  transform: translate(-50%, -50%) rotate(var(--rotation, 0deg)) scaleX(var(--flip, 1));
+  transform-origin: center;
+  user-select: none;
+  pointer-events: none;
+}
+.desk__scissors-top { --x: 365; --y: 200; --width: 530; --rotation: 42deg; }
+.desk__ruler-top { --x: 720; --y: 228; --width: 480; --rotation: 60deg; }
+.desk__clip-top-a { --x: 855; --y: 42; --width: 60; --rotation: 76deg; }
+.desk__clip-top-b { --x: 887; --y: 142; --width: 60; --rotation: -72deg; }
+.desk__clip-top-c { --x: 1025; --y: 83; --width: 60; --rotation: 30deg; }
+.desk__notebooks { --x: 1148; --y: 330; --width: 455; --rotation: 15deg; }
+.desk__pen { --x: 340; --y: 490; --width: 288; --rotation: 90deg; }
+.desk__clip-pink { --x: 600; --y: 494; --width: 55; --rotation: 50deg; }
+.desk__clip-lime { --x: 690; --y: 530; --width: 55; --rotation: 20deg; }
+.desk__clip-yellow { --x: 548; --y: 632; --width: 55; --rotation: -20deg; }
+.desk__clip-magenta { --x: 783; --y: 624; --width: 55; --rotation: 2deg; }
+.desk__stapler-yellow { --x: 1035; --y: 765; --width: 430; --flip: -1; }
+.desk__glue { --x: 1310; --y: 730; --width: 300; }
+.desk__stapler-purple { --x: 40; --y: 815; --width: 320; --rotation: 15deg; }
+.desk__ruler-bottom { --x: 340; --y: 960; --width: 440; --rotation: 95deg; }
+.desk__scissors-bottom { --x: 680; --y: 1020; --width: 530; --rotation: -55deg; }
+/* Normalised positions follow the viewport, while the smaller scale controls
+   object size. This preserves proportions without cropping the top on wide screens. */
