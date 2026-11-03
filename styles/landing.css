@@ -1,5 +1,5 @@
-/* Frame 1: positions are based on the 1440 × 1024 Figma composition.
-   Each object stays separate for the future stop-motion sequence. */
+/* First pose in the four-frame intro. desk-intro.js applies the next held poses.
+   Positions use the 1440 × 1024 Figma composition. */
 .landing { max-width: none; padding: var(--space-0); }
 .desk {
   position: relative;
@@ -30,6 +30,8 @@
   transform-origin: center;
   user-select: none;
   pointer-events: none;
+  /* Deliberately no tweening between poses: each frame snaps into place. */
+  transition: none;
 }
 .desk__scissors-top { --x: 365; --y: 200; --width: 530; --rotation: 42deg; }
 .desk__ruler-top { --x: 720; --y: 228; --width: 480; --rotation: 60deg; }

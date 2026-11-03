@@ -70,7 +70,10 @@
       portfolio.removeAttribute('aria-hidden');
       document.body.classList.remove('is-loading');
       loader.classList.add('is-finished');
-      setTimeout(() => loader.remove(), reducedMotion ? 0 : 420);
+      setTimeout(() => {
+        loader.remove();
+        document.dispatchEvent(new Event('portfolio:ready'));
+      }, reducedMotion ? 0 : 420);
     }, reducedMotion ? 0 : 120);
   }
   function frame(now) {
