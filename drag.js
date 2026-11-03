@@ -7,6 +7,7 @@
   const announce = text => { status.textContent = text; };
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const peels = new Map();
+  const hitMaps = new Map();
   const svgNS = 'http://www.w3.org/2000/svg';
   const svgNode = (name, attributes = {}) => {
     const node = document.createElementNS(svgNS, name);
@@ -40,23 +41,28 @@
     const mask = svgNode('mask', { id: `${id}-silhouette`, maskUnits: 'userSpaceOnUse', x: 0, y: 0, width: 100, height: 100, style: 'mask-type:alpha' });
     const artwork = { href: source, x: 0, y: 0, width: 100, height: 100, preserveAspectRatio: 'none' };
     mask.append(svgNode('image', artwork));
-    const gradient = svgNode('linearGradient', { id: `${id}-back`, x1: '0%', y1: '0%', x2: '100%', y2: '100%' });
-    [['0%', '#FFFFFF'], ['60%', '#FAF9FC'], ['100%', '#C9C2D5']].forEach(([offset, color]) => gradient.append(svgNode('stop', { offset, 'stop-color': color })));
-    defs.append(clip, mask, gradient);
+    const gradient = svgNode('linearGradient', { id: `${id}-back`, gradientUnits: 'userSpaceOnUse' });
+    [['0%', '#99969F'], ['18%', '#D8D6DE'], ['45%', '#FFFFFF'], ['73%', '#F4F3F6'], ['100%', '#C9C6D0']].forEach(([offset, color]) => gradient.append(svgNode('stop', { offset, 'stop-color': color })));
+    const blur = svgNode('filter', { id: `${id}-shadow`, x: '-50%', y: '-50%', width: '200%', height: '200%', 'color-interpolation-filters': 'sRGB' });
+    blur.append(svgNode('feGaussianBlur', { stdDeviation: '1.3' }));
+    defs.append(clip, mask, gradient, blur);
     const front = svgNode('image', { ...artwork, 'clip-path': `url(#${id}-cut)` });
+    const shadowGroup = svgNode('g', { filter: `url(#${id}-shadow)` });
+    const shadow = svgNode('path', { fill: '#28232F', opacity: '.32', mask: `url(#${id}-silhouette)`, transform: 'translate(1.2 2)' });
+    shadowGroup.append(shadow);
     const fold = svgNode('path', { fill: `url(#${id}-back)`, mask: `url(#${id}-silhouette)` });
-    svg.append(defs, front, fold);
+    svg.append(defs, front, shadowGroup, fold);
     host.append(svg);
     const object = element.dataset.object || '';
     let corner = 'right', a = 65, b = 32;
     if (object.includes('scissors')) { a = 62; b = 27; }
-    if (object.includes('ruler')) { a = 72; b = 76; }
+    if (object.includes('ruler')) { a = 55; b = 100; }
     if (object.includes('notebooks')) { a = 42; b = 43; }
     if (object.includes('stapler')) { a = 43; b = 43; }
     if (object.includes('pen') || object.includes('glue')) { corner = 'left'; a = 57; b = 30; }
     if (object.includes('clip')) { a = 30; b = 32; }
-    if (element.classList.contains('hero-face')) { a = 58; b = 40; }
-    if (element.classList.contains('hero-name')) { corner = 'bottom'; a = 83; b = 23; }
+    if (element.classList.contains('hero-face')) { a = 48; b = 48; }
+    if (element.classList.contains('hero-name')) { corner = 'bottom'; a = 70; b = 38; }
     const point = (x, y) => corner === 'left' ? [100 - x, y] : corner === 'bottom' ? [x, 100 - y] : [x, y];
     const pair = (x, y) => point(x, y).join(' ');
     const draw = progress => {
@@ -68,7 +74,14 @@
       const projection = length ? dx * dx / length : 0;
       const cx = 2 * (ax + projection * dx) - 100;
       const cy = 2 * projection * by;
-      fold.setAttribute('d', progress < .001 ? '' : `M${pair(ax, 0)} L${pair(100, by)} Q${pair(cx, cy)} ${pair(ax, 0)} Z`);
+      const shape = progress < .001 ? '' : `M${pair(ax, 0)} L${pair(100, by)} Q${pair(cx, cy)} ${pair(ax, 0)} Z`;
+      fold.setAttribute('d', shape);
+      shadow.setAttribute('d', shape);
+      const start = point((ax + 100) / 2, by / 2), end = point(cx, cy);
+      gradient.setAttribute('x1', start[0]);
+      gradient.setAttribute('y1', start[1]);
+      gradient.setAttribute('x2', end[0]);
+      gradient.setAttribute('y2', end[1]);
       svg.dataset.peel = progress.toFixed(3);
     };
     const state = { value: 0, frame: 0, draw };
@@ -131,6 +144,14 @@
   document.addEventListener('portfolio:entrance-complete', () => {
     document.querySelector('.desk__canvas').removeAttribute('aria-hidden');
     items.forEach(element => {
+      const image = element.querySelector('img');
+      const canvas = document.createElement('canvas');
+      const ratio = image.naturalHeight / image.naturalWidth;
+      canvas.width = Math.max(1, Math.round(512 / Math.max(1, ratio)));
+      canvas.height = Math.max(1, Math.round(canvas.width * ratio));
+      const context = canvas.getContext('2d', { willReadFrequently: true });
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      hitMaps.set(element, { width: canvas.width, height: canvas.height, pixels: context.getImageData(0, 0, canvas.width, canvas.height).data });
       element.classList.add('is-draggable');
       element.tabIndex = 0;
       element.setAttribute('role', 'button');
@@ -138,12 +159,6 @@
       element.setAttribute('aria-describedby', 'drag-instructions');
       if (element.dataset.object) element.setAttribute('aria-label', 'Pick up ' + element.dataset.object.replaceAll('-', ' '));
       element.addEventListener('dragstart', event => event.preventDefault());
-      element.addEventListener('pointerdown', event => {
-        if (!event.isPrimary || event.button !== 0) return;
-        event.preventDefault();
-        pick(element, { id: event.pointerId, x: event.clientX, y: event.clientY });
-        element.setPointerCapture(event.pointerId);
-      });
       element.addEventListener('pointermove', event => {
         if (active?.element !== element || active.pointer?.id !== event.pointerId) return;
         move(event.clientX - active.pointer.x, event.clientY - active.pointer.y);
@@ -166,5 +181,25 @@
       });
       element.addEventListener('blur', () => { if (active?.element === element && !active.pointer) drop(); });
     });
+    // Transparent rectangles around rotated stickers must not block the ruler
+    // or other artwork beneath them. Pick the frontmost painted pixel instead.
+    document.addEventListener('pointerdown', event => {
+      if (!event.isPrimary || event.button !== 0 || event.target.closest('.site-header')) return;
+      const candidates = [...items].sort((a, b) => (Number(b.style.zIndex) || Number(getComputedStyle(b).zIndex) || 0) - (Number(a.style.zIndex) || Number(getComputedStyle(a).zIndex) || 0) || items.indexOf(b) - items.indexOf(a));
+      const element = candidates.find(item => {
+        const matrix = item.querySelector('.peel-art').getScreenCTM();
+        if (!matrix) return false;
+        const point = new DOMPoint(event.clientX, event.clientY).matrixTransform(matrix.inverse());
+        if (point.x < 0 || point.x >= 100 || point.y < 0 || point.y >= 100) return false;
+        const map = hitMaps.get(item);
+        const x = Math.floor(point.x / 100 * map.width), y = Math.floor(point.y / 100 * map.height);
+        return map.pixels[(y * map.width + x) * 4 + 3] > 16;
+      });
+      if (!element) return;
+      event.preventDefault();
+      event.stopPropagation();
+      pick(element, { id: event.pointerId, x: event.clientX, y: event.clientY });
+      element.setPointerCapture(event.pointerId);
+    }, { capture: true });
   }, { once: true });
 })();
