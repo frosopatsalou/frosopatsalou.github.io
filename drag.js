@@ -104,6 +104,15 @@
     state.frame = requestAnimationFrame(tick);
   }
 
+  function updateTidyVisibility() {
+    if (tidying) return;
+    const bounds = desk.getBoundingClientRect();
+    tidyButton.hidden = !items.some(element => {
+      const x = (parseFloat(element.style.getPropertyValue('--drag-x')) || 0) / 100 * bounds.width;
+      const y = (parseFloat(element.style.getPropertyValue('--drag-y')) || 0) / 100 * bounds.height;
+      return Math.hypot(x, y) > 3;
+    });
+  }
   function move(x, y) {
     if (!active) return;
     const bounds = desk.getBoundingClientRect();
@@ -114,6 +123,7 @@
     element.style.setProperty('--drag-x', origin.x + dx / bounds.width * 100);
     element.style.setProperty('--drag-y', origin.y + dy / bounds.height * 100);
     active.delta = { x: dx, y: dy };
+    updateTidyVisibility();
   }
   function pick(element, pointer = null) {
     if (tidying) return;
@@ -141,11 +151,11 @@
     peel(element, 0);
     element.setAttribute('aria-pressed', 'false');
     active = null;
+    updateTidyVisibility();
     if (pointer && element.hasPointerCapture(pointer.id)) element.releasePointerCapture(pointer.id);
     announce(cancel ? 'Move cancelled.' : 'Sticker placed.');
   }
   document.addEventListener('portfolio:entrance-complete', () => {
-    tidyButton.hidden = false;
     tidyButton.addEventListener('click', async () => {
       if (tidying) return;
       drop();
@@ -168,6 +178,7 @@
       await Promise.all(animations);
       tidying = false;
       tidyButton.removeAttribute('aria-busy');
+      updateTidyVisibility();
       announce('All stickers tidied back into place.');
     });
     document.querySelector('.desk__canvas').removeAttribute('aria-hidden');

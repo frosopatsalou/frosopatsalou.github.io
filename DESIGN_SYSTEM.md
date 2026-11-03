@@ -58,5 +58,5 @@ Peel backs use a gradient perpendicular to the crease, from shaded grey through 
 
 Keep the fold shading subtle: light grey edges, a white highlight, and a soft shadow. All draggable objects, including the face, share the same 1.05 pickup scale and raised shadow, settling to their original size on release. Reduced motion keeps the scale unchanged.
 
-The bottom-right “Tidy up” pill uses Avant Garde Bold and the standard button tokens. It appears after the entrance and returns all movable artwork to the final intro composition in 220ms, including its original stacking order. Reduced motion resets positions immediately.
+The bottom-right “Tidy up” pill uses Avant Garde Bold and the standard button tokens, with an × icon on the left. It appears only when artwork has moved more than 3px from its original position, and hides again once tidied or returned to place. It returns all movable artwork to the final intro composition in 220ms, including its original stacking order. Reduced motion resets positions immediately.
 
