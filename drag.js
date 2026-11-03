@@ -45,7 +45,7 @@
   }
   document.addEventListener('portfolio:entrance-complete', () => {
     document.querySelector('.desk__canvas').removeAttribute('aria-hidden');
-    const items = [...desk.querySelectorAll('.desk__item'), desk.querySelector('.hero-face')];
+    const items = [...desk.querySelectorAll('.desk__item'), desk.querySelector('.hero-face'), desk.querySelector('.hero-name')];
     items.forEach(element => {
       element.classList.add('is-draggable');
       element.tabIndex = 0;
