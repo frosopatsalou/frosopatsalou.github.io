@@ -2,6 +2,8 @@
   'use strict';
   const desk = document.querySelector('.desk');
   const status = document.getElementById('drag-status');
+  const tidyButton = document.getElementById('tidy-up');
+  let tidying = false;
   let active = null;
   let topLayer = 3;
   const announce = text => { status.textContent = text; };
@@ -114,6 +116,7 @@
     active.delta = { x: dx, y: dy };
   }
   function pick(element, pointer = null) {
+    if (tidying) return;
     if (active) drop();
     active = {
       element, pointer,
@@ -142,6 +145,31 @@
     announce(cancel ? 'Move cancelled.' : 'Sticker placed.');
   }
   document.addEventListener('portfolio:entrance-complete', () => {
+    tidyButton.hidden = false;
+    tidyButton.addEventListener('click', async () => {
+      if (tidying) return;
+      drop();
+      tidying = true;
+      tidyButton.setAttribute('aria-busy', 'true');
+      const animations = [];
+      items.forEach(element => {
+        const from = getComputedStyle(element).translate;
+        const moved = !!(parseFloat(element.style.getPropertyValue('--drag-x')) || parseFloat(element.style.getPropertyValue('--drag-y')));
+        element.style.removeProperty('--drag-x');
+        element.style.removeProperty('--drag-y');
+        element.style.removeProperty('z-index');
+        element.classList.remove('has-moved');
+        peel(element, 0);
+        if (moved && !motion.matches) {
+          animations.push(element.animate([{ translate: from }, { translate: '0px 0px' }], { duration: 220, easing: 'cubic-bezier(.2,.8,.2,1)' }).finished.catch(() => {}));
+        }
+      });
+      topLayer = 3;
+      await Promise.all(animations);
+      tidying = false;
+      tidyButton.removeAttribute('aria-busy');
+      announce('All stickers tidied back into place.');
+    });
     document.querySelector('.desk__canvas').removeAttribute('aria-hidden');
     items.forEach(element => {
       const image = element.querySelector('img');
@@ -184,7 +212,7 @@
     // Transparent rectangles around rotated stickers must not block the ruler
     // or other artwork beneath them. Pick the frontmost painted pixel instead.
     document.addEventListener('pointerdown', event => {
-      if (!event.isPrimary || event.button !== 0 || event.target.closest('.site-header')) return;
+      if (!event.isPrimary || event.button !== 0 || event.target.closest('.site-header, .tidy-button')) return;
       const candidates = [...items].sort((a, b) => (Number(b.style.zIndex) || Number(getComputedStyle(b).zIndex) || 0) - (Number(a.style.zIndex) || Number(getComputedStyle(a).zIndex) || 0) || items.indexOf(b) - items.indexOf(a));
       const element = candidates.find(item => {
         const matrix = item.querySelector('.peel-art').getScreenCTM();
