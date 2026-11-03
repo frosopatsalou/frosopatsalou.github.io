@@ -42,13 +42,13 @@
     const artwork = { href: source, x: 0, y: 0, width: 100, height: 100, preserveAspectRatio: 'none' };
     mask.append(svgNode('image', artwork));
     const gradient = svgNode('linearGradient', { id: `${id}-back`, gradientUnits: 'userSpaceOnUse' });
-    [['0%', '#99969F'], ['18%', '#D8D6DE'], ['45%', '#FFFFFF'], ['73%', '#F4F3F6'], ['100%', '#C9C6D0']].forEach(([offset, color]) => gradient.append(svgNode('stop', { offset, 'stop-color': color })));
+    [['0%', '#C4C2C9'], ['18%', '#E8E6EC'], ['45%', '#FFFFFF'], ['73%', '#F8F7FA'], ['100%', '#E2E0E6']].forEach(([offset, color]) => gradient.append(svgNode('stop', { offset, 'stop-color': color })));
     const blur = svgNode('filter', { id: `${id}-shadow`, x: '-50%', y: '-50%', width: '200%', height: '200%', 'color-interpolation-filters': 'sRGB' });
     blur.append(svgNode('feGaussianBlur', { stdDeviation: '1.3' }));
     defs.append(clip, mask, gradient, blur);
     const front = svgNode('image', { ...artwork, 'clip-path': `url(#${id}-cut)` });
     const shadowGroup = svgNode('g', { filter: `url(#${id}-shadow)` });
-    const shadow = svgNode('path', { fill: '#28232F', opacity: '.32', mask: `url(#${id}-silhouette)`, transform: 'translate(1.2 2)' });
+    const shadow = svgNode('path', { fill: '#28232F', opacity: '.24', mask: `url(#${id}-silhouette)`, transform: 'translate(1.2 2)' });
     shadowGroup.append(shadow);
     const fold = svgNode('path', { fill: `url(#${id}-back)`, mask: `url(#${id}-silhouette)` });
     svg.append(defs, front, shadowGroup, fold);
