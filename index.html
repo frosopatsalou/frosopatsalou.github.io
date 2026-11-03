@@ -8,7 +8,10 @@
   <meta name="theme-color" content="#FF91DC">
   <link rel="icon" href="data:,">
   <link rel="preload" as="image" href="./assets/stickers/smiling-matched.webp" fetchpriority="high">
-  <link rel="stylesheet" href="./styles.css?v=4">
+  <link rel="stylesheet" href="./styles/tokens.css?v=1">
+  <link rel="stylesheet" href="./styles/base.css?v=1">
+  <link rel="stylesheet" href="./styles/components.css?v=1">
+  <link rel="stylesheet" href="./styles.css?v=5">
   <script src="./loader.js?v=4" defer></script>
 </head>
 <body class="is-loading">
@@ -25,7 +28,7 @@
       <span class="sr-only" role="status" id="loading-status">Loading portfolio</span>
     </div>
   </div>
-  <main id="portfolio" inert aria-hidden="true"></main>
+  <main class="page-shell" id="portfolio" inert aria-hidden="true"></main>
   <noscript><style>.loader{display:none}body{background:#fff}</style></noscript>
 </body>
 </html>

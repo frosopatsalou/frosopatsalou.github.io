@@ -1,0 +1,61 @@
+@font-face {
+  font-family: 'Cooper LT BT';
+  src: url('../assets/fonts/cooper-lt-bt-bold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Avant Garde';
+  src: url('../assets/fonts/avant-garde-bold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { color-scheme: light; }
+body {
+  margin: var(--space-0);
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
+}
+button, input, textarea, select { font: inherit; }
+h1, h2, h3, h4, h5, h6 {
+  margin: var(--space-0);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-heading);
+  text-wrap: balance;
+}
+h1 { font-size: var(--font-size-h1); }
+h2 { font-size: var(--font-size-h2); }
+h3 { font-size: var(--font-size-h3); }
+h4 { font-size: var(--font-size-2xl); }
+h5 { font-size: var(--font-size-xl); }
+h6 { font-size: var(--font-size-lg); }
+p { margin: var(--space-0); }
+img, svg, video { max-width: 100%; }
+a { color: var(--color-primary); text-underline-offset: .2em; }
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+::selection { background: var(--color-purple-200); color: var(--color-purple-900); }
+.page-shell {
+  width: 100%;
+  max-width: var(--layout-max-width);
+  margin-inline: auto;
+  padding: var(--page-padding-block) var(--page-padding-inline);
+}
+.stack { display: flex; flex-direction: column; gap: var(--stack-gap); }
+.cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--content-gap); }
+.section-stack { display: flex; flex-direction: column; gap: var(--section-gap); }
+.prose { max-width: var(--text-measure); }
+.text-muted { color: var(--color-text-muted); }
+.display-text { font: var(--font-weight-heading) var(--font-size-display)/var(--line-height-heading) var(--font-heading); }

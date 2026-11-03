@@ -1,0 +1,41 @@
+.button {
+  --button-bg: var(--color-primary);
+  --button-color: var(--color-on-primary);
+  --button-border: var(--color-transparent);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-12);
+  min-block-size: var(--size-touch-target);
+  padding: var(--button-padding-block) var(--button-padding-inline);
+  border: var(--border-width-strong) solid var(--button-border);
+  border-radius: var(--radius-pill);
+  background: var(--button-bg);
+  color: var(--button-color);
+  box-shadow: var(--shadow-button);
+  font-family: var(--font-body);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-body);
+  line-height: var(--line-height-label);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard), background-color var(--duration-normal) var(--ease-standard);
+}
+.button--secondary { --button-bg: var(--color-secondary); --button-color: var(--color-on-secondary); }
+.button--accent { --button-bg: var(--color-accent); --button-color: var(--color-on-accent); }
+.button--outline { --button-bg: var(--color-transparent); --button-color: var(--color-primary); --button-border: var(--color-primary); }
+.button--flat { box-shadow: var(--shadow-none); }
+@media (hover: hover) {
+  .button:not(:disabled):not([aria-disabled='true']):hover { transform: translateY(-2px); box-shadow: var(--shadow-button-hover); }
+  .button--flat:not(:disabled):not([aria-disabled='true']):hover { box-shadow: var(--shadow-none); }
+}
+.button:not(:disabled):not([aria-disabled='true']):active { transform: translateY(3px); box-shadow: var(--shadow-button-pressed); }
+.button--flat:not(:disabled):not([aria-disabled='true']):active { box-shadow: var(--shadow-none); }
+.button:disabled, .button[aria-disabled='true'] { background: var(--color-disabled); color: var(--color-on-disabled); box-shadow: var(--shadow-none); cursor: not-allowed; }
+.card { padding: var(--card-padding); border-radius: var(--radius-lg); background: var(--color-surface); }
+@media (prefers-reduced-motion: reduce) {
+  .button { transition: none; }
+  .button:not(:disabled):not([aria-disabled='true']):hover,
+  .button:not(:disabled):not([aria-disabled='true']):active { transform: none; }
+}
