@@ -1,10 +1,10 @@
 /* Frame 1: positions are based on the 1440 × 1024 Figma composition.
    Each object stays separate for the future stop-motion sequence. */
-.landing { max-width: none; }
+.landing { max-width: none; padding: var(--space-0); }
 .desk {
   position: relative;
   width: 100%;
-  height: calc(100svh - var(--page-padding-block) * 2);
+  height: 100svh;
   overflow: hidden;
   container-type: size;
   background: var(--color-sky-200);
