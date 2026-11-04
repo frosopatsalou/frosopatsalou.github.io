@@ -9,13 +9,13 @@
   <link rel="icon" href="data:,">
   <link rel="preload" as="image" href="./assets/stickers/smiling-matched.webp" fetchpriority="high">
   <link rel="stylesheet" href="./styles/tokens.css?v=3">
-  <link rel="stylesheet" href="./styles/base.css?v=4">
+  <link rel="stylesheet" href="./styles/base.css?v=5">
   <link rel="stylesheet" href="./styles/components.css?v=1">
   <link rel="stylesheet" href="./styles.css?v=5">
   <link rel="stylesheet" href="./styles/landing.css?v=5">
   <link rel="stylesheet" href="./styles/hero.css?v=8">
   <link rel="stylesheet" href="./styles/drag.css?v=5">
-  <link rel="stylesheet" href="./styles/value-prop.css?v=2">
+  <link rel="stylesheet" href="./styles/value-prop.css?v=3">
   <script src="./value-prop.js?v=1" defer></script>
   <script src="./drag.js?v=8" defer></script>
   <script src="./hero.js?v=5" defer></script>
@@ -99,7 +99,7 @@
         <p class="value-prop__sentence"><span class="value-prop__line">I'm a product designer with goals to make</span> <span class="value-prop__line">digital experiences a little more <span class="value-prop__highlight value-prop__human" tabindex="0">human</span>, a lot</span> <span class="value-prop__line">more <span class="value-prop__highlight value-prop__intuitive" tabindex="0">intuitive</span>, and <span class="value-prop__highlight value-prop__punchline" tabindex="0">definitely less boring</span>.</span></p>
       </div>
       <p class="sr-only" id="fluff-instructions">Press and drag to pull out glossy cloud fluff. Release to let it float down and fade. With a keyboard, press Enter or Space on the cloud button to release a puff.</p>
-      <img src="./assets/value-prop/fluff.svg" alt="" width="68" height="71" hidden id="fluff-source">
+      <img src="./assets/value-prop/fluff.svg?v=2" alt="" width="68" height="71" hidden id="fluff-source">
       <div class="value-prop__links" role="group" aria-label="Design and development skills">
         <button class="value-link" type="button" aria-label="UX Research &amp; Strategy">
           <img src="./assets/value-prop/about.svg" alt="" width="210" height="211" draggable="false">
@@ -115,6 +115,7 @@
         </button>
       </div>
     </section>
+    <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;pointer-events:none"><defs><filter id="puff-refraction" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".018" numOctaves="2" result="noise" seed="7"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
     <div class="cloud-fluff-layer" id="cloud-fluff-layer" aria-hidden="true"></div>
   </main>
   <noscript><style>.loader{display:none}body{background:#fff}</style></noscript>
