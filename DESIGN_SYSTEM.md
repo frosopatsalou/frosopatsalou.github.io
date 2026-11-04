@@ -67,3 +67,5 @@ Keep the fold shading subtle: light grey edges, a white highlight, and a soft sh
 
 The bottom-right “Tidy up” pill uses Avant Garde Bold and the standard button tokens, with an × icon on the left. It appears only when artwork has moved more than 3px from its original position, and hides again once tidied or returned to place. It returns all movable artwork to the final intro composition in 220ms, including its original stacking order. Reduced motion resets positions immediately.
 
+The hero ends with a full-width irregular torn-paper edge over the existing blue grid sheet, with a white fibre rim and a subtle edge shadow. The edge scales from 48px to 88px tall. `--paper-next-background` controls the exposed surface below the tear, currently the default white, ready to match the next section. The decorative edge has no pointer events and stays below navigation and the Tidy up control.
+
