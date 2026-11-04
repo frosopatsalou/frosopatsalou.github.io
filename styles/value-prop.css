@@ -49,11 +49,24 @@
   text-align: center;
 }
 .value-prop__line { display: inline; }
-.value-prop__human { color: var(--color-fuchsia); --highlight-glow: var(--color-fuchsia); }
-.value-prop__intuitive { color: var(--color-blue); --highlight-glow: var(--color-blue); }
-.value-prop__punchline { color: var(--color-purple); --highlight-glow: var(--color-purple); }
-.value-prop__highlight { display: inline-block; max-width: 100%; position: relative; cursor: pointer; transition: color 500ms, text-shadow 500ms; }
-.value-prop__highlight:is(:hover, :focus-visible) { color: var(--color-white); text-shadow: 0 0 5px var(--highlight-glow), 0 0 25px var(--highlight-glow), 0 0 50px var(--highlight-glow), 0 0 100px var(--highlight-glow); z-index: 2; }
+.value-prop__human { color: var(--color-fuchsia); }
+.value-prop__intuitive { color: var(--color-blue); }
+.value-prop__punchline { color: var(--color-purple); }
+.value-prop__highlight { display: inline-block; max-width: 100%; position: relative; isolation: isolate; cursor: pointer; }
+.value-prop__highlight::before {
+  content: '';
+  position: absolute;
+  inset: .16em -.12em .12em;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--color-yellow);
+  opacity: .95;
+  clip-path: polygon(0 15%, 98% 2%, 100% 83%, 1% 98%);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 220ms var(--ease-standard);
+}
+.value-prop__highlight:is(:hover, :focus-visible)::before { transform: scaleX(1); }
 .value-prop__links { width: min(940px, 100%); display: flex; justify-content: center; gap: clamp(8px, 4.45vw, 64px); }
 .value-link { position: relative; display: block; width: clamp(150px, 20vw, 270px); aspect-ratio: 1; flex-shrink: 1; color: var(--color-text); border: 0; padding: 0; background: transparent; cursor: pointer; border-radius: var(--radius-circle); }
 .value-link img { position: absolute; left: 3%; top: 10%; width: 84%; height: auto; user-select: none; }
@@ -75,5 +88,5 @@
   .value-link { width: min(260px, 78vw); flex-shrink: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .value-prop__highlight { transition: none; }
+  .value-prop__highlight::before { transition: none; }
 }
