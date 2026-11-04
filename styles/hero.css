@@ -37,12 +37,12 @@
 .nav-pill a[aria-current] { background: var(--color-magenta); color: var(--color-yellow); font-style: italic; font-weight: 700; font-synthesis: none; }
 .nav-pill a:not([aria-current]):hover { background: var(--color-purple-100); }
 .hero-name, .hero-face { position: absolute; visibility: hidden; pointer-events: none; }
-.desk { --names-width: min(54cqw, 77cqh); --names-gap: var(--space-24); --first-width: calc((var(--names-width) - var(--names-gap)) * .38336); --last-width: calc((var(--names-width) - var(--names-gap)) * .61664); }
+.desk { --names-width: min(59.4cqw, 84.7cqh); --names-gap: var(--space-24); --first-width: calc((var(--names-width) - var(--names-gap)) * .38336); --last-width: calc((var(--names-width) - var(--names-gap)) * .61664); }
 .hero-name { top: 49%; }
 .hero-first-name { left: calc(50% - var(--names-width) / 2); width: var(--first-width); }
 .hero-last-name { left: calc(50% + var(--names-width) / 2 - var(--last-width)); width: var(--last-width); }
-.hero-role { left: 50%; top: 62.5%; width: min(38cqw, 55cqh); transform: translateX(-50%); }
-.hero-face { left: 50%; top: 23%; width: min(20cqw, 29cqh); transform: translateX(-50%); z-index: 2; }
+.hero-role { left: 50%; top: 64%; width: min(41.8cqw, 60.5cqh); transform: translateX(-50%); }
+.hero-face { left: 50%; top: 21%; width: min(22cqw, 31.9cqh); transform: translateX(-50%); z-index: 2; }
 .hero-name img, .hero-face img { display: block; width: 100%; height: auto; user-select: none; }
 .site-header.is-entering { visibility: visible; animation: nav-arrive var(--duration-normal) var(--ease-standard) both; }
 .hero-name.is-entering, .hero-face.is-entering { visibility: visible; }
@@ -71,10 +71,10 @@
   .site-header__right { width: 100%; gap: var(--space-8); }
   .nav-pill { flex: 1; padding: var(--space-6); justify-content: space-between; }
   .nav-pill a { padding: var(--space-12) var(--space-12); font-size: var(--font-size-sm); }
-  .desk { --names-width: 88cqw; --names-gap: var(--space-12); }
+  .desk { --names-width: 94cqw; --names-gap: var(--space-12); }
   .hero-name { top: 42%; }
-  .hero-role { top: 53%; width: 88cqw; }
-  .hero-face { top: 22%; width: 42cqw; }
+  .hero-role { top: 54%; width: 94cqw; }
+  .hero-face { top: 21%; width: 46cqw; }
 }
 @media (max-width: 380px) {
   .nav-pill a { padding-inline: var(--space-8); font-size: var(--font-size-xs); }
