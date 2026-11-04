@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1478" height="580" viewBox="48 77 1478 580">
+<g transform="translate(120 100) rotate(13)">
+<rect x="-23" y="-23" width="1466" height="266" rx="46" fill="white" />
+<rect width="1420" height="220" rx="25" fill="#FB98D5" />
+<g fill="none" stroke="#EB3EAE" stroke-width="16" stroke-linecap="round"><path d="M65 8v50" /><path d="M130 8v95" /><path d="M195 8v50" /><path d="M260 8v95" /><path d="M325 8v50" /><path d="M390 8v95" /><path d="M455 8v50" /><path d="M520 8v95" /><path d="M585 8v50" /><path d="M650 8v95" /><path d="M715 8v50" /><path d="M780 8v95" /><path d="M845 8v50" /><path d="M910 8v95" /><path d="M975 8v50" /><path d="M1040 8v95" /><path d="M1105 8v50" /><path d="M1170 8v95" /><path d="M1235 8v50" /><path d="M1300 8v95" /><path d="M1365 8v50" /></g>
+</g></svg>

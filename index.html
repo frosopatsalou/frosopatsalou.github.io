@@ -15,9 +15,10 @@
   <link rel="stylesheet" href="./styles/landing.css?v=5">
   <link rel="stylesheet" href="./styles/hero.css?v=9">
   <link rel="stylesheet" href="./styles/drag.css?v=5">
-  <link rel="stylesheet" href="./styles/value-prop.css?v=5">
+  <link rel="stylesheet" href="./styles/value-prop.css?v=6">
+  <link rel="stylesheet" href="./styles/projects.css?v=1">
   <script src="./value-prop.js?v=2" defer></script>
-  <script src="./drag.js?v=8" defer></script>
+  <script src="./drag.js?v=9" defer></script>
   <script src="./hero.js?v=6" defer></script>
   <script src="./desk-intro.js?v=2" defer></script>
   <script src="./loader.js?v=6" defer></script>
@@ -44,14 +45,14 @@
           <nav class="nav-pill" id="primary-navigation" aria-label="Main navigation">
             <a href="#home" aria-current="page">Home</a>
             <a href="#about" aria-disabled="true" title="About section coming soon">About</a>
-            <a href="#work" aria-disabled="true" title="Work section coming soon">Work</a>
+            <a href="#work">Work</a>
             <a href="#contact" aria-disabled="true" title="Contact section coming soon">Contact</a>
           </nav>
         </div>
       </header>
     <h1 class="sr-only">Froso Patsalou — Design portfolio</h1>
     <div class="hero-sheet">
-    <section class="desk" id="home" aria-label="Welcome to Froso's portfolio">
+    <section class="desk" id="home" data-drag-area data-tidy-scope="home" aria-label="Welcome to Froso's portfolio">
       <div class="desk__canvas" data-animation-frame="first" aria-hidden="true">
         <img class="desk__paper" src="./assets/desk/graph-paper.webp" alt="" width="2400" height="1411" decoding="async" fetchpriority="high">
         <img class="desk__item desk__scissors-top" data-object="scissors-top" src="./assets/desk/scissors.svg" alt="" decoding="async" draggable="false">
@@ -124,6 +125,30 @@
       </svg>
     </div>
     </div>
+    <section class="projects" id="work" data-drag-area data-tidy-scope="work" aria-labelledby="projects-heading">
+      <h2 class="sr-only" id="projects-heading">My Projects</h2>
+      <div class="project-item project-stationery projects__glue" data-movable data-object="project-glue"><img src="./assets/projects/glue.svg" alt="" draggable="false"></div>
+      <div class="project-item project-stationery projects__pen" data-movable data-object="project-pen"><img src="./assets/projects/pen.svg" alt="" draggable="false"></div>
+      <div class="project-item project-stationery projects__scissors" data-movable data-object="project-scissors"><img src="./assets/projects/scissors.svg" alt="" draggable="false"></div>
+      <div class="project-item project-stationery projects__ruler" data-movable data-object="project-ruler"><img src="./assets/projects/ruler.svg" alt="" draggable="false"></div>
+      <div class="notebook" data-notebook-state="closed" aria-label="Closed project notebook">
+        <div class="notebook__cover">
+          <img class="notebook__base" src="./assets/projects/cover.svg" alt="" width="655" height="840" draggable="false">
+          <div class="notebook__stickers" data-drag-area data-drag-contain="true" data-drag-inset="2">
+            <div class="project-item project-sticker" style="--left:17.74;--top:17.74;--size:64.36" data-movable data-object="book-name-tag" aria-label="Pick up My Projects label"><img src="./assets/projects/name-tag.svg" alt="" width="381" height="114" draggable="false"></div>
+            <div class="project-item project-sticker" style="--left:7.77;--top:8.93;--size:19.93" data-movable data-object="book-pink-squiggle"><img src="./assets/projects/pink-squiggle.webp" alt="" width="118" height="128" draggable="false"></div>
+            <div class="project-item project-sticker" style="--left:62.5;--top:4.17;--size:15.71" data-movable data-object="book-clover"><img src="./assets/projects/clover.webp" alt="" width="93" height="104" draggable="false"></div>
+            <div class="project-item project-sticker" style="--left:73.31;--top:26.9;--size:22.3" data-movable data-object="book-apple"><img src="./assets/projects/apple.webp" alt="" width="132" height="114" draggable="false"></div>
+            <div class="project-item project-sticker" style="--left:10.98;--top:37.86;--size:27.7" data-movable data-object="book-cat"><img src="./assets/projects/cat.webp" alt="" width="164" height="145" draggable="false"></div>
+            <div class="project-item project-sticker" style="--left:46.79;--top:47.98;--size:35.47" data-movable data-object="book-star"><img src="./assets/projects/star.webp" alt="" width="210" height="216" draggable="false"></div>
+            <div class="project-item project-sticker" style="--left:7.94;--top:62.98;--size:39.7" data-movable data-object="book-cherry"><img src="./assets/projects/cherry.webp" alt="" width="235" height="224" draggable="false"></div>
+            <div class="project-item project-sticker" style="--left:69;--top:72;--size:27" data-movable data-object="book-strawberry"><img src="./assets/projects/strawberry.webp" alt="" width="184" height="200" draggable="false"></div>
+          </div>
+        </div>
+        <img class="notebook__spiral" src="./assets/projects/spiral.svg" alt="" width="655" height="840" draggable="false">
+      </div>
+      <button class="button tidy-button" type="button" hidden aria-label="Tidy up project section"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="m2 2 10 10M12 2 2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Tidy up</span></button>
+    </section>
     <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;pointer-events:none"><defs><filter id="puff-refraction" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".018" numOctaves="2" result="noise" seed="7"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
     <div class="cloud-fluff-layer" id="cloud-fluff-layer" aria-hidden="true"></div>
   </main>

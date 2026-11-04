@@ -2,10 +2,11 @@
   'use strict';
   const desk = document.querySelector('.desk');
   const status = document.getElementById('drag-status');
-  const tidyButton = document.getElementById('tidy-up');
+  const tidyScopes = [...document.querySelectorAll('[data-tidy-scope]')];
+  const areaFor = element => element.closest('[data-drag-area]') || desk;
+  const scopeFor = element => element.closest('[data-tidy-scope]') || desk;
   let tidying = false;
   let active = null;
-  let topLayer = 3;
   const announce = text => { status.textContent = text; };
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const peels = new Map();
@@ -28,7 +29,7 @@
     image.removeAttribute('data-object');
     wrapper.append(image);
   });
-  const items = [...desk.querySelectorAll('.desk__item'), desk.querySelector('.hero-face'), ...desk.querySelectorAll('.hero-name')];
+  const items = [...desk.querySelectorAll('.desk__item'), desk.querySelector('.hero-face'), ...desk.querySelectorAll('.hero-name'), ...document.querySelectorAll('[data-movable]')];
   items.forEach((element, index) => {
     const image = element.querySelector('img');
     const host = element.querySelector('.hero-face__art') || element;
@@ -107,20 +108,29 @@
 
   function updateTidyVisibility() {
     if (tidying) return;
-    const bounds = desk.getBoundingClientRect();
-    tidyButton.hidden = !items.some(element => {
-      const x = (parseFloat(element.style.getPropertyValue('--drag-x')) || 0) / 100 * bounds.width;
-      const y = (parseFloat(element.style.getPropertyValue('--drag-y')) || 0) / 100 * bounds.height;
-      return Math.hypot(x, y) > 3;
+    tidyScopes.forEach(scope => {
+      scope.querySelector('.tidy-button').hidden = !items.filter(element => scopeFor(element) === scope).some(element => {
+        const bounds = areaFor(element).getBoundingClientRect();
+        const x = (parseFloat(element.style.getPropertyValue('--drag-x')) || 0) / 100 * bounds.width;
+        const y = (parseFloat(element.style.getPropertyValue('--drag-y')) || 0) / 100 * bounds.height;
+        return Math.hypot(x, y) > 3;
+      });
     });
   }
   function move(x, y) {
     if (!active) return;
-    const bounds = desk.getBoundingClientRect();
     const { element, rect, origin } = active;
-    // Keep at least a small part of each sticker within reach at the page edge.
-    const dx = Math.max(bounds.left + 24 - rect.right, Math.min(bounds.right - 24 - rect.left, x));
-    const dy = Math.max(bounds.top + 24 - rect.bottom, Math.min(bounds.bottom - 24 - rect.top, y));
+    const area = areaFor(element), bounds = area.getBoundingClientRect();
+    const contained = area.dataset.dragContain === 'true';
+    const inset = Number(area.dataset.dragInset || 0) / 100;
+    // Cover stickers stay fully inside their board; loose stationery keeps
+    // the same partially-cropped edge behaviour as the hero's objects.
+    const minX = contained ? bounds.left + bounds.width * inset - rect.left : bounds.left + 24 - rect.right;
+    const maxX = contained ? bounds.right - bounds.width * inset - rect.right : bounds.right - 24 - rect.left;
+    const minY = contained ? bounds.top + bounds.height * inset - rect.top : bounds.top + 24 - rect.bottom;
+    const maxY = contained ? bounds.bottom - bounds.height * inset - rect.bottom : bounds.bottom - 24 - rect.top;
+    const dx = Math.max(minX, Math.min(maxX, x));
+    const dy = Math.max(minY, Math.min(maxY, y));
     element.style.setProperty('--drag-x', origin.x + dx / bounds.width * 100);
     element.style.setProperty('--drag-y', origin.y + dy / bounds.height * 100);
     active.delta = { x: dx, y: dy };
@@ -135,7 +145,9 @@
       origin: { x: parseFloat(element.style.getPropertyValue('--drag-x')) || 0, y: parseFloat(element.style.getPropertyValue('--drag-y')) || 0 },
       delta: { x: 0, y: 0 },
     };
-    element.style.zIndex = Math.min(++topLayer, 79);
+    const peers = items.filter(item => areaFor(item) === areaFor(element) && item !== element).sort((a, b) => (Number(a.style.zIndex) || 0) - (Number(b.style.zIndex) || 0));
+    peers.forEach((item, index) => { if (item.style.zIndex) item.style.zIndex = index + 3; });
+    element.style.zIndex = peers.length + 4;
     element.classList.add('is-held');
     peel(element, 1);
     element.setAttribute('aria-pressed', 'true');
@@ -157,13 +169,15 @@
     announce(cancel ? 'Move cancelled.' : 'Sticker placed.');
   }
   document.addEventListener('portfolio:entrance-complete', () => {
-    tidyButton.addEventListener('click', async () => {
+    tidyScopes.forEach(scope => {
+    const control = scope.querySelector('.tidy-button');
+    control.addEventListener('click', async () => {
       if (tidying) return;
       drop();
       tidying = true;
-      tidyButton.setAttribute('aria-busy', 'true');
+      control.setAttribute('aria-busy', 'true');
       const animations = [];
-      items.forEach(element => {
+      items.filter(element => scopeFor(element) === scope).forEach(element => {
         const from = getComputedStyle(element).translate;
         const moved = !!(parseFloat(element.style.getPropertyValue('--drag-x')) || parseFloat(element.style.getPropertyValue('--drag-y')));
         element.style.removeProperty('--drag-x');
@@ -175,12 +189,12 @@
           animations.push(element.animate([{ translate: from }, { translate: '0px 0px' }], { duration: 220, easing: 'cubic-bezier(.2,.8,.2,1)' }).finished.catch(() => {}));
         }
       });
-      topLayer = 3;
       await Promise.all(animations);
       tidying = false;
-      tidyButton.removeAttribute('aria-busy');
+      control.removeAttribute('aria-busy');
       updateTidyVisibility();
       announce('All stickers tidied back into place.');
+    });
     });
     document.querySelector('.desk__canvas').removeAttribute('aria-hidden');
     items.forEach(element => {
@@ -197,7 +211,7 @@
       element.setAttribute('role', 'button');
       element.setAttribute('aria-pressed', 'false');
       element.setAttribute('aria-describedby', 'drag-instructions');
-      if (element.dataset.object) element.setAttribute('aria-label', 'Pick up ' + element.dataset.object.replaceAll('-', ' '));
+      if (element.dataset.object && !element.hasAttribute('aria-label')) element.setAttribute('aria-label', 'Pick up ' + element.dataset.object.replaceAll('-', ' '));
       element.addEventListener('dragstart', event => event.preventDefault());
       element.addEventListener('pointermove', event => {
         if (active?.element !== element || active.pointer?.id !== event.pointerId) return;
@@ -224,9 +238,20 @@
     // Transparent rectangles around rotated stickers must not block the ruler
     // or other artwork beneath them. Pick the frontmost painted pixel instead.
     document.addEventListener('pointerdown', event => {
-      if (!event.isPrimary || event.button !== 0 || event.target.closest('.site-header, .tidy-button')) return;
-      const candidates = [...items].sort((a, b) => (Number(b.style.zIndex) || Number(getComputedStyle(b).zIndex) || 0) - (Number(a.style.zIndex) || Number(getComputedStyle(a).zIndex) || 0) || items.indexOf(b) - items.indexOf(a));
+      if (!event.isPrimary || event.button !== 0 || event.target.closest('.site-header, .tidy-button, [data-notebook-control]')) return;
+      const depth = element => {
+        const book = element.closest('.notebook');
+        return book ? [Number(getComputedStyle(book).zIndex) || 2, Number(element.style.zIndex) || 0] : [Number(element.style.zIndex) || Number(getComputedStyle(element).zIndex) || 0, 0];
+      };
+      const candidates = [...items].sort((a, b) => {
+        const ad = depth(a), bd = depth(b);
+        return bd[0] - ad[0] || bd[1] - ad[1] || items.indexOf(b) - items.indexOf(a);
+      });
       const element = candidates.find(item => {
+        if (item.classList.contains('project-stationery') && depth(item)[0] <= 2) {
+          const book = item.closest('.projects').querySelector('.notebook').getBoundingClientRect();
+          if (event.clientX >= book.left && event.clientX <= book.right && event.clientY >= book.top && event.clientY <= book.bottom) return false;
+        }
         const matrix = item.querySelector('.peel-art').getScreenCTM();
         if (!matrix) return false;
         const point = new DOMPoint(event.clientX, event.clientY).matrixTransform(matrix.inverse());
