@@ -13,10 +13,10 @@
   <link rel="stylesheet" href="./styles/components.css?v=1">
   <link rel="stylesheet" href="./styles.css?v=5">
   <link rel="stylesheet" href="./styles/landing.css?v=4">
-  <link rel="stylesheet" href="./styles/hero.css?v=6">
+  <link rel="stylesheet" href="./styles/hero.css?v=7">
   <link rel="stylesheet" href="./styles/drag.css?v=5">
   <script src="./drag.js?v=8" defer></script>
-  <script src="./hero.js?v=3" defer></script>
+  <script src="./hero.js?v=4" defer></script>
   <script src="./desk-intro.js?v=2" defer></script>
   <script src="./loader.js?v=6" defer></script>
 </head>
@@ -59,7 +59,8 @@
       <header class="site-header" inert>
         <a class="site-logo" href="#home" aria-label="Froso — Home"><img src="./assets/hero/logo.svg" alt="" width="218" height="103"></a>
         <div class="site-header__right">
-          <nav class="nav-pill" aria-label="Main navigation">
+          <button class="nav-toggle" type="button" aria-label="Open navigation" aria-controls="primary-navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+          <nav class="nav-pill" id="primary-navigation" aria-label="Main navigation">
             <a href="#home" aria-current="page">Home</a>
             <a href="#about" aria-disabled="true" title="About section coming soon">About</a>
             <a href="#work" aria-disabled="true" title="Work section coming soon">Work</a>
@@ -67,8 +68,8 @@
           </nav>
         </div>
       </header>
-      <div class="hero-name hero-first-name" role="button" aria-label="Pick up Froso name sticker" aria-describedby="drag-instructions" aria-pressed="false" tabindex="-1"><img src="./assets/hero/first-name.svg" alt="" width="261.12" height="92.76" draggable="false"></div>
-      <div class="hero-name hero-last-name" role="button" aria-label="Pick up Patsalou name sticker" aria-describedby="drag-instructions" aria-pressed="false" tabindex="-1"><img src="./assets/hero/last-name.svg" alt="" width="420" height="92.76" draggable="false"></div>
+      <div class="hero-name hero-first-name" role="button" aria-label="Pick up Froso name sticker" aria-describedby="drag-instructions" aria-pressed="false" tabindex="-1"><img src="./assets/hero/first-name.svg?v=2" alt="" width="267.12" height="98.76" draggable="false"></div>
+      <div class="hero-name hero-last-name" role="button" aria-label="Pick up Patsalou name sticker" aria-describedby="drag-instructions" aria-pressed="false" tabindex="-1"><img src="./assets/hero/last-name.svg?v=2" alt="" width="426" height="98.76" draggable="false"></div>
       <div class="hero-name hero-role" role="button" aria-label="Pick up UI and UX Designer and Developer sticker" aria-describedby="drag-instructions" aria-pressed="false" tabindex="-1"><img src="./assets/hero/designer-role.svg" alt="" width="584.264" height="45.092" draggable="false"></div>
       <div class="hero-face" role="button" aria-label="Pick up Froso's sticker" aria-describedby="drag-instructions" aria-pressed="false" tabindex="-1">
         <div class="hero-face__art">
