@@ -1,0 +1,62 @@
+.landing { --connector-height: clamp(64px, 7vw, 100px); }
+.hero-sheet {
+  position: relative;
+  overflow: clip;
+  z-index: 1;
+  background: var(--color-sky-200) url('../assets/desk/graph-paper.webp') center / cover;
+  mask-image: linear-gradient(#000 0 0), url('../assets/desk/torn-paper-mask.svg');
+  mask-size: 100% calc(100% - var(--connector-height)), 100% var(--connector-height);
+  mask-position: top, bottom;
+  mask-repeat: no-repeat;
+}
+.hero-sheet > .desk { background: transparent; overflow: visible; }
+.hero-sheet .desk__paper { visibility: hidden; }
+.section-connector { position: relative; height: var(--connector-height); pointer-events: none; }
+.section-connector .desk__tear { bottom: 0; height: 100%; }
+.value-prop {
+  position: relative;
+  margin-top: calc(-1 * var(--connector-height));
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-48);
+  padding: calc(var(--connector-height) + var(--space-64)) var(--page-padding-inline) var(--space-64);
+  background-color: var(--color-value-background);
+  background-image: url('../assets/value-prop/stars.svg');
+  background-size: clamp(96px, 10.56vw, 152px);
+}
+.value-prop__cloud { position: relative; width: min(1280px, 100%); min-height: clamp(300px, 36vw, 470px); display: grid; place-items: center; }
+.value-prop__cloud-art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; pointer-events: none; user-select: none; }
+.value-prop__sentence {
+  position: relative;
+  z-index: 1;
+  width: 80%;
+  color: var(--color-text);
+  font: 400 clamp(24px, 2.78vw, 40px) / 1.2 var(--font-display);
+  letter-spacing: .045em;
+  text-align: center;
+}
+.value-prop__line { display: block; }
+.value-prop__human { color: var(--color-fuchsia); }
+.value-prop__intuitive { color: var(--color-blue); }
+.value-prop__less { color: var(--color-magenta); }
+.value-prop__boring { color: var(--color-purple); }
+.value-prop__links { width: min(940px, 100%); display: flex; justify-content: center; gap: clamp(8px, 4.45vw, 64px); }
+.value-link { position: relative; display: block; width: clamp(128px, 18vw, 250px); aspect-ratio: 1; flex-shrink: 1; color: var(--color-text); }
+.value-link img { position: absolute; left: 3%; top: 10%; width: 84%; height: auto; user-select: none; }
+.value-link svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.value-link text { font: 700 28px var(--font-heading); letter-spacing: 3.5px; fill: var(--color-text); stroke: var(--color-white); stroke-width: 5px; paint-order: stroke fill; stroke-linejoin: round; }
+@media (max-width: 640px) {
+  .value-prop { gap: var(--space-32); padding-top: calc(var(--connector-height) + var(--space-32)); padding-bottom: var(--space-48); }
+  .value-prop__cloud { min-height: 340px; }
+  .value-prop__cloud-art { top: 50%; bottom: auto; height: auto; transform: translateY(-50%); }
+  .value-prop__cloud::before, .value-prop__cloud::after { content: ''; position: absolute; left: 0; width: 100%; aspect-ratio: 1323 / 484; background: url('../assets/value-prop/cloud.webp') center / contain no-repeat; pointer-events: none; }
+  .value-prop__cloud::before { top: 14%; }
+  .value-prop__cloud::after { bottom: 14%; }
+  .value-prop__sentence { width: 76%; font-size: clamp(23px, 5.8vw, 30px); letter-spacing: .025em; }
+  .value-prop__line { display: inline; }
+  .value-prop__links { gap: var(--space-8); }
+  .value-link { width: 32%; min-width: 0; }
+}

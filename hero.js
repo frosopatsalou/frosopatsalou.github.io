@@ -73,4 +73,7 @@
   header.addEventListener('click', event => {
     if (event.target.closest('[aria-disabled="true"]')) event.preventDefault();
   });
+  document.querySelector('.value-prop__links')?.addEventListener('click', event => {
+    if (event.target.closest('[aria-disabled="true"]')) event.preventDefault();
+  });
 })();

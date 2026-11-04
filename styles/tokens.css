@@ -131,6 +131,7 @@
   --color-accent: var(--color-yellow-500);
   --color-on-accent: var(--color-neutral-900);
   --color-background: var(--color-white);
+  --color-value-background: var(--color-pink-400);
   --color-surface: var(--color-neutral-50);
   --color-surface-soft: var(--color-pink-100);
   --color-text: var(--color-neutral-900);
