@@ -27,8 +27,9 @@
   font-display: swap;
 }
 *, *::before, *::after { box-sizing: border-box; }
-html { color-scheme: light; }
+html { color-scheme: light; overflow-x: hidden; }
 body {
+  overflow-x: clip;
   margin: var(--space-0);
   background: var(--color-background);
   color: var(--color-text);
