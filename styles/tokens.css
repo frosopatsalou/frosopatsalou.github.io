@@ -173,6 +173,7 @@
   --button-padding-block: var(--space-15);
 
   --font-heading: 'Cooper LT BT', Georgia, serif;
+  --font-display: 'Winkle', 'Cooper LT BT', cursive;
   --font-body: 'Avant Garde', Arial, sans-serif;
   --font-weight-heading: 700;
   --font-weight-body: 700;

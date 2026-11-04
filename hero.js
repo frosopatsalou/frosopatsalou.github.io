@@ -1,7 +1,8 @@
 (() => {
   'use strict';
   const header = document.querySelector('.site-header');
-  const name = document.querySelector('.hero-name');
+  const names = [...document.querySelectorAll('.hero-name:not(.hero-role)')];
+  const role = document.querySelector('.hero-role');
   const face = document.querySelector('.hero-face');
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const timers = [];
@@ -11,7 +12,7 @@
   };
   function finish() {
     timers.forEach(clearTimeout);
-    [header, name, face].forEach(reveal);
+    [header, ...names, role, face].forEach(reveal);
     header.inert = false;
     const desk = document.querySelector('.desk');
     if (desk.dataset.entrance !== 'complete') {
@@ -25,9 +26,10 @@
     if (motion.matches) { finish(); return; }
     reveal(header);
     header.inert = false;
-    timers.push(setTimeout(() => reveal(name), 220));
-    timers.push(setTimeout(() => reveal(face), 540));
-    timers.push(setTimeout(finish, 800));
+    names.forEach((name, index) => timers.push(setTimeout(() => reveal(name), 220 + index * 60)));
+    timers.push(setTimeout(() => reveal(role), 420));
+    timers.push(setTimeout(() => reveal(face), 620));
+    timers.push(setTimeout(finish, 900));
   }, { once: true });
   motion.addEventListener('change', event => { if (event.matches && started) finish(); });
   // Destinations will be enabled as their content is built.

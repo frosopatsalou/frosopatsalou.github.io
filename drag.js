@@ -28,7 +28,7 @@
     image.removeAttribute('data-object');
     wrapper.append(image);
   });
-  const items = [...desk.querySelectorAll('.desk__item'), desk.querySelector('.hero-face'), desk.querySelector('.hero-name')];
+  const items = [...desk.querySelectorAll('.desk__item'), desk.querySelector('.hero-face'), ...desk.querySelectorAll('.hero-name')];
   items.forEach((element, index) => {
     const image = element.querySelector('img');
     const host = element.querySelector('.hero-face__art') || element;
@@ -65,6 +65,7 @@
     if (object.includes('clip')) { a = 30; b = 32; }
     if (element.classList.contains('hero-face')) { a = 48; b = 48; }
     if (element.classList.contains('hero-name')) { corner = 'bottom'; a = 70; b = 38; }
+    if (element.classList.contains('hero-role')) { corner = 'bottom'; a = 85; b = 65; }
     const point = (x, y) => corner === 'left' ? [100 - x, y] : corner === 'bottom' ? [x, 100 - y] : [x, y];
     const pair = (x, y) => point(x, y).join(' ');
     const draw = progress => {
