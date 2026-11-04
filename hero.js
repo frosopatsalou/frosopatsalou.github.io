@@ -44,6 +44,30 @@
   fitNavigation();
   const timers = [];
   let started = false;
+  let entered = false;
+  let lastScroll = Math.max(0, scrollY), direction = 0, travel = 0;
+  function showHeader(visible) {
+    header.classList.toggle('is-scroll-hidden', !visible);
+    header.inert = !visible;
+    header.dataset.scrollState = visible ? 'visible' : 'hidden';
+    if (!visible) setMenu(false);
+  }
+  window.addEventListener('scroll', () => {
+    const y = Math.max(0, scrollY), delta = y - lastScroll;
+    lastScroll = y;
+    if (!entered || delta === 0) return;
+    if (y < 48) { travel = 0; showHeader(true); return; }
+    const nextDirection = Math.sign(delta);
+    if (nextDirection !== direction) { direction = nextDirection; travel = 0; }
+    travel += Math.abs(delta);
+    if (travel < 12) return;
+    if (direction < 0) showHeader(true);
+    else if (y > header.offsetHeight + 40 && !header.querySelector(':focus-visible')) showHeader(false);
+    travel = 0;
+  }, { passive: true });
+  document.addEventListener('keydown', event => {
+    if (entered && event.key === 'Tab') showHeader(true);
+  });
   const reveal = element => {
     if (!element.classList.contains('is-entering')) element.classList.add('is-entering');
   };
@@ -51,6 +75,10 @@
     timers.forEach(clearTimeout);
     [header, ...names, role, face].forEach(reveal);
     header.inert = false;
+    header.classList.add('has-entered');
+    entered = true;
+    lastScroll = Math.max(0, scrollY);
+    showHeader(true);
     const desk = document.querySelector('.desk');
     if (desk.dataset.entrance !== 'complete') {
       desk.dataset.entrance = 'complete';

@@ -13,12 +13,12 @@
   <link rel="stylesheet" href="./styles/components.css?v=1">
   <link rel="stylesheet" href="./styles.css?v=5">
   <link rel="stylesheet" href="./styles/landing.css?v=5">
-  <link rel="stylesheet" href="./styles/hero.css?v=8">
+  <link rel="stylesheet" href="./styles/hero.css?v=9">
   <link rel="stylesheet" href="./styles/drag.css?v=5">
-  <link rel="stylesheet" href="./styles/value-prop.css?v=3">
-  <script src="./value-prop.js?v=1" defer></script>
+  <link rel="stylesheet" href="./styles/value-prop.css?v=4">
+  <script src="./value-prop.js?v=2" defer></script>
   <script src="./drag.js?v=8" defer></script>
-  <script src="./hero.js?v=5" defer></script>
+  <script src="./hero.js?v=6" defer></script>
   <script src="./desk-intro.js?v=2" defer></script>
   <script src="./loader.js?v=6" defer></script>
 </head>
@@ -37,6 +37,18 @@
     </div>
   </div>
   <main class="page-shell landing" id="portfolio" inert aria-hidden="true">
+      <header class="site-header" inert>
+        <a class="site-logo" href="#home" aria-label="Froso — Home"><img src="./assets/hero/logo.svg" alt="" width="218" height="103"></a>
+        <div class="site-header__right">
+          <button class="nav-toggle" type="button" aria-label="Open navigation" aria-controls="primary-navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+          <nav class="nav-pill" id="primary-navigation" aria-label="Main navigation">
+            <a href="#home" aria-current="page">Home</a>
+            <a href="#about" aria-disabled="true" title="About section coming soon">About</a>
+            <a href="#work" aria-disabled="true" title="Work section coming soon">Work</a>
+            <a href="#contact" aria-disabled="true" title="Contact section coming soon">Contact</a>
+          </nav>
+        </div>
+      </header>
     <h1 class="sr-only">Froso Patsalou — Design portfolio</h1>
     <div class="hero-sheet">
     <section class="desk" id="home" aria-label="Welcome to Froso's portfolio">
@@ -59,18 +71,7 @@
         <img class="desk__item desk__ruler-bottom" data-object="ruler-bottom" src="./assets/desk/ruler-purple.svg" alt="" decoding="async" draggable="false">
         <img class="desk__item desk__scissors-bottom" data-object="scissors-bottom" src="./assets/desk/scissors.svg" alt="" decoding="async" draggable="false">
       </div>
-      <header class="site-header" inert>
-        <a class="site-logo" href="#home" aria-label="Froso — Home"><img src="./assets/hero/logo.svg" alt="" width="218" height="103"></a>
-        <div class="site-header__right">
-          <button class="nav-toggle" type="button" aria-label="Open navigation" aria-controls="primary-navigation" aria-expanded="false"><span></span><span></span><span></span></button>
-          <nav class="nav-pill" id="primary-navigation" aria-label="Main navigation">
-            <a href="#home" aria-current="page">Home</a>
-            <a href="#about" aria-disabled="true" title="About section coming soon">About</a>
-            <a href="#work" aria-disabled="true" title="Work section coming soon">Work</a>
-            <a href="#contact" aria-disabled="true" title="Contact section coming soon">Contact</a>
-          </nav>
-        </div>
-      </header>
+
       <div class="hero-composition">
       <div class="hero-name hero-first-name" role="button" aria-label="Pick up Froso name sticker" aria-describedby="drag-instructions" aria-pressed="false" tabindex="-1"><img src="./assets/hero/first-name.svg?v=2" alt="" width="267.12" height="98.76" draggable="false"></div>
       <div class="hero-name hero-last-name" role="button" aria-label="Pick up Patsalou name sticker" aria-describedby="drag-instructions" aria-pressed="false" tabindex="-1"><img src="./assets/hero/last-name.svg?v=2" alt="" width="426" height="98.76" draggable="false"></div>
@@ -92,6 +93,7 @@
       </svg>
     </div>
     </div>
+    <div class="value-prop-sheet">
     <section class="value-prop" aria-label="My approach to product design">
       <div class="value-prop__cloud">
         <img class="value-prop__cloud-art" src="./assets/value-prop/cloud.webp" alt="" width="1800" height="659" decoding="async" draggable="false">
@@ -103,18 +105,25 @@
       <div class="value-prop__links" role="group" aria-label="Design and development skills">
         <button class="value-link" type="button" aria-label="UX Research &amp; Strategy">
           <img src="./assets/value-prop/about.svg" alt="" width="210" height="211" draggable="false">
-          <svg viewBox="0 0 260 260" aria-hidden="true"><defs><path id="about-curve" d="M-1 136 A118 118 0 0 1 235 136"/></defs><text><textPath href="#about-curve" startOffset="50%" text-anchor="middle" textLength="300" lengthAdjust="spacingAndGlyphs">UX Research &amp; Strategy</textPath></text></svg>
+          <svg viewBox="0 0 260 260" aria-hidden="true"><defs><path id="about-curve" d="M-1 136 A118 118 0 0 1 235 136"/></defs><text><textPath href="#about-curve" startOffset="50%" text-anchor="middle">UX Research &amp; Strategy</textPath></text></svg>
         </button>
         <button class="value-link" type="button" aria-label="UI &amp; Visual Design">
           <img src="./assets/value-prop/work.svg" alt="" width="210" height="211" draggable="false">
-          <svg viewBox="0 0 260 260" aria-hidden="true"><defs><path id="work-curve" d="M-1 136 A118 118 0 0 1 235 136"/></defs><text><textPath href="#work-curve" startOffset="50%" text-anchor="middle" textLength="255" lengthAdjust="spacingAndGlyphs">UI &amp; Visual Design</textPath></text></svg>
+          <svg viewBox="0 0 260 260" aria-hidden="true"><defs><path id="work-curve" d="M-1 136 A118 118 0 0 1 235 136"/></defs><text><textPath href="#work-curve" startOffset="50%" text-anchor="middle">UI &amp; Visual Design</textPath></text></svg>
         </button>
-        <button class="value-link" type="button" aria-label="Front-end &amp; Back-end Development">
+        <button class="value-link value-link--development" type="button" aria-label="Front-end &amp; Back-end Development">
           <img src="./assets/value-prop/contact.svg" alt="" width="210" height="211" draggable="false">
-          <svg viewBox="0 0 260 260" aria-hidden="true"><defs><path id="contact-curve" d="M-1 136 A118 118 0 0 1 235 136"/></defs><text><textPath href="#contact-curve" startOffset="50%" text-anchor="middle" textLength="355" lengthAdjust="spacingAndGlyphs">Front-end &amp; Back-end Development</textPath></text></svg>
+          <svg viewBox="0 0 260 260" aria-hidden="true"><defs><path id="contact-curve" d="M-1 136 A118 118 0 0 1 235 136"/></defs><text><textPath href="#contact-curve" startOffset="50%" text-anchor="middle">Front-end &amp; Back-end Development</textPath></text></svg>
         </button>
       </div>
     </section>
+    <div class="section-connector" aria-hidden="true">
+      <svg class="desk__tear" viewBox="0 0 1440 100" preserveAspectRatio="none" focusable="false">
+        <use href="./assets/desk/torn-paper.svg#tear-edge" class="desk__tear-fibres"/>
+        <use href="./assets/desk/torn-paper.svg#tear-edge" class="desk__tear-grain"/>
+      </svg>
+    </div>
+    </div>
     <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;pointer-events:none"><defs><filter id="puff-refraction" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".018" numOctaves="2" result="noise" seed="7"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
     <div class="cloud-fluff-layer" id="cloud-fluff-layer" aria-hidden="true"></div>
   </main>

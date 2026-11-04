@@ -1,7 +1,7 @@
 /* Content enters only after the stationery has reached its final pose. */
 .site-header {
   pointer-events: none;
-  position: absolute;
+  position: fixed;
   z-index: var(--z-navigation);
   inset: var(--page-padding-block) var(--page-padding-inline) auto;
   display: flex;
@@ -96,6 +96,8 @@
 .hero-face { grid-row: 1; grid-column: 1 / -1; width: var(--face-width); justify-self: center; z-index: 2; }
 .hero-name img, .hero-face img { display: block; width: 100%; height: auto; user-select: none; }
 .site-header.is-entering { visibility: visible; animation: nav-arrive var(--duration-normal) var(--ease-standard) both; }
+.site-header.has-entered { animation: none; transition: translate 180ms var(--ease-standard), opacity 180ms var(--ease-standard); }
+.site-header.is-scroll-hidden { translate: 0 calc(-100% - 40px); opacity: 0; }
 .hero-name.is-entering, .hero-face.is-entering { visibility: visible; }
 .hero-name.is-entering .peel-art { animation: sticker-stamp 300ms var(--ease-standard) both; }
 .hero-face.is-entering .hero-face__art { animation: sticker-stamp 260ms var(--ease-standard) both; }
@@ -124,6 +126,7 @@
   .hero-composition { padding-top: var(--space-96); padding-bottom: var(--space-12); }
 }
 @media (prefers-reduced-motion: reduce) {
+  .site-header.has-entered { transition: none; }
   .site-header.is-entering, .hero-name.is-entering .peel-art, .hero-face.is-entering .hero-face__art { animation: none; }
   .nav-toggle span { transition: none; }
   .site-header.is-compact .nav-pill:not([hidden]) { animation: none; }

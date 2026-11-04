@@ -8,6 +8,14 @@
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const spins = new Map();
   let held = null;
+  const sentence = cloud.querySelector('.value-prop__sentence');
+  function fitCloud() {
+    const safeHeight = Math.ceil(sentence.getBoundingClientRect().height * 1.65 + 32);
+    cloud.style.setProperty('--cloud-safe-height', `${safeHeight}px`);
+  }
+  new ResizeObserver(fitCloud).observe(sentence);
+  document.fonts.ready.then(fitCloud);
+  fitCloud();
 
   section.querySelectorAll('.value-link').forEach(button => {
     button.addEventListener('click', () => {
