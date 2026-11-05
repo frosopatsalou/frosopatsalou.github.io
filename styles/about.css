@@ -73,3 +73,19 @@
 .bunny-payload { position: relative; width: 100%; }
 .bunny-strap { position: absolute; left: 52.955%; top: 0; width: 12.057%; height: 23.154%; transform-origin: 50% 0; pointer-events: none; }
 .bunny-hanger.is-swinging .bunny-payload, .bunny-hanger.is-swinging .bunny-strap { will-change: transform; }
+/* Keep the transition to the notebook compact. */
+.about > .tidy-button { bottom: 64px; right: calc(9% + 16px); }
+@media (min-width: 901px) { .about { height: max(90svh,66vw); } }
+@media (min-width: 901px) and (max-width: 1150px) {
+ .about { height: max(96svh,74vw); }
+ .about__intro { top: 16.5%; }
+ .about__lines { width: 90px; left: calc(100% - 12px); }
+ .about > .tidy-button { bottom: 40px; }
+}
+@media (max-width: 900px) {
+ .about { padding-bottom: 100px; }
+ .about__badge-wrap { margin-bottom: 48px; }
+ .about__identity { aspect-ratio: 3.2; margin-bottom: 20px; }
+ .about > .tidy-button { right: min(110px,28vw); }
+}
+@media (max-width: 900px) { .about > .tidy-button { right: 90px; bottom: 32px; } }

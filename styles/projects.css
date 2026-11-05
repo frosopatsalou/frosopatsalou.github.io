@@ -69,3 +69,5 @@
 .notebook__indicator[aria-disabled="true"] { opacity: 0; cursor: wait; }
 @media (max-width: 640px) { .notebook__indicator { width: 44px; min-height: 64px; font-size: 16px; right: calc((100% - var(--book-width)) / 2 + 4px); } }
 @media (prefers-reduced-motion: reduce) { .notebook__scene,.notebook__cover,.notebook__left-page,.notebook__binding { transition: none !important; } .notebook__pages i { animation: none !important; } }
+/* Size the notebook section to its contents rather than a second empty viewport. */
+.projects { --project-stage-height: calc(var(--book-height) + var(--connector-height) + 80px); }
