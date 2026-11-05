@@ -16,11 +16,13 @@
   <link rel="stylesheet" href="./styles/hero.css?v=9">
   <link rel="stylesheet" href="./styles/drag.css?v=5">
   <link rel="stylesheet" href="./styles/value-prop.css?v=7">
-  <link rel="stylesheet" href="./styles/projects.css?v=2">
+  <link rel="stylesheet" href="./styles/projects.css?v=3">
+  <link rel="stylesheet" href="./styles/about.css?v=1">
   <script src="./value-prop.js?v=2" defer></script>
-  <script src="./notebook.js?v=1" defer></script>
-  <script src="./drag.js?v=10" defer></script>
-  <script src="./hero.js?v=6" defer></script>
+  <script src="./notebook.js?v=2" defer></script>
+  <script src="./navigation.js?v=1" defer></script>
+  <script src="./drag.js?v=11" defer></script>
+  <script src="./hero.js?v=7" defer></script>
   <script src="./desk-intro.js?v=2" defer></script>
   <script src="./loader.js?v=6" defer></script>
 </head>
@@ -45,8 +47,8 @@
           <button class="nav-toggle" type="button" aria-label="Open navigation" aria-controls="primary-navigation" aria-expanded="false"><span></span><span></span><span></span></button>
           <nav class="nav-pill" id="primary-navigation" aria-label="Main navigation">
             <a href="#home" aria-current="page">Home</a>
-            <a href="#about" aria-disabled="true" title="About section coming soon">About</a>
-            <a href="#work">Work</a>
+            <a href="#about">About</a>
+            <a href="#work" aria-disabled="true" title="Work section coming soon">Work</a>
             <a href="#contact" aria-disabled="true" title="Contact section coming soon">Contact</a>
           </nav>
         </div>
@@ -126,20 +128,39 @@
       </svg>
     </div>
     </div>
-    <section class="projects" id="work" data-drag-area data-tidy-scope="work" aria-labelledby="projects-heading">
-      <h2 class="sr-only" id="projects-heading">My Projects</h2>
+    <section class="about" id="about" aria-labelledby="about-heading">
+      <div class="about__layout">
+        <img class="about__badge" src="./assets/about/bunny.svg" alt="Froso smiling, in a pink bunny-shaped photo badge" width="423" height="894" draggable="false">
+        <div class="about__intro">
+          <div class="about__identity">
+            <div class="about__face"><img src="./assets/stickers/kissy.webp" alt="" width="480" height="404" draggable="false"><img class="about__crown" src="./assets/about/crown.svg" alt="" width="124" height="121"></div>
+            <img class="about__name-tag" src="./assets/about/gift-tag.svg" alt="Froso Patsalou, UI/UX Designer" width="618" height="188" draggable="false">
+          </div>
+          <div class="about__note">
+            <h2 id="about-heading">Hello everyone!</h2>
+            <p>I'm Froso, a product designer from sunny Cyprus, currently navigating my third year of International Experience Design at Thomas More University in Belgium.</p>
+            <p>I love turning ideas into experiences that actually make sense (and look good while doing it). From the first “all-over-the-place” brainstorm to the final prototype, I've worked on designing digital products from the ground up. Think user research, interviews, user flows, wireframes, branding, UI design, and even bringing designs to life through code.</p>
+            <p>I'm all about creating experiences that are not only functional but also fun, meaningful, and a little unexpected.</p>
+            <img class="about__lines" src="./assets/about/lines.svg" alt="" width="148" height="124">
+          </div>
+        </div>
+      </div>
+      <svg class="about__flower" viewBox="0 0 170 170" aria-hidden="true"><defs><pattern id="flower-scribbles" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-32)"><path d="M0 1h9M0 5h9" stroke="#FEFE90" stroke-width="1.5" opacity=".55"/></pattern><path id="flower-shape" d="M76 67C40 25 9 56 46 83C-3 111 38 140 70 108C49 160 105 167 106 116C140 158 172 110 124 91C174 68 132 23 108 65C115 7 61 11 76 67Z"/></defs><use href="#flower-shape" fill="#FC5698" stroke="#FC5698" stroke-width="5"/><use href="#flower-shape" fill="url(#flower-scribbles)"/><circle cx="88" cy="89" r="12" fill="#FEFE90"/></svg>
+    </section>
+    <section class="projects" id="about-notebook" data-drag-area data-tidy-scope="work" aria-labelledby="notebook-heading">
+      <h2 class="sr-only" id="notebook-heading">A Work in Progress</h2>
       <div class="project-item project-stationery projects__glue" data-movable data-object="project-glue"><img src="./assets/projects/glue.svg" alt="" draggable="false"></div>
       <div class="project-item project-stationery projects__pen" data-movable data-object="project-pen"><img src="./assets/projects/pen.svg" alt="" draggable="false"></div>
       <div class="project-item project-stationery projects__scissors" data-movable data-object="project-scissors"><img src="./assets/projects/scissors.svg" alt="" draggable="false"></div>
       <div class="project-item project-stationery projects__ruler" data-movable data-object="project-ruler"><img src="./assets/projects/ruler.svg" alt="" draggable="false"></div>
-      <div class="notebook" data-notebook-state="closed" aria-label="Closed project notebook">
+      <div class="notebook" data-notebook-state="closed" aria-label="Closed A Work in Progress notebook">
         <img class="notebook__open" src="./assets/projects/open-book.svg" alt="Open purple notebook with blank lined pages" width="1181" height="840" draggable="false">
         <div class="notebook__pages" aria-hidden="true"><i></i><i></i><i></i></div>
         <div class="notebook__closed">
         <div class="notebook__cover">
           <img class="notebook__base" src="./assets/projects/cover.svg" alt="" width="655" height="840" draggable="false">
           <div class="notebook__stickers" data-drag-area data-drag-contain="true" data-drag-inset="2">
-            <div class="project-item project-sticker" style="--left:17.74;--top:17.74;--size:64.36" data-movable data-object="book-name-tag" aria-label="Pick up My Projects label"><img src="./assets/projects/name-tag.svg" alt="" width="381" height="114" draggable="false"></div>
+            <div class="project-item project-sticker" style="--left:17.74;--top:17.74;--size:64.36" data-movable data-object="book-name-tag" aria-label="Pick up A Work in Progress label"><img src="./assets/projects/name-tag.svg?v=2" alt="" width="381" height="114" draggable="false"></div>
             <div class="project-item project-sticker" style="--left:7.77;--top:8.93;--size:19.93" data-movable data-object="book-pink-squiggle"><img src="./assets/projects/pink-squiggle.webp" alt="" width="118" height="128" draggable="false"></div>
             <div class="project-item project-sticker" style="--left:62.5;--top:4.17;--size:15.71" data-movable data-object="book-clover"><img src="./assets/projects/clover.webp" alt="" width="93" height="104" draggable="false"></div>
             <div class="project-item project-sticker" style="--left:73.31;--top:26.9;--size:22.3" data-movable data-object="book-apple"><img src="./assets/projects/apple.webp" alt="" width="132" height="114" draggable="false"></div>
@@ -151,7 +172,8 @@
         </div>
         <img class="notebook__spiral" src="./assets/projects/spiral.svg" alt="" width="655" height="840" draggable="false">
         </div>
-        <button class="notebook__opener" type="button" data-notebook-control aria-label="Open project notebook" aria-expanded="false"><span class="sr-only">Open notebook</span></button>
+        <button class="notebook__opener" type="button" data-notebook-control aria-label="Open A Work in Progress notebook" aria-expanded="false"><span class="sr-only">Open notebook</span></button>
+        <button class="button notebook__toggle" type="button" data-notebook-control aria-expanded="false"><span aria-hidden="true">↗</span><span>Open notebook</span></button>
         <span class="sr-only notebook__status" role="status"></span>
       </div>
       <button class="button tidy-button" type="button" hidden aria-label="Tidy up project section"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="m2 2 10 10M12 2 2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Tidy up</span></button>

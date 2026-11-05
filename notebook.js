@@ -1,26 +1,36 @@
 (() => {
   const book = document.querySelector('.notebook');
-  const button = book.querySelector('.notebook__opener');
+  const edge = book.querySelector('.notebook__opener');
+  const button = book.querySelector('.notebook__toggle');
   const closed = book.querySelector('.notebook__closed');
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  let timer;
+  let timer, targetOpen = false;
   function finish() {
     clearTimeout(timer);
-    book.dataset.notebookState = 'open';
-    book.setAttribute('aria-label', 'Open project notebook');
-    book.querySelector('.notebook__status').textContent = 'Project notebook opened.';
+    book.dataset.notebookState = targetOpen ? 'open' : 'closed';
+    book.setAttribute('aria-label', `${targetOpen ? 'Open' : 'Closed'} A Work in Progress notebook`);
+    closed.inert = targetOpen;
+    edge.hidden = targetOpen;
+    button.setAttribute('aria-disabled', 'false');
+    button.querySelector('span:last-child').textContent = targetOpen ? 'Close notebook' : 'Open notebook';
+    button.querySelector('span:first-child').textContent = targetOpen ? '↙' : '↗';
+    [button, edge].forEach(control => control.setAttribute('aria-expanded', String(targetOpen)));
+    book.querySelector('.notebook__status').textContent = `Notebook ${targetOpen ? 'opened' : 'closed'}.`;
   }
-  button.addEventListener('click', () => {
-    if (book.dataset.notebookState !== 'closed' || closed.querySelector('.is-held')) return;
-    book.dataset.notebookState = 'opening';
-    book.setAttribute('aria-label', 'Opening project notebook');
+  function toggle() {
+    const state = book.dataset.notebookState;
+    if (!['closed', 'open'].includes(state) || closed.querySelector('.is-held')) return;
+    targetOpen = state === 'closed';
+    book.dataset.notebookState = targetOpen ? 'opening' : 'closing';
     closed.inert = true;
-    button.setAttribute('aria-expanded', 'true');
-    button.hidden = true;
+    edge.hidden = true;
+    button.setAttribute('aria-disabled', 'true');
     if (motion.matches) finish();
-    else timer = setTimeout(finish, 1450);
-  });
+    else timer = setTimeout(finish, targetOpen ? 1450 : 700);
+  }
+  button.addEventListener('click', toggle);
+  edge.addEventListener('click', toggle);
   motion.addEventListener('change', () => {
-    if (motion.matches && book.dataset.notebookState === 'opening') finish();
+    if (motion.matches && ['opening','closing'].includes(book.dataset.notebookState)) finish();
   });
 })();
