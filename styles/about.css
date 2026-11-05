@@ -70,3 +70,6 @@
 .bunny-card:focus-visible { outline: 3px dashed var(--color-purple); outline-offset: 5px; border-radius: 20px; }
 .bunny-hanger.is-swinging { will-change: transform; }
 .about__badge-wrap:has(.bunny-hanger.is-swinging, .bunny-card.is-tugging, [data-bunny-state="dropping"]) { z-index: 10; }
+.bunny-payload { position: relative; width: 100%; }
+.bunny-strap { position: absolute; left: 52.955%; top: 0; width: 12.057%; height: 23.154%; transform-origin: 50% 0; pointer-events: none; }
+.bunny-hanger.is-swinging .bunny-payload, .bunny-hanger.is-swinging .bunny-strap { will-change: transform; }

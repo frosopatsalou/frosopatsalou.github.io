@@ -105,6 +105,9 @@ The notebook's right page, turning leaves and cover now share a single scene tra
 
 ## Bunny ID card interaction
 
-On arriving at About, the bunny badge drops from above over 480ms, then swings from the original strap anchor (59.1% across its top). The card and its two stars share a hanging wrapper; stars retain independent dragging. The About text enters separately so it does not shift the strap anchor.
+On arriving at About, the bunny badge drops from above over 760ms, then swings from the original strap anchor (59.1% across its top). The card and its two stars share a hanging wrapper; stars retain independent dragging. The About text enters separately so it does not shift the strap anchor.
 
 Mouse and touch users can pull the card sideways with pointer capture and release into a damped pendulum swing, limited to 0.48 radians each way. The spring uses elapsed-time integration so rendering throttling does not slow its pace, and updates only the card transform. Motion settles to the original layout, pauses when a star is picked up, and stops off-screen or when the tab is hidden. Enter/Space and arrow keys nudge the card; Escape settles it. Reduced motion skips the automatic drop/swing. Returning through browser history replays the arrival.
+
+
+The bunny strap and card are separate original vector layers. Pulling downward moves only the payload (card plus stars) while scaling the pink strap from its fixed top; the photo/card retain their proportions. Vertical pull softens near a responsive 125–180px limit. Release adds an independent damped vertical spring, so the card slings above its resting position and bounces back, while sideways swing continues. Arrow Down can pull the card and key release slings it. Reduced motion returns immediately on release. The entrance drop now lasts 760ms.
