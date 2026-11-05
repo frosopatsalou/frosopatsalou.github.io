@@ -111,3 +111,6 @@ Mouse and touch users can pull the card sideways with pointer capture and releas
 
 
 The bunny strap and card are separate original vector layers. Pulling downward moves only the payload (card plus stars) while scaling the pink strap from its fixed top; the photo/card retain their proportions. Vertical pull softens near a responsive 125–180px limit. Release adds an independent damped vertical spring, so the card slings above its resting position and bounces back, while sideways swing continues. Arrow Down can pull the card and key release slings it. Reduced motion returns immediately on release. The entrance drop now lasts 760ms.
+
+
+The About entrance now carries its drop momentum into the vertical elastic spring instead of applying a sideways swing impulse. The 760ms drop briefly stretches the strap, rebounds upward, then settles vertically; manual sideways tugging remains available.

@@ -69,13 +69,16 @@
     hanger.dataset.bunnyState = 'dropping';
     entry = hanger.animate([
       { translate: '0 -110%', opacity: 0 },
-      { translate: '0 10px', opacity: 1, offset: .8 },
       { translate: '0 0', opacity: 1 }
-    ], { duration: 760, easing: 'cubic-bezier(.25,.15,.4,1)' });
+    ], { duration: 760, easing: 'cubic-bezier(.3,0,.6,.8)' });
     entry.finished.then(() => {
       entry = null;
       hanger.dataset.bunnyState = 'ready';
-      angle = 0; draw(); swing(1.7);
+      angle = 0; velocity = 0;
+      stretch = 0;
+      // Carry the drop's momentum into the elastic strap, then rebound upward.
+      stretchVelocity = Math.min(700, strapLength * 3.3);
+      draw(); swing();
     }).catch(() => {});
   }
   document.addEventListener('portfolio:entrance-complete', enter, { once: true });
