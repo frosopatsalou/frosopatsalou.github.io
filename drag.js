@@ -20,7 +20,7 @@
 
   // Replace only the stationery's outer element: pose and drag transforms stay
   // on this wrapper, while a single artwork layer is clipped beneath the fold.
-  desk.querySelectorAll('img.desk__item').forEach(image => {
+  document.querySelectorAll('img.desk__item').forEach(image => {
     const wrapper = document.createElement('div');
     wrapper.className = image.className;
     wrapper.dataset.object = image.dataset.object;
@@ -29,7 +29,7 @@
     image.removeAttribute('data-object');
     wrapper.append(image);
   });
-  const items = [...desk.querySelectorAll('.desk__item'), desk.querySelector('.hero-face'), ...desk.querySelectorAll('.hero-name'), ...document.querySelectorAll('[data-movable]')];
+  const items = [...document.querySelectorAll('.desk__item, .hero-face, .hero-name, [data-movable]')];
   items.forEach((element, index) => {
     const image = element.querySelector('img');
     const host = element.querySelector('.hero-face__art') || element;
@@ -196,7 +196,7 @@
       announce('All stickers tidied back into place.');
     });
     });
-    document.querySelector('.desk__canvas').removeAttribute('aria-hidden');
+    document.querySelector('.desk__canvas')?.removeAttribute('aria-hidden');
     items.forEach(element => {
       const image = element.querySelector('img');
       const canvas = document.createElement('canvas');
@@ -251,7 +251,8 @@
           const notebook = item.closest('.notebook');
           if (notebook && notebook.dataset.notebookState !== 'closed') return false;
         if (item.classList.contains('project-stationery') && depth(item)[0] <= 2) {
-          const book = item.closest('.projects').querySelector('.notebook').getBoundingClientRect();
+          const notebook = item.closest('.projects').querySelector('.notebook');
+            const book = notebook.querySelector(notebook.dataset.notebookState === 'closed' ? '.notebook__closed' : '.notebook__open').getBoundingClientRect();
           if (event.clientX >= book.left && event.clientX <= book.right && event.clientY >= book.top && event.clientY <= book.bottom) return false;
         }
         const matrix = item.querySelector('.peel-art').getScreenCTM();

@@ -73,22 +73,22 @@
   };
   function finish() {
     timers.forEach(clearTimeout);
-    [header, ...names, role, face].forEach(reveal);
+    [header, ...names, role, face].filter(Boolean).forEach(reveal);
     header.inert = false;
     header.classList.add('has-entered');
     entered = true;
     lastScroll = Math.max(0, scrollY);
     showHeader(true);
     const desk = document.querySelector('.desk');
-    if (desk.dataset.entrance !== 'complete') {
-      desk.dataset.entrance = 'complete';
+    if (!desk || desk.dataset.entrance !== 'complete') {
+      if (desk) desk.dataset.entrance = 'complete';
       document.dispatchEvent(new Event('portfolio:entrance-complete'));
     }
   }
   document.addEventListener('portfolio:intro-complete', () => {
     if (started) return;
     started = true;
-    if (motion.matches) { finish(); return; }
+    if (motion.matches || !face) { finish(); return; }
     reveal(header);
     header.inert = false;
     names.forEach((name, index) => timers.push(setTimeout(() => reveal(name), 220 + index * 60)));

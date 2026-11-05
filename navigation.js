@@ -1,44 +1,31 @@
 (() => {
+  const legacy = { '#about':'about.html', '#work':'work.html', '#contact':'contact.html' };
+  if (!document.body.dataset.page && legacy[location.hash]) { location.replace(new URL(legacy[location.hash],location.href)); return; }
   const header = document.querySelector('.site-header');
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  let frame = 0, arrival;
-  const cancel = () => { cancelAnimationFrame(frame); frame = 0; };
-  ['wheel','touchstart'].forEach(type => window.addEventListener(type,cancel,{passive:true}));
-  window.addEventListener('keydown', event => { if (['ArrowDown','ArrowUp','PageDown','PageUp','Home','End'].includes(event.key)) cancel(); });
-  function select(hash) {
-    document.querySelectorAll('.nav-pill a').forEach(link => {
-      if (link.getAttribute('href') === hash) link.setAttribute('aria-current','page');
-      else link.removeAttribute('aria-current');
-    });
-  }
+  let navigating = false;
   header.addEventListener('click', event => {
-    const link = event.target.closest('a[href^="#"]');
-    if (!link || link.hasAttribute('aria-disabled') || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
-    const hash = link.getAttribute('href'), target = document.querySelector(hash);
-    if (!target) return;
-    event.preventDefault(); cancel(); arrival?.cancel();
-    select(hash);
-    if (location.hash !== hash) history.pushState(null,'',hash);
-    const start = scrollY, max = Math.max(0,document.documentElement.scrollHeight-innerHeight);
-    const end = Math.min(max,Math.max(0,target.getBoundingClientRect().top+start-(parseFloat(getComputedStyle(target).scrollMarginTop)||0)));
-    const land = () => {
-      if (motion.matches) return;
-      const content = target.querySelector('.about__intro, .hero-composition') || target;
-      arrival = content.animate([{opacity:.55,translate:'0 14px'},{opacity:1,translate:'0 0'}],{duration:250,easing:'cubic-bezier(.2,.8,.2,1)'});
-    };
-    if (motion.matches) { scrollTo(0,end); return; }
-    const began = performance.now(), duration = 560;
-    function tick(now) {
-      const t = Math.min(1,(now-began)/duration), eased = 1-Math.pow(1-t,3);
-      scrollTo(0,start+(end-start)*eased);
-      if (t<1) frame=requestAnimationFrame(tick); else { frame=0;land(); }
+    const link = event.target.closest('a[href]');
+    if (!link || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    const url = new URL(link.href);
+    if (url.origin !== location.origin) return;
+    if (url.pathname === location.pathname && !url.hash) {
+      event.preventDefault(); scrollTo({top:0,behavior:motion.matches?'instant':'smooth'}); return;
     }
-    frame=requestAnimationFrame(tick);
+    if (motion.matches) return;
+    event.preventDefault();
+    if (navigating) return;
+    navigating = true;
+    document.body.classList.add('is-page-leaving');
+    const main = document.getElementById('portfolio');
+    const transition = main.animate([{opacity:1,translate:'0 0'},{opacity:0,translate:'0 -12px'}],{duration:160,easing:'ease-in',fill:'forwards'});
+    transition.finished.then(()=>location.assign(url.href));
   });
-  const observer = new IntersectionObserver(() => {
-    if (frame) return;
-    const about=document.getElementById('about');
-    select(about.getBoundingClientRect().top<innerHeight*.5 ? '#about' : '#home');
-  },{threshold:[0,.2,.5,.8]});
-  [document.getElementById('home'),document.getElementById('about'),document.getElementById('about-notebook')].forEach(el=>observer.observe(el));
+  window.addEventListener('pageshow', event => {
+    if (event.persisted) {
+      navigating=false;
+      document.body.classList.remove('is-page-leaving');
+      document.getElementById('portfolio').getAnimations().forEach(animation=>animation.cancel());
+    }
+  });
 })();
