@@ -89,3 +89,15 @@
  .about > .tidy-button { right: var(--page-padding-inline); }
 }
 @media (max-width: 900px) { .about > .tidy-button { right: var(--page-padding-inline); bottom: 32px; } }
+/* Align the note border with the visible bunny card, excluding its loose stars. */
+@media (min-width: 901px) {
+ .about__intro { top: auto; bottom: calc(100% - 29.5vw * 809.127 / 423 - 4px); }
+}
+@media (min-width: 901px) and (max-width: 1150px) {
+ .about__badge-wrap { width: 32%; }
+ .about__intro { bottom: calc(100% - 32vw * 809.127 / 423 - 4px); }
+}
+@media (max-width: 900px) {
+ .about__badge-wrap { margin-bottom: 75px; }
+ .about__identity { aspect-ratio: 2.8; margin-bottom: 28px; }
+}
