@@ -16,13 +16,14 @@
   <link rel="stylesheet" href="./styles/drag.css?v=5">
   <link rel="stylesheet" href="./styles/value-prop.css?v=7">
   <link rel="stylesheet" href="./styles/projects.css?v=9">
-  <link rel="stylesheet" href="./styles/about.css?v=10">
+  <link rel="stylesheet" href="./styles/about.css?v=11">
   <script src="./notebook.js?v=5" defer></script>
   <script src="./navigation.js?v=2" defer></script>
-  <script src="./drag.js?v=14" defer></script>
+  <script src="./drag.js?v=15" defer></script>
   <script src="./hero.js?v=8" defer></script>
   <link rel="stylesheet" href="./styles/pages.css?v=1">
   <script src="./bunny-badge.js?v=3" defer></script>
+  <script src="./name-tag-ribbon.js?v=1" defer></script>
   <script src="./page-ready.js?v=3" defer></script>
 </head>
 <body class="interior-page" data-page="about">
@@ -45,7 +46,7 @@
         <div class="about__intro">
           <div class="about__identity">
             <div class="about-sticker about__face" data-movable data-object="about-face" aria-label="Pick up Froso sticker"><img src="./assets/stickers/kissy.webp" alt="" width="480" height="404" draggable="false"></div><div class="about-sticker about__crown" data-movable data-object="about-crown" data-peel="false" aria-label="Pick up crown"><img src="./assets/about/crown.svg" alt="" width="124" height="121" draggable="false"></div>
-            <div class="about-sticker about__name-tag" data-movable data-object="about-name-tag" data-peel="false" aria-label="Pick up Froso Patsalou name tag"><img src="./assets/about/gift-tag.svg" alt="Froso Patsalou, UI/UX Designer" width="618" height="188" draggable="false"></div>
+            <div class="about__name-tag"><img src="./assets/about/name-tag-base.svg" alt="Froso Patsalou, UI/UX Designer" width="618" height="188" draggable="false"><button class="name-tag-ribbon" type="button" data-ribbon-control aria-label="Tug name tag ribbon" aria-describedby="ribbon-instructions"><img src="./assets/about/name-tag-ribbon.svg" alt="" width="113" height="138" draggable="false"></button><span class="sr-only" id="ribbon-instructions">Pull the ribbon and release to let it spring back. Use arrow keys to tug, or Enter or Space to flick the ribbon.</span></div>
           </div>
           <div class="about__note"><svg class="about__border" viewBox="0 0 800 400" preserveAspectRatio="none" aria-hidden="true"><path d="M29 5C174 1 364 8 514 5S713 3 769 7Q795 9 794 32C798 123 791 253 795 363Q795 391 770 394C558 398 359 390 170 395L28 392Q7 392 6 371C3 259 10 139 5 33Q4 9 29 5Z"/></svg>
             <h2 id="about-heading">Hello everyone!</h2>

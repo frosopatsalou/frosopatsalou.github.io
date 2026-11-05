@@ -110,3 +110,12 @@
  .about__identity { height: calc((100cqh + var(--about-top-crop)) * .186); margin-bottom: calc((100cqh + var(--about-top-crop)) * .02); }
  .about__crown { top: calc((100cqh + var(--about-top-crop)) * -.035); }
 }
+/* Slightly strengthen regular text without changing its spacing or wrapping. */
+.about__note p { -webkit-text-stroke: .15px currentColor; }
+.about__name-tag { position: absolute; user-select: none; }
+.about__name-tag > img { display: block; width: 100%; height: auto; pointer-events: none; }
+.name-tag-ribbon { position: absolute; left: 81.7152%; top: 26.5957%; width: 18.2848%; height: 73.4043%; padding: 0; border: 0; background: transparent; cursor: grab; touch-action: none; user-select: none; }
+.name-tag-ribbon > img { display: block; width: 100%; height: 100%; transform-origin: 43.3628% 21.7391%; pointer-events: none; }
+.name-tag-ribbon.is-tugging { cursor: grabbing; }
+.name-tag-ribbon.is-moving > img { will-change: transform; }
+.name-tag-ribbon:focus-visible { outline: 3px dashed var(--color-purple); outline-offset: 3px; border-radius: 12px; }
