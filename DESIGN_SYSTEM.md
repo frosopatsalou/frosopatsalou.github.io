@@ -101,3 +101,10 @@ The About crown is larger and lower; the three-line doodle is further right. Abo
 
 
 The notebook's right page, turning leaves and cover now share a single scene translation, so their hinge moves together from the first frame. The binding follows the identical transform in a separate foreground layer to stay visible above 3D leaves. The former clip-path spread reveal and approximate 47%-wide background crops are removed. Native page-left.svg and page-right.svg each crop exactly 590.5 × 840 units; flipping leaves use these as front/back faces and occupy exactly half the spread, matching the final left page without a late stretch or artwork swap. Perspective is softened to 2500px; opening/closing durations are unchanged.
+
+
+## Bunny ID card interaction
+
+On arriving at About, the bunny badge drops from above over 480ms, then swings from the original strap anchor (59.1% across its top). The card and its two stars share a hanging wrapper; stars retain independent dragging. The About text enters separately so it does not shift the strap anchor.
+
+Mouse and touch users can pull the card sideways with pointer capture and release into a damped pendulum swing, limited to 0.48 radians each way. The spring uses elapsed-time integration so rendering throttling does not slow its pace, and updates only the card transform. Motion settles to the original layout, pauses when a star is picked up, and stops off-screen or when the tab is hidden. Enter/Space and arrow keys nudge the card; Escape settles it. Reduced motion skips the automatic drop/swing. Returning through browser history replays the arrival.

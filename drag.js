@@ -239,7 +239,7 @@
     // Transparent rectangles around rotated stickers must not block the ruler
     // or other artwork beneath them. Pick the frontmost painted pixel instead.
     document.addEventListener('pointerdown', event => {
-      if (!event.isPrimary || event.button !== 0 || event.target.closest('.site-header, .tidy-button, [data-notebook-control]')) return;
+      if (!event.isPrimary || event.button !== 0 || event.target.closest('.site-header, .tidy-button, .bunny-card, [data-notebook-control]')) return;
       const depth = element => {
         const book = element.closest('.notebook');
         return book ? [Number(getComputedStyle(book).zIndex) || 2, Number(element.style.zIndex) || 0] : [Number(element.style.zIndex) || Number(getComputedStyle(element).zIndex) || 0, 0];

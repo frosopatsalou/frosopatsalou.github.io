@@ -61,3 +61,12 @@
 @media (prefers-reduced-motion: reduce) { .about-sticker.is-draggable { transition: none; } .about-sticker.is-held { scale: 1; } }
 
 .about-sticker.is-draggable { translate: calc(var(--drag-x, 0) * var(--about-drag-x-unit)) calc(var(--drag-y, 0) * var(--about-drag-y-unit)); }
+/* The strap attaches at x=250 in the original 423px-wide artwork. */
+.bunny-hanger { position: relative; width: 100%; transform-origin: 59.1% 0; transform: rotate(var(--bunny-angle, 0rad)); }
+.bunny-hanger[data-bunny-ready="false"] { opacity: 0; }
+.bunny-card { display: block; width: 100%; border: 0; padding: 0; margin: 0; background: transparent; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
+.bunny-card .about__badge { pointer-events: none; }
+.bunny-card.is-tugging { cursor: grabbing; }
+.bunny-card:focus-visible { outline: 3px dashed var(--color-purple); outline-offset: 5px; border-radius: 20px; }
+.bunny-hanger.is-swinging { will-change: transform; }
+.about__badge-wrap:has(.bunny-hanger.is-swinging, .bunny-card.is-tugging, [data-bunny-state="dropping"]) { z-index: 10; }
