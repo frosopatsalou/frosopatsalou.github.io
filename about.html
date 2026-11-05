@@ -15,11 +15,11 @@
   <link rel="stylesheet" href="./styles/hero.css?v=9">
   <link rel="stylesheet" href="./styles/drag.css?v=5">
   <link rel="stylesheet" href="./styles/value-prop.css?v=7">
-  <link rel="stylesheet" href="./styles/projects.css?v=6">
-  <link rel="stylesheet" href="./styles/about.css?v=3">
-  <script src="./notebook.js?v=4" defer></script>
+  <link rel="stylesheet" href="./styles/projects.css?v=7">
+  <link rel="stylesheet" href="./styles/about.css?v=4">
+  <script src="./notebook.js?v=5" defer></script>
   <script src="./navigation.js?v=2" defer></script>
-  <script src="./drag.js?v=12" defer></script>
+  <script src="./drag.js?v=13" defer></script>
   <script src="./hero.js?v=8" defer></script>
   <link rel="stylesheet" href="./styles/pages.css?v=1">
   <script src="./page-ready.js?v=2" defer></script>
@@ -39,24 +39,24 @@
       </header>    <h1 class="sr-only">About Froso Patsalou</h1><div class="about-sheet"><section class="about" id="about" data-drag-area data-tidy-scope="about" aria-labelledby="about-heading">
       <div class="about__layout">
         <div class="about__badge-wrap"><img class="about__badge" src="./assets/about/bunny-without-stars.svg" alt="Froso smiling, in a pink bunny-shaped photo badge" width="423" height="894" draggable="false">
-          <div class="about-sticker about__star-left" data-movable data-object="about-star-left" aria-label="Pick up left star"><img src="./assets/about/star-left.svg" alt="" width="112" height="115" draggable="false"></div>
-          <div class="about-sticker about__star-right" data-movable data-object="about-star-right" aria-label="Pick up right star"><img src="./assets/about/star-right.svg" alt="" width="115" height="119" draggable="false"></div></div>
+          <div class="about-sticker about__star-left" data-movable data-object="about-star-left" data-peel="false" aria-label="Pick up left star"><img src="./assets/about/star-left.svg" alt="" width="112" height="115" draggable="false"></div>
+          <div class="about-sticker about__star-right" data-movable data-object="about-star-right" data-peel="false" aria-label="Pick up right star"><img src="./assets/about/star-right.svg" alt="" width="115" height="119" draggable="false"></div></div>
         <div class="about__intro">
           <div class="about__identity">
-            <div class="about-sticker about__face" data-movable data-object="about-face" aria-label="Pick up Froso sticker"><img src="./assets/stickers/kissy.webp" alt="" width="480" height="404" draggable="false"></div><div class="about-sticker about__crown" data-movable data-object="about-crown" aria-label="Pick up crown"><img src="./assets/about/crown.svg" alt="" width="124" height="121" draggable="false"></div>
-            <div class="about-sticker about__name-tag" data-movable data-object="about-name-tag" aria-label="Pick up Froso Patsalou name tag"><img src="./assets/about/gift-tag.svg" alt="Froso Patsalou, UI/UX Designer" width="618" height="188" draggable="false"></div>
+            <div class="about-sticker about__face" data-movable data-object="about-face" aria-label="Pick up Froso sticker"><img src="./assets/stickers/kissy.webp" alt="" width="480" height="404" draggable="false"></div><div class="about-sticker about__crown" data-movable data-object="about-crown" data-peel="false" aria-label="Pick up crown"><img src="./assets/about/crown.svg" alt="" width="124" height="121" draggable="false"></div>
+            <div class="about-sticker about__name-tag" data-movable data-object="about-name-tag" data-peel="false" aria-label="Pick up Froso Patsalou name tag"><img src="./assets/about/gift-tag.svg" alt="Froso Patsalou, UI/UX Designer" width="618" height="188" draggable="false"></div>
           </div>
           <div class="about__note"><svg class="about__border" viewBox="0 0 800 400" preserveAspectRatio="none" aria-hidden="true"><path d="M29 5C174 1 364 8 514 5S713 3 769 7Q795 9 794 32C798 123 791 253 795 363Q795 391 770 394C558 398 359 390 170 395L28 392Q7 392 6 371C3 259 10 139 5 33Q4 9 29 5Z"/></svg>
             <h2 id="about-heading">Hello everyone!</h2>
             <p>I'm Froso, a product designer from sunny Cyprus, currently navigating my third year of International Experience Design at Thomas More University in Belgium.</p>
             <p>I love turning ideas into experiences that actually make sense (and look good while doing it). From the first “all-over-the-place” brainstorm to the final prototype, I've worked on designing digital products from the ground up. Think user research, interviews, user flows, wireframes, branding, UI design, and even bringing designs to life through code.</p>
             <p>I'm all about creating experiences that are not only functional but also fun, meaningful, and a little unexpected.</p>
-            <div class="about-sticker about__lines" data-movable data-object="about-lines" aria-label="Pick up three lines"><img src="./assets/about/lines.svg" alt="" width="148" height="124" draggable="false"></div>
+            <div class="about-sticker about__lines" data-movable data-object="about-lines" data-peel="false" aria-label="Pick up three lines"><img src="./assets/about/lines.svg" alt="" width="148" height="124" draggable="false"></div>
           </div>
         </div>
       </div>
-      <div class="about-sticker about__flower" data-movable data-object="about-flower" aria-label="Pick up flower"><img src="./assets/about/flower.svg" alt="" width="170" height="170" draggable="false"></div>
-    <button class="button tidy-button" type="button" hidden aria-label="Tidy up About stickers"><span aria-hidden="true">×</span><span>Tidy up</span></button></section>
+      <div class="about-sticker about__flower" data-movable data-object="about-flower" data-peel="false" aria-label="Pick up flower"><img src="./assets/about/flower.svg" alt="" width="170" height="170" draggable="false"></div>
+    <button class="button tidy-button" type="button" hidden aria-label="Tidy up About stickers"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="m2 2 10 10M12 2 2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Tidy up</span></button></section>
 <div class="section-connector" aria-hidden="true"><svg class="desk__tear" viewBox="0 0 1440 100" preserveAspectRatio="none"><use href="./assets/desk/torn-paper.svg#tear-edge" class="desk__tear-fibres"/><use href="./assets/desk/torn-paper.svg#tear-edge" class="desk__tear-grain"/></svg></div></div>
     <section class="projects" id="about-notebook" data-drag-area data-tidy-scope="work" aria-labelledby="notebook-heading">
       <h2 class="sr-only" id="notebook-heading">A Work in Progress</h2>
@@ -65,7 +65,7 @@
       <div class="project-item project-stationery projects__scissors" data-movable data-object="project-scissors"><img src="./assets/projects/scissors.svg" alt="" draggable="false"></div>
       <div class="project-item project-stationery projects__ruler" data-movable data-object="project-ruler"><img src="./assets/projects/ruler.svg" alt="" draggable="false"></div>
       <div class="notebook" data-notebook-state="closed" aria-label="Closed A Work in Progress notebook">
-        <img class="notebook__open" src="./assets/projects/open-book.svg" alt="Open purple notebook with blank lined pages" width="1181" height="840" draggable="false">
+        <img class="notebook__open" src="./assets/projects/open-pages.svg" alt="Open purple notebook with blank lined pages" width="1181" height="840" draggable="false">
         <div class="notebook__pages" aria-hidden="true"><i></i><i></i><i></i></div>
         <div class="notebook__closed">
         <div class="notebook__cover">
@@ -81,8 +81,9 @@
             <div class="project-item project-sticker" style="--left:69;--top:72;--size:27" data-movable data-object="book-strawberry"><img src="./assets/projects/strawberry.webp" alt="" width="184" height="200" draggable="false"></div>
           </div>
         </div>
-        <img class="notebook__spiral" src="./assets/projects/spiral.svg" alt="" width="655" height="840" draggable="false">
+
         </div>
+        <img class="notebook__binding" src="./assets/projects/binding.svg" alt="" width="90" height="840" draggable="false">
         <button class="notebook__indicator" type="button" data-notebook-control aria-label="Open notebook" aria-expanded="false"><span class="notebook__arrow" aria-hidden="true">‹</span><span class="notebook__hint">Open</span></button>
         <span class="sr-only notebook__status" role="status"></span>
       </div>

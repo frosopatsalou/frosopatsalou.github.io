@@ -93,6 +93,7 @@
     draw(0);
   });
   function peel(element, target) {
+    if (element.dataset.peel === 'false') return;
     const state = peels.get(element);
     cancelAnimationFrame(state.frame);
     if (motion.matches) { state.value = target; state.draw(target); return; }

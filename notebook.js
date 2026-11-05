@@ -22,10 +22,11 @@
     if (!['closed', 'open'].includes(state) || closed.querySelector('.is-held')) return;
     targetOpen = state === 'closed';
     book.dataset.notebookState = targetOpen ? 'opening' : 'closing';
+    book.dataset.expanded = String(targetOpen);
     closed.inert = true;
     button.setAttribute('aria-disabled', 'true');
     if (motion.matches) finish();
-    else timer = setTimeout(finish, targetOpen ? 1450 : 700);
+    else timer = setTimeout(finish, targetOpen ? 1200 : 500);
   });
   motion.addEventListener('change', () => {
     if (motion.matches && ['opening', 'closing'].includes(book.dataset.notebookState)) finish();

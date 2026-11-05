@@ -24,7 +24,7 @@
  .about__intro { padding-top: 35px; }
  .about__note { border-radius: 24px; }
  .about__note p { font-size: 14px; }
- .about__lines { width: 70px; left: auto; right: 0; top: calc(100% + 20px); }
+ .about__lines { width: 70px; left: auto; right: -12px; top: calc(100% + 20px); }
  .about__flower { width: 80px; right: 5px; top: 85px; }
 }
 /* Figma's 1440 × 1024 composition, with independent sticker layers. */
@@ -36,9 +36,9 @@
 .about__intro { position: absolute; left: 39%; top: 22.5%; width: 52%; padding: 0; z-index: auto; }
 .about__identity { position: relative; display: block; height: 18.6cqh; margin-bottom: 2cqh; }
 .about__face { left: 0; top: 4%; width: 26%; margin: 0; z-index: 3; }
-.about__crown { left: -1%; top: -5cqh; bottom: auto; width: 9.5%; transform: rotate(-12deg); z-index: 4; }
+.about__crown { left: -1%; top: -3.5cqh; bottom: auto; width: 13%; transform: rotate(-12deg); z-index: 4; }
 .about__name-tag { left: 18%; top: 0; width: 82%; z-index: 2; }
-.about__lines { width: 115px; left: calc(100% - 45px); top: calc(100% + 20px); }
+.about__lines { width: 115px; left: calc(100% + 5px); top: calc(100% + 20px); }
 .about__flower { right: 2%; top: 3%; width: 13.5%; z-index: 2; }
 .about__star-left { left: 0; top: 76.06%; width: 26.48%; }
 .about__star-right { left: 14.18%; top: 86.69%; width: 27.19%; }
@@ -53,9 +53,9 @@
  .about__intro { position: relative; left: auto; top: auto; width: 100%; }
  .about__identity { height: auto; aspect-ratio: 2.8; margin-bottom: 28px; }
  .about__face { top: 4%; }
- .about__crown { top: -28%; width: 10%; }
+ .about__crown { top: -15%; width: 14%; }
  .about__note p { font-size: 14px; }
- .about__lines { width: 70px; left: auto; right: 0; top: calc(100% + 20px); }
+ .about__lines { width: 70px; left: auto; right: -12px; top: calc(100% + 20px); }
  .about__flower { width: 80px; right: 5px; top: 85px; }
 }
 @media (prefers-reduced-motion: reduce) { .about-sticker.is-draggable { transition: none; } .about-sticker.is-held { scale: 1; } }
