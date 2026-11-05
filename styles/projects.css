@@ -1,5 +1,6 @@
 .projects {
-  --project-stage-height: max(100svh, 700px);
+  --project-stage-height: calc(100svh + var(--connector-height));
+  --spread-width: min(1181px, 94cqw, calc((100svh - 100px) * 1181 / 840));
   --book-width: min(655px, 86cqw, calc((var(--project-stage-height) - var(--connector-height) - 88px) * .77976));
   position: relative;
   margin-top: calc(-1 * var(--connector-height));
@@ -14,7 +15,7 @@
   background-image: linear-gradient(90deg, rgb(183 228 75 / .48) 50%, transparent 50%), linear-gradient(0deg, rgb(183 228 75 / .48) 50%, transparent 50%);
   background-size: 36px 36px;
 }
-.notebook { position: relative; width: var(--book-width); height: calc(var(--book-width) * 840 / 655); margin-top: calc(var(--connector-height) - 40px); z-index: 2; }
+.notebook { position: relative; width: var(--book-width); height: calc(var(--book-width) * 840 / 655); margin-top: var(--connector-height); z-index: 2; }
 .notebook__cover { position: absolute; inset: 0; transform-origin: 5.34% 50%; transform-style: preserve-3d; backface-visibility: hidden; }
 .notebook__base, .notebook__spiral { display: block; position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; user-select: none; }
 .notebook__spiral { z-index: 3; }
@@ -31,3 +32,27 @@
 .project-item.is-held { scale: 1.05; filter: drop-shadow(6px 14px 7px rgb(35 0 71 / .25)); }
 @media (max-width: 640px) { .projects { background-size: 26px 26px; } }
 @media (prefers-reduced-motion: reduce) { .project-item.is-draggable { transition: none; } .project-item.is-held { scale: 1; } }
+/* The overlapping tear is followed by a complete viewport of gingham. */
+.projects { scroll-margin-top: calc(-1 * var(--connector-height)); }
+.notebook { perspective: 1800px; transition: width 450ms cubic-bezier(.2,.8,.2,1), height 450ms cubic-bezier(.2,.8,.2,1); }
+.notebook__closed { position: absolute; inset: 0; transform-origin: 5.34% 50%; transform-style: preserve-3d; }
+.notebook__open { position: absolute; inset: 0; width: 100%; height: 100%; visibility: hidden; pointer-events: none; }
+.notebook__pages { position: absolute; inset: 0; pointer-events: none; visibility: hidden; transform-style: preserve-3d; }
+.notebook__pages i { position: absolute; left: 50%; top: 3%; width: 47%; height: 94%; transform-origin: left center; background: #fffff2 url('../assets/projects/open-book.svg') right center / 213% 106%; border-radius: 2% 4% 4% 2%; backface-visibility: visible; box-shadow: -3px 2px 8px rgb(35 0 71 / .16); }
+.notebook__opener { position: absolute; z-index: 4; top: 3%; bottom: 3%; right: 3.5%; width: 7%; border: 0; border-radius: 12px; background: transparent; cursor: pointer; touch-action: manipulation; }
+.notebook__opener:hover { background: rgb(255 255 255 / .13); }
+.notebook__opener:focus-visible { outline: 3px dashed var(--color-yellow); outline-offset: 2px; }
+.notebook:is([data-notebook-state="opening"], [data-notebook-state="open"]) { width: var(--spread-width); height: calc(var(--spread-width) * 840 / 1181); }
+.notebook[data-notebook-state="opening"] .notebook__open { visibility: visible; animation: reveal-spread 650ms steps(1,end) both; }
+.notebook[data-notebook-state="opening"] .notebook__closed { animation: open-cover 700ms cubic-bezier(.35,0,.2,1) both; pointer-events: none; }
+.notebook[data-notebook-state="opening"] .notebook__pages { visibility: visible; }
+.notebook[data-notebook-state="opening"] .notebook__pages i { animation: flick-page 650ms cubic-bezier(.3,0,.25,1) both; }
+.notebook[data-notebook-state="opening"] .notebook__pages i:nth-child(1) { animation-delay: 750ms; z-index: 1; }
+.notebook[data-notebook-state="opening"] .notebook__pages i:nth-child(2) { animation-delay: 580ms; z-index: 2; }
+.notebook[data-notebook-state="opening"] .notebook__pages i:nth-child(3) { animation-delay: 410ms; z-index: 3; }
+.notebook[data-notebook-state="open"] .notebook__open { visibility: visible; }
+.notebook[data-notebook-state="open"] .notebook__closed { visibility: hidden; }
+@keyframes open-cover { 0% { width: 100%; transform: rotateY(0); } 30% { width: 55.46%; translate: 80.3% 0; transform: rotateY(-12deg); } 100% { width: 55.46%; translate: 80.3% 0; transform: rotateY(-180deg); visibility: hidden; } }
+@keyframes reveal-spread { 0% { clip-path: inset(0 0 0 50%); } 100% { clip-path: inset(0); } }
+@keyframes flick-page { 0% { transform: rotateY(0); } 80% { transform: rotateY(-170deg); } 100% { transform: rotateY(-180deg); visibility: hidden; } }
+@media (prefers-reduced-motion: reduce) { .notebook { transition: none; } .notebook[data-notebook-state="opening"] * { animation: none !important; } }

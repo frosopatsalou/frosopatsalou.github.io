@@ -137,7 +137,7 @@
     updateTidyVisibility();
   }
   function pick(element, pointer = null) {
-    if (tidying) return;
+    if (tidying || (element.closest('.notebook') && element.closest('.notebook').dataset.notebookState !== 'closed')) return;
     if (active) drop();
     active = {
       element, pointer,
@@ -248,6 +248,8 @@
         return bd[0] - ad[0] || bd[1] - ad[1] || items.indexOf(b) - items.indexOf(a);
       });
       const element = candidates.find(item => {
+          const notebook = item.closest('.notebook');
+          if (notebook && notebook.dataset.notebookState !== 'closed') return false;
         if (item.classList.contains('project-stationery') && depth(item)[0] <= 2) {
           const book = item.closest('.projects').querySelector('.notebook').getBoundingClientRect();
           if (event.clientX >= book.left && event.clientX <= book.right && event.clientY >= book.top && event.clientY <= book.bottom) return false;
