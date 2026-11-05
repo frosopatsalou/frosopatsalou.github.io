@@ -98,3 +98,6 @@ About decorations now use the shared drag-and-peel renderer, including the face,
 
 
 The About crown is larger and lower; the three-line doodle is further right. About uses the same 14px crossed-line SVG icon in Tidy up as the other sections. Hand-drawn decorations and the name tag retain pickup/move/drop and conditional Tidy up, with no corner fold; only the face sticker peels in this section.
+
+
+The notebook's right page, turning leaves and cover now share a single scene translation, so their hinge moves together from the first frame. The binding follows the identical transform in a separate foreground layer to stay visible above 3D leaves. The former clip-path spread reveal and approximate 47%-wide background crops are removed. Native page-left.svg and page-right.svg each crop exactly 590.5 × 840 units; flipping leaves use these as front/back faces and occupy exactly half the spread, matching the final left page without a late stretch or artwork swap. Perspective is softened to 2500px; opening/closing durations are unchanged.

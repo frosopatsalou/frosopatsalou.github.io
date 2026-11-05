@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="./styles/hero.css?v=9">
   <link rel="stylesheet" href="./styles/drag.css?v=5">
   <link rel="stylesheet" href="./styles/value-prop.css?v=7">
-  <link rel="stylesheet" href="./styles/projects.css?v=7">
+  <link rel="stylesheet" href="./styles/projects.css?v=8">
   <link rel="stylesheet" href="./styles/about.css?v=4">
   <script src="./notebook.js?v=5" defer></script>
   <script src="./navigation.js?v=2" defer></script>
@@ -65,7 +65,11 @@
       <div class="project-item project-stationery projects__scissors" data-movable data-object="project-scissors"><img src="./assets/projects/scissors.svg" alt="" draggable="false"></div>
       <div class="project-item project-stationery projects__ruler" data-movable data-object="project-ruler"><img src="./assets/projects/ruler.svg" alt="" draggable="false"></div>
       <div class="notebook" data-notebook-state="closed" aria-label="Closed A Work in Progress notebook">
-        <img class="notebook__open" src="./assets/projects/open-pages.svg" alt="Open purple notebook with blank lined pages" width="1181" height="840" draggable="false">
+        <div class="notebook__scene">
+        <div class="notebook__open" aria-label="Open purple notebook with blank lined pages">
+          <img class="notebook__left-page" src="./assets/projects/page-left.svg" alt="" width="590.5" height="840" draggable="false">
+          <img class="notebook__right-page" src="./assets/projects/page-right.svg" alt="" width="590.5" height="840" draggable="false">
+        </div>
         <div class="notebook__pages" aria-hidden="true"><i></i><i></i><i></i></div>
         <div class="notebook__closed">
         <div class="notebook__cover">
@@ -80,6 +84,8 @@
             <div class="project-item project-sticker" style="--left:7.94;--top:62.98;--size:39.7" data-movable data-object="book-cherry"><img src="./assets/projects/cherry.webp" alt="" width="235" height="224" draggable="false"></div>
             <div class="project-item project-sticker" style="--left:69;--top:72;--size:27" data-movable data-object="book-strawberry"><img src="./assets/projects/strawberry.webp" alt="" width="184" height="200" draggable="false"></div>
           </div>
+        </div>
+
         </div>
 
         </div>
