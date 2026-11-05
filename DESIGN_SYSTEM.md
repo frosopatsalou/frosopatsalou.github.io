@@ -120,3 +120,6 @@ About spacing is tighter: desktop intro height uses 90svh / 66vw with a compact 
 
 
 For side-by-side About layouts, the introduction is now bottom-anchored to the visible pink bunny card edge (source artwork y=809.127), excluding the stars beneath it. This keeps the note border aligned with the card despite section-height changes. The three-line doodle follows the note. Mobile restores its previous badge-to-introduction and identity-to-note spacing; notebook gap and Tidy up placement remain unchanged.
+
+
+Wide-screen About layouts crop 24–180px from the top according to the composition center and viewport height. The card and note move together within a preserved layout height, retaining their bottom alignment while reducing blank strap space. Smaller layouts keep their existing top spacing to avoid crowding the header.

@@ -101,3 +101,12 @@
  .about__badge-wrap { margin-bottom: 75px; }
  .about__identity { aspect-ratio: 2.8; margin-bottom: 28px; }
 }
+/* Trim excess strap space above the composition without changing its alignment. */
+@media (min-width: 1151px) {
+ .about { --about-top-crop: clamp(24px,calc(34.75vw - 50svh),180px); height: calc(max(90svh,66vw) - var(--about-top-crop)); }
+ .about__layout { top: calc(-1 * var(--about-top-crop)); height: calc(100% + var(--about-top-crop)); }
+}
+@media (min-width: 1151px) {
+ .about__identity { height: calc((100cqh + var(--about-top-crop)) * .186); margin-bottom: calc((100cqh + var(--about-top-crop)) * .02); }
+ .about__crown { top: calc((100cqh + var(--about-top-crop)) * -.035); }
+}
