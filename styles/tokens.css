@@ -1,5 +1,6 @@
 /* Primitive tokens. Every palette family has ten shades; 500 is the exact original. */
 :root {
+  --color-about-background: #FFFFD3;
   /* fuchsia: #F00FA9 */
   --color-fuchsia-50: #FEF5FC;
   --color-fuchsia-100: #FDE2F5;

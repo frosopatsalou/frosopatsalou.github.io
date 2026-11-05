@@ -27,3 +27,37 @@
  .about__lines { width: 70px; left: auto; right: 0; top: calc(100% + 20px); }
  .about__flower { width: 80px; right: 5px; top: 85px; }
 }
+/* Figma's 1440 × 1024 composition, with independent sticker layers. */
+.about-sheet { background-color: var(--color-about-background); }
+.about { height: max(100svh,71.12vw); min-height: 0; padding: 0; display: block; container-type: size; }
+.about__layout { position: relative; width: 100%; height: 100%; max-width: none; display: block; margin: 0; }
+.about__badge-wrap { position: absolute; left: 6%; top: 0; width: 29.5%; }
+.about__badge { display: block; width: 100%; height: auto; max-height: none; margin: 0; }
+.about__intro { position: absolute; left: 39%; top: 22.5%; width: 52%; padding: 0; z-index: auto; }
+.about__identity { position: relative; display: block; height: 18.6cqh; margin-bottom: 2cqh; }
+.about__face { left: 0; top: 4%; width: 26%; margin: 0; z-index: 3; }
+.about__crown { left: -1%; top: -5cqh; bottom: auto; width: 9.5%; transform: rotate(-12deg); z-index: 4; }
+.about__name-tag { left: 18%; top: 0; width: 82%; z-index: 2; }
+.about__lines { width: 115px; left: calc(100% - 45px); top: calc(100% + 20px); }
+.about__flower { right: 2%; top: 3%; width: 13.5%; z-index: 2; }
+.about__star-left { left: 0; top: 76.06%; width: 26.48%; }
+.about__star-right { left: 14.18%; top: 86.69%; width: 27.19%; }
+.about-sticker { position: absolute; user-select: none; }
+.about-sticker > img { display: block; width: 100%; height: auto; }
+.about-sticker.is-draggable { filter: drop-shadow(0 2px 1px rgb(35 0 71 / .10)); transition: filter var(--duration-normal) var(--ease-standard), scale var(--duration-normal) var(--ease-standard); }
+.about-sticker.is-held { scale: 1.05; filter: drop-shadow(6px 14px 7px rgb(35 0 71 / .25)); }
+@media (max-width: 900px) {
+ .about { height: auto; min-height: 100svh; padding: 0 24px 125px; container-type: inline-size; }
+ .about__layout { height: auto; }
+ .about__badge-wrap { position: relative; left: auto; top: auto; width: min(250px,72%); margin: -25px auto 75px; }
+ .about__intro { position: relative; left: auto; top: auto; width: 100%; }
+ .about__identity { height: auto; aspect-ratio: 2.8; margin-bottom: 28px; }
+ .about__face { top: 4%; }
+ .about__crown { top: -28%; width: 10%; }
+ .about__note p { font-size: 14px; }
+ .about__lines { width: 70px; left: auto; right: 0; top: calc(100% + 20px); }
+ .about__flower { width: 80px; right: 5px; top: 85px; }
+}
+@media (prefers-reduced-motion: reduce) { .about-sticker.is-draggable { transition: none; } .about-sticker.is-held { scale: 1; } }
+
+.about-sticker.is-draggable { translate: calc(var(--drag-x, 0) * var(--about-drag-x-unit)) calc(var(--drag-y, 0) * var(--about-drag-y-unit)); }

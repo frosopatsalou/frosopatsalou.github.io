@@ -1,5 +1,11 @@
 (() => {
   const main = document.getElementById('portfolio');
+  const about = document.querySelector('.about');
+  if (about) new ResizeObserver(() => {
+    const rect = about.getBoundingClientRect();
+    about.style.setProperty('--about-drag-x-unit', `${rect.width / 100}px`);
+    about.style.setProperty('--about-drag-y-unit', `${rect.height / 100}px`);
+  }).observe(about);
   Promise.all([document.fonts.ready,...[...main.querySelectorAll('img')].map(img => img.decode().catch(() => {}))]).then(() => {
     main.inert = false;
     main.removeAttribute('aria-hidden');
