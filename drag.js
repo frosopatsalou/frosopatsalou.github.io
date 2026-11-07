@@ -65,6 +65,7 @@
     if (object.includes('pen') || object.includes('glue')) { corner = 'left'; a = 57; b = 30; }
     if (object.includes('clip')) { a = 30; b = 32; }
     if (element.classList.contains('hero-face')) { a = 48; b = 48; }
+    if (object === 'about-face') { a = 38; b = 65; }
     if (element.classList.contains('hero-name')) { corner = 'bottom'; a = 70; b = 38; }
     if (element.classList.contains('hero-role')) { corner = 'bottom'; a = 85; b = 65; }
     const point = (x, y) => corner === 'left' ? [100 - x, y] : corner === 'bottom' ? [x, 100 - y] : [x, y];
