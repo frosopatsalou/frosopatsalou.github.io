@@ -68,12 +68,12 @@
   transition: transform 220ms var(--ease-standard);
 }
 .value-prop__highlight:is(:hover, :focus-visible)::before { transform: scaleX(1); }
-.value-prop__links { width: min(1120px, 100%); display: flex; justify-content: center; gap: clamp(8px, 4.45vw, 64px); }
-.value-link { position: relative; display: block; width: clamp(210px, 23vw, 310px); aspect-ratio: 1; flex-shrink: 1; color: var(--color-text); border: 0; padding: 0; background: transparent; cursor: pointer; border-radius: var(--radius-circle); }
+.value-prop__links { width: min(1240px, 100%); display: flex; justify-content: center; gap: clamp(24px, 5vw, 80px); }
+.value-link { position: relative; display: block; width: clamp(230px, 25vw, 340px); aspect-ratio: 1; flex-shrink: 1; color: var(--color-text); border: 0; padding: 0; background: transparent; cursor: pointer; border-radius: var(--radius-circle); }
 .value-link img { position: absolute; left: 3%; top: 10%; width: 84%; height: auto; user-select: none; }
 .value-link svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-.value-link text { font: 400 23px var(--font-display); letter-spacing: 2.2px; fill: var(--color-fuchsia); stroke: var(--color-white); stroke-width: 12px; paint-order: stroke fill; stroke-linejoin: round; }
-.value-link--development text { font-size: 21px; }
+.value-link text { font: 400 26px var(--font-display); letter-spacing: 2.8px; fill: var(--color-fuchsia); stroke: var(--color-white); stroke-width: 12px; paint-order: stroke fill; stroke-linejoin: round; }
+.value-link--development text { font-size: 23.5px; }
 .cloud-fluff-layer { position: fixed; inset: 0; z-index: var(--z-overlay); pointer-events: none; overflow: hidden; }
 .cloud-puff { position: absolute; left: 0; top: 0; width: var(--puff-size, 80px); aspect-ratio: 68 / 71; pointer-events: none; border-radius: 50%; background: rgb(255 255 255 / .025); box-shadow: 0 4px 12px rgb(78 0 161 / .08); -webkit-backdrop-filter: blur(1px) saturate(1.05); backdrop-filter: url('#puff-refraction') blur(.6px) saturate(1.05); will-change: transform; }
 .cloud-puff img { display: block; width: 100%; height: 100%; user-select: none; }
@@ -93,8 +93,8 @@
 }
 
 @media (max-width: 900px) {
- .value-prop__links { flex-direction: column; align-items: center; gap: var(--space-32); }
- .value-link { width: min(310px,calc(100vw - 64px)); flex-shrink: 0; }
+ .value-prop__links { flex-direction: column; align-items: center; gap: 40px; }
+ .value-link { width: min(340px,84vw); flex-shrink: 0; }
 }
 @media (max-width: 640px) {
  .value-prop { padding-inline: 12px; }

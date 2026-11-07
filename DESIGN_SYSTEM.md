@@ -136,3 +136,6 @@ The hand-drawn flower has been removed from About. Its face sticker uses a much 
 The cloud now uses Cooper LT BT Bold Italic and expands to 1480px wide / up to 560px tall. Skill labels use 2.2px tracking on a larger 128-unit-radius arc, with circles up to 310px; below 900px they stack so lettering remains readable. The 12px white outline and dark-pink fill remain.
 
 Notebook cover folds are calibrated against the clover's visible cut area at rendered size. Alpha-aware corner selection avoids folding transparent corners of irregular stickers. The paper back uses a reflected alpha silhouette of the actual cut artwork, with reflection calculated for each image's aspect ratio. Every cover sticker, including its label, has a visible peel of approximately the clover's physical size. Other page drag and peel behaviours are unchanged.
+
+
+Skill labels are slightly larger (26px, 23.5px for the longest label) with 2.8px letter spacing, on 138-unit-radius arcs within a padded SVG viewBox. Circles grow to 340px and the row gap grows to 80px, with 40px gaps when stacked. Narrow-screen circles fit within 84vw so the white outline remains visible.
