@@ -131,3 +131,8 @@ The About paragraph keeps Avant Garde Regular with a subtle 0.15px weight reinfo
 The Home cloud sentence now uses Cooper LT BT Bold with tighter 0.015em tracking. The three curved skill labels retain Winkle, with palette dark pink/fuchsia (#F00FA9) fills and a thick rounded 12px white outline. The cloud's measured-height logic still contains the text on narrow screens.
 
 The hand-drawn flower has been removed from About. Its face sticker uses a much larger fold (top crease at 38%, right edge at 65%); original face details remain in the source. Notebook page leaves are hidden during their stagger delays and use forward-only animation fill, preventing them from flashing over the closed cover before the first flip starts.
+
+
+The cloud now uses Cooper LT BT Bold Italic and expands to 1480px wide / up to 560px tall. Skill labels use 2.2px tracking on a larger 128-unit-radius arc, with circles up to 310px; below 900px they stack so lettering remains readable. The 12px white outline and dark-pink fill remain.
+
+Notebook cover folds are calibrated against the clover's visible cut area at rendered size. Alpha-aware corner selection avoids folding transparent corners of irregular stickers. The paper back uses a reflected alpha silhouette of the actual cut artwork, with reflection calculated for each image's aspect ratio. Every cover sticker, including its label, has a visible peel of approximately the clover's physical size. Other page drag and peel behaviours are unchanged.

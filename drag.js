@@ -33,6 +33,8 @@
   items.forEach((element, index) => {
     const image = element.querySelector('img');
     const host = element.querySelector('.hero-face__art') || element;
+    const bookSticker = element.classList.contains('project-sticker');
+    let aspect = Number(image.getAttribute('width')) / Number(image.getAttribute('height')) || 1;
     image.classList.add('peel-source');
     const source = image.getAttribute('src');
     const id = `paper-peel-${index}`;
@@ -44,16 +46,19 @@
     const mask = svgNode('mask', { id: `${id}-silhouette`, maskUnits: 'userSpaceOnUse', x: 0, y: 0, width: 100, height: 100, style: 'mask-type:alpha' });
     const artwork = { href: source, x: 0, y: 0, width: 100, height: 100, preserveAspectRatio: 'none' };
     mask.append(svgNode('image', artwork));
+    const backMask = svgNode('mask', { id: `${id}-fold-silhouette`, maskUnits: 'userSpaceOnUse', x: 0, y: 0, width: 100, height: 100, style: 'mask-type:alpha' });
+    const reflectedArt = svgNode('image', artwork);
+    backMask.append(reflectedArt);
     const gradient = svgNode('linearGradient', { id: `${id}-back`, gradientUnits: 'userSpaceOnUse' });
     [['0%', '#C4C2C9'], ['18%', '#E8E6EC'], ['45%', '#FFFFFF'], ['73%', '#F8F7FA'], ['100%', '#E2E0E6']].forEach(([offset, color]) => gradient.append(svgNode('stop', { offset, 'stop-color': color })));
     const blur = svgNode('filter', { id: `${id}-shadow`, x: '-50%', y: '-50%', width: '200%', height: '200%', 'color-interpolation-filters': 'sRGB' });
     blur.append(svgNode('feGaussianBlur', { stdDeviation: '1.3' }));
-    defs.append(clip, mask, gradient, blur);
+    defs.append(clip, mask, backMask, gradient, blur);
     const front = svgNode('image', { ...artwork, 'clip-path': `url(#${id}-cut)` });
     const shadowGroup = svgNode('g', { filter: `url(#${id}-shadow)` });
     const shadow = svgNode('path', { fill: '#28232F', opacity: '.24', mask: `url(#${id}-silhouette)`, transform: 'translate(1.2 2)' });
     shadowGroup.append(shadow);
-    const fold = svgNode('path', { fill: `url(#${id}-back)`, mask: `url(#${id}-silhouette)` });
+    const fold = svgNode('path', { fill: `url(#${id}-back)`, mask: `url(#${id}-${bookSticker ? 'fold-silhouette' : 'silhouette'})` });
     svg.append(defs, front, shadowGroup, fold);
     host.append(svg);
     const object = element.dataset.object || '';
@@ -68,20 +73,31 @@
     if (object === 'about-face') { a = 38; b = 65; }
     if (element.classList.contains('hero-name')) { corner = 'bottom'; a = 70; b = 38; }
     if (element.classList.contains('hero-role')) { corner = 'bottom'; a = 85; b = 65; }
-    const point = (x, y) => corner === 'left' ? [100 - x, y] : corner === 'bottom' ? [x, 100 - y] : [x, y];
+    const point = (x, y) => [corner.includes('left') ? 100 - x : x, corner.includes('bottom') ? 100 - y : y];
     const pair = (x, y) => point(x, y).join(' ');
     const draw = progress => {
       const ax = 100 - (100 - a) * progress;
       const by = b * progress;
       cut.setAttribute('d', `M${pair(0, 0)} L${pair(ax, 0)} L${pair(100, by)} L${pair(100, 100)} L${pair(0, 100)} Z`);
       // Reflect the lifted corner across the fold line to place its paper back.
-      const dx = 100 - ax, length = dx * dx + by * by;
-      const projection = length ? dx * dx / length : 0;
+      const dx = 100 - ax, metric = bookSticker ? aspect : 1;
+      const length = dx * dx * metric * metric + by * by;
+      const projection = length ? dx * dx * metric * metric / length : 0;
       const cx = 2 * (ax + projection * dx) - 100;
       const cy = 2 * projection * by;
       const shape = progress < .001 ? '' : `M${pair(ax, 0)} L${pair(100, by)} Q${pair(cx, cy)} ${pair(ax, 0)} Z`;
       fold.setAttribute('d', shape);
       shadow.setAttribute('d', shape);
+      if (bookSticker && progress > .001) {
+        // Mirror the actual cut piece, including its alpha silhouette. A plain
+        // original mask misses folds on stars, fruit and other irregular shapes.
+        const p = point(ax, 0), q = point(100, by);
+        const ux = (q[0] - p[0]) * aspect, uy = q[1] - p[1];
+        const norm = ux * ux + uy * uy;
+        const ma = 2 * ux * ux / norm - 1, md = 2 * uy * uy / norm - 1;
+        const cross = 2 * ux * uy / norm, mb = cross * aspect, mc = cross / aspect;
+        reflectedArt.setAttribute('transform', `matrix(${ma} ${mb} ${mc} ${md} ${p[0] - ma*p[0] - mc*p[1]} ${p[1] - mb*p[0] - md*p[1]})`);
+      }
       const start = point((ax + 100) / 2, by / 2), end = point(cx, cy);
       gradient.setAttribute('x1', start[0]);
       gradient.setAttribute('y1', start[1]);
@@ -89,7 +105,7 @@
       gradient.setAttribute('y2', end[1]);
       svg.dataset.peel = progress.toFixed(3);
     };
-    const state = { value: 0, frame: 0, draw };
+    const state = { value: 0, frame: 0, draw, configure: (nextCorner, nextA, nextB, nextAspect) => { corner = nextCorner; a = nextA; b = nextB; aspect = nextAspect; draw(0); } };
     peels.set(element, state);
     draw(0);
   });
@@ -237,6 +253,49 @@
       });
       element.addEventListener('blur', () => { if (active?.element === element && !active.pointer) drop(); });
     });
+    // Match the clover's physical visible fold size rather than folding empty
+    // corners of each image's rectangular bounds. Reuse the alpha hit maps.
+    const bookStickers = items.filter(item => item.classList.contains('project-sticker'));
+    const clover = bookStickers.find(item => item.dataset.object === 'book-clover');
+    if (clover) {
+      const sampleSize = 96;
+      function samplesFor(item) {
+        const map = hitMaps.get(item), rect = item.getBoundingClientRect(), samples = [];
+        for (let row=0; row<sampleSize; row++) for (let col=0; col<sampleSize; col++) {
+          const px=(col+.5)/sampleSize, py=(row+.5)/sampleSize;
+          const alpha=map.pixels[(Math.floor(py*map.height)*map.width+Math.floor(px*map.width))*4+3]/255;
+          if(alpha>.06) samples.push({x:px*100,y:py*100,area:alpha*rect.width*rect.height/(sampleSize*sampleSize)});
+        }
+        return {samples,rect};
+      }
+      function cutArea(samples, corner, a, b) {
+        let area=0;
+        for(const sample of samples) {
+          const x=corner.includes('left')?100-sample.x:sample.x;
+          const y=corner.includes('bottom')?100-sample.y:sample.y;
+          if(x>=a && y<=b*(x-a)/(100-a)) area+=sample.area;
+        }
+        return area;
+      }
+      const reference=samplesFor(clover);
+      const target=Math.max(12,cutArea(reference.samples,'right',65,32));
+      const foldWidth=reference.rect.width*.35, foldHeight=reference.rect.height*.32;
+      for(const item of bookStickers) {
+        const {samples,rect}=samplesFor(item);
+        if(item===clover) { peels.get(item).configure('right',65,32,rect.width/rect.height); continue; }
+        let best;
+        for(const corner of ['right','left','bottom','bottom-left']) {
+          let lo=0,hi=Math.max(rect.width/foldWidth,rect.height/foldHeight);
+          for(let step=0;step<15;step++) {
+            const scale=(lo+hi)/2, a=100-Math.min(96,foldWidth*scale/rect.width*100), b=Math.min(96,foldHeight*scale/rect.height*100);
+            if(cutArea(samples,corner,a,b)<target)lo=scale;else hi=scale;
+          }
+          const a=100-Math.min(96,foldWidth*hi/rect.width*100), b=Math.min(96,foldHeight*hi/rect.height*100);
+          if(!best||hi<best.scale)best={corner,a,b,scale:hi};
+        }
+        peels.get(item).configure(best.corner,best.a,best.b,rect.width/rect.height);
+      }
+    }
     // Transparent rectangles around rotated stickers must not block the ruler
     // or other artwork beneath them. Pick the frontmost painted pixel instead.
     document.addEventListener('pointerdown', event => {
