@@ -114,3 +114,5 @@
   .case-decoration--pencil { right: -65px; top: calc(var(--connector-height) - 70px); }
   .case-decoration--clip-right, .case-decoration--clip-left { z-index: 0; }
 }
+
+.case-decoration--pin-bottom-right { --decoration-width: clamp(42px, 4.5vw, 65px); --decoration-angle: 18deg; right: 3%; bottom: 24px; }
