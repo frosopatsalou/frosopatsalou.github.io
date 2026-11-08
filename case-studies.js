@@ -15,6 +15,19 @@
     titleSticker.style.setProperty('--drag-x', x + dx / area.width * 100);
     titleSticker.style.setProperty('--drag-y', y + dy / area.height * 100);
   }).observe(titleArea);
+  const section = board.closest('.case-studies');
+  const tidy = section.querySelector('.case-tidy');
+  const cardResets = [];
+  const refreshTidy = () => {
+    section.dataset.tidyDirty = String(!!board.querySelector('.is-falling, .is-empty, .is-returning'));
+    document.dispatchEvent(new Event('portfolio:cards-changed'));
+  };
+  new ResizeObserver(() => {
+    const rect = section.getBoundingClientRect();
+    section.style.setProperty('--case-area-width', `${rect.width}px`);
+    section.style.setProperty('--case-area-height', `${rect.height}px`);
+  }).observe(section);
+  tidy.addEventListener('click', () => cardResets.forEach(reset => reset()));
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const instructions = document.createElement('p');
   instructions.id = 'case-card-instructions';
@@ -49,6 +62,7 @@
     card.querySelectorAll('img').forEach(image => { image.draggable = false; });
     let state = 'pinned';
     let pull = null;
+    let activeAnimation = null;
 
     const releaseCapture = () => {
       if (!pull) return;
@@ -69,17 +83,19 @@
       state = 'falling';
       slot.classList.remove('is-pulling');
       slot.classList.add('is-falling');
+      refreshTidy();
       card.tabIndex = -1;
       card.style.removeProperty('transform');
       const distance = Math.min(380, Math.max(220, slot.offsetHeight * 1.05));
       const direction = index % 2 ? 1 : -1;
       const pose = (dx, dy, a) => `translate(${dx}px, ${dy}px) rotate(${a}deg)`;
-      const animation = card.animate(reducedMotion.matches ? [{opacity: 1}, {opacity: 0}] : [
+      const animation = activeAnimation = card.animate(reducedMotion.matches ? [{opacity: 1}, {opacity: 0}] : [
         {transform: pose(x, y, angle), opacity: 1, offset: 0},
         {transform: pose(x + direction * 18, y + distance * .28, angle + direction * 8), opacity: 1, offset: .4},
         {transform: pose(x - direction * 12, y + distance, angle + direction * 17), opacity: 0, offset: 1}
       ], {duration: reducedMotion.matches ? 100 : 1150, easing: 'cubic-bezier(.32,.05,.68,.7)', fill: 'forwards'});
       animation.finished.then(() => {
+        if (activeAnimation !== animation) return;
         card.style.visibility = 'hidden';
         card.setAttribute('aria-hidden', 'true');
         animation.cancel();
@@ -89,7 +105,8 @@
         restore.hidden = false;
         status.textContent = `${title} unpinned. Bring it back whenever you like.`;
         if (hadFocus) restore.focus({preventScroll: true});
-      });
+        refreshTidy();
+      }).catch(() => {});
     };
 
     card.addEventListener('pointerdown', event => {
@@ -118,25 +135,35 @@
       fall();
     });
     window.addEventListener('blur', settle);
-    restore.addEventListener('click', () => {
-      if (state !== 'empty') return;
+    const bringBack = (focus = true) => {
+      if (state === 'pulling') settle();
+      if (state === 'pinned' || state === 'returning') return;
+      const previousOpacity = state === 'empty' ? 0 : Number(getComputedStyle(card).opacity);
+      const previousAnimation = activeAnimation;
+      activeAnimation = null;
+      previousAnimation?.cancel();
+      releaseCapture();
       state = 'returning';
       restore.hidden = true;
-      slot.classList.remove('is-empty');
+      slot.classList.remove('is-empty', 'is-falling');
       slot.classList.add('is-returning');
       card.style.removeProperty('visibility');
       card.removeAttribute('aria-hidden');
-      const animation = card.animate([{opacity: 0}, {opacity: 1}], {
+      const animation = activeAnimation = card.animate([{opacity: previousOpacity}, {opacity: 1}], {
         duration: reducedMotion.matches ? 100 : 300, easing: 'ease-out', fill: 'forwards'
       });
       animation.finished.then(() => {
+        if (activeAnimation !== animation) return;
         animation.cancel();
         state = 'pinned';
         card.tabIndex = 0;
         slot.classList.remove('is-returning');
-        card.focus({preventScroll: true});
+        if (focus) card.focus({preventScroll: true});
         status.textContent = `${title} pinned back on the board.`;
-      });
-    });
+        refreshTidy();
+      }).catch(() => {});
+    };
+    restore.addEventListener('click', () => bringBack());
+    cardResets.push(() => bringBack(false));
   });
 })();

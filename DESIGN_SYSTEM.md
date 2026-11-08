@@ -151,3 +151,6 @@ Case-study cards pivot from the stationary pin on hover with a snappy 180ms lift
 
 
 The updated Case Studies title SVG is a draggable sticker using the existing shared peel renderer and input controls. Its reflected alpha fold preserves the supplied white cut outline. A container-sized drag area confines the complete title to the clear strip above the pinned cards; it cannot cover the cards or leave the board. A ResizeObserver reclamps its position after viewport changes. The title does not join the hero Tidy up scope.
+
+
+Case Studies includes nine loose decoration stickers around the frame: two pink plaid tapes, blue and purple tapes, two scalloped papers, and three pins. Original supplied art is retained, with white sticker borders and the shared alpha-aware peel/drag controls. Decorations move within the section while the title retains its restricted top-strip bounds. A section-local X Tidy up pill appears after a sticker moves or a card falls. It resets all section stickers and fades back fallen cards, safely cancelling any in-flight fall without delayed removal. It hides once the section is restored.

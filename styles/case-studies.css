@@ -93,3 +93,24 @@
 .case-board__title.is-held { filter: drop-shadow(3px 9px 5px rgb(35 0 71 / .25)); }
 .case-board__title img { width: 100%; height: auto; }
 @media (prefers-reduced-motion: reduce) { .case-board__title { transition: none; } }
+
+.case-studies { padding-bottom: 110px; }
+.case-board { position: relative; z-index: 2; }
+.case-decoration { position: absolute; z-index: 1; width: var(--decoration-width); rotate: var(--decoration-angle, 0deg); filter: drop-shadow(0 2px 1px rgb(35 0 71 / .1)); }
+.case-decoration.is-draggable { translate: calc(var(--drag-x, 0) * var(--case-area-width) / 100) calc(var(--drag-y, 0) * var(--case-area-height) / 100); }
+.case-decoration.is-held { filter: drop-shadow(5px 12px 5px rgb(35 0 71 / .25)); }
+.case-decoration img { display: block; width: 100%; height: auto; }
+.case-decoration--plaid-top { --decoration-width: clamp(200px, 27vw, 390px); --decoration-angle: -34deg; left: 14%; top: calc(var(--connector-height) - 95px); }
+.case-decoration--tape-top { --decoration-width: clamp(160px, 20vw, 290px); --decoration-angle: 28deg; left: 52%; top: calc(var(--connector-height) - 60px); }
+.case-decoration--paper-left { --decoration-width: clamp(80px, 10vw, 144px); --decoration-angle: -18deg; left: -45px; top: calc(var(--connector-height) + 80px); }
+.case-decoration--pin-right { --decoration-width: clamp(42px, 4.5vw, 65px); --decoration-angle: -85deg; right: 1.5%; top: calc(var(--connector-height) + 100px); }
+.case-decoration--paper-right { --decoration-width: clamp(80px, 10vw, 144px); right: -70px; top: 48%; }
+.case-decoration--pin-left { --decoration-width: clamp(42px, 4.5vw, 65px); --decoration-angle: 180deg; left: -10px; bottom: 170px; }
+.case-decoration--tape-bottom { --decoration-width: clamp(180px, 24vw, 345px); --decoration-angle: -12deg; left: 15%; bottom: -20px; }
+.case-decoration--pin-bottom { --decoration-width: clamp(42px, 4.5vw, 65px); --decoration-angle: 180deg; right: 27%; bottom: -15px; }
+.case-decoration--plaid-bottom { --decoration-width: clamp(140px, 17vw, 245px); right: -30px; bottom: -20px; }
+.case-tidy { z-index: 90; }
+@media (max-width: 1050px) {
+  .case-decoration--paper-left, .case-decoration--paper-right { z-index: 0; }
+  .case-decoration--pin-right { top: calc(var(--connector-height) + 4px); }
+}

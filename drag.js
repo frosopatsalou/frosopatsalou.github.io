@@ -128,7 +128,7 @@
   function updateTidyVisibility() {
     if (tidying) return;
     tidyScopes.forEach(scope => {
-      scope.querySelector('.tidy-button').hidden = !items.filter(element => scopeFor(element) === scope).some(element => {
+      scope.querySelector('.tidy-button').hidden = scope.dataset.tidyDirty !== 'true' && !items.filter(element => scopeFor(element) === scope).some(element => {
         const bounds = areaFor(element).getBoundingClientRect();
         const x = (parseFloat(element.style.getPropertyValue('--drag-x')) || 0) / 100 * bounds.width;
         const y = (parseFloat(element.style.getPropertyValue('--drag-y')) || 0) / 100 * bounds.height;
@@ -136,6 +136,7 @@
       });
     });
   }
+  document.addEventListener('portfolio:cards-changed', updateTidyVisibility);
   function move(x, y) {
     if (!active) return;
     const { element, rect, origin } = active;
@@ -310,6 +311,7 @@
         return bd[0] - ad[0] || bd[1] - ad[1] || items.indexOf(b) - items.indexOf(a);
       });
       const element = candidates.find(item => {
+        if (item.classList.contains('case-decoration') && depth(item)[0] <= 2 && event.target.closest('.case-board')) return false;
           const notebook = item.closest('.notebook');
           if (notebook && notebook.dataset.notebookState !== 'closed') return false;
         if (item.classList.contains('project-stationery') && depth(item)[0] <= 2) {

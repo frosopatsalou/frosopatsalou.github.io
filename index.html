@@ -16,11 +16,11 @@
   <link rel="stylesheet" href="./styles/hero.css?v=9">
   <link rel="stylesheet" href="./styles/drag.css?v=5">
   <link rel="stylesheet" href="./styles/value-prop.css?v=10">
-  <link rel="stylesheet" href="./styles/case-studies.css?v=4">
-  <script src="./case-studies.js?v=2" defer></script>
+  <link rel="stylesheet" href="./styles/case-studies.css?v=5">
+  <script src="./case-studies.js?v=3" defer></script>
   <script src="./value-prop.js?v=2" defer></script>
   <script src="./navigation.js?v=2" defer></script>
-  <script src="./drag.js?v=18" defer></script>
+  <script src="./drag.js?v=19" defer></script>
   <script src="./hero.js?v=8" defer></script>
   <script src="./desk-intro.js?v=2" defer></script>
   <script src="./loader.js?v=6" defer></script>
@@ -128,11 +128,20 @@
       </svg>
     </div>
     </div>
-    <section class="case-studies" aria-labelledby="case-studies-title">
+    <section class="case-studies" data-drag-area data-tidy-scope="case-studies" aria-labelledby="case-studies-title">
+      <div class="case-decoration case-decoration--plaid-top" data-movable data-peel-shape="alpha" data-object="board-plaid-top" aria-label="Pick up plaid top sticker"><img src="./assets/case-studies/plaid-sticker.svg" alt="" draggable="false" decoding="async" width="627" height="435"></div>
+      <div class="case-decoration case-decoration--tape-top" data-movable data-peel-shape="alpha" data-object="board-tape-top" aria-label="Pick up tape top sticker"><img src="./assets/case-studies/tape-blue-sticker.svg" alt="" draggable="false" decoding="async" width="285" height="69"></div>
+      <div class="case-decoration case-decoration--paper-left" data-movable data-peel-shape="alpha" data-object="board-paper-left" aria-label="Pick up paper left sticker"><img src="./assets/case-studies/paper-yellow-sticker.svg" alt="" draggable="false" decoding="async" width="433" height="963"></div>
+      <div class="case-decoration case-decoration--pin-right" data-movable data-peel-shape="alpha" data-object="board-pin-right" aria-label="Pick up pin right sticker"><img src="./assets/case-studies/pin-pink.svg" alt="" draggable="false" decoding="async" width="49" height="72"></div>
+      <div class="case-decoration case-decoration--paper-right" data-movable data-peel-shape="alpha" data-object="board-paper-right" aria-label="Pick up paper right sticker"><img src="./assets/case-studies/paper-sticker.svg" alt="" draggable="false" decoding="async" width="433" height="963"></div>
+      <div class="case-decoration case-decoration--pin-left" data-movable data-peel-shape="alpha" data-object="board-pin-left" aria-label="Pick up pin left sticker"><img src="./assets/case-studies/pin-lime.svg" alt="" draggable="false" decoding="async" width="49" height="72"></div>
+      <div class="case-decoration case-decoration--tape-bottom" data-movable data-peel-shape="alpha" data-object="board-tape-bottom" aria-label="Pick up tape bottom sticker"><img src="./assets/case-studies/tape-sticker.svg" alt="" draggable="false" decoding="async" width="285" height="69"></div>
+      <div class="case-decoration case-decoration--pin-bottom" data-movable data-peel-shape="alpha" data-object="board-pin-bottom" aria-label="Pick up pin bottom sticker"><img src="./assets/case-studies/pin-pink.svg" alt="" draggable="false" decoding="async" width="49" height="72"></div>
+      <div class="case-decoration case-decoration--plaid-bottom" data-movable data-peel-shape="alpha" data-object="board-plaid-bottom" aria-label="Pick up plaid bottom sticker"><img src="./assets/case-studies/plaid-sticker.svg" alt="" draggable="false" decoding="async" width="627" height="435"></div>
       <div class="case-board">
         <div class="case-board__top" data-drag-area data-drag-contain="true">
           <h2 id="case-studies-title"><span class="sr-only">Case Studies</span></h2>
-          <div class="case-board__title" data-movable data-object="case-studies-title" data-peel-shape="alpha" data-tidy-exclude="true" aria-label="Pick up Case Studies title sticker"><img src="./assets/case-studies/case-studies-title.svg?v=2" alt="" width="328" height="72" decoding="async" draggable="false"></div>
+          <div class="case-board__title" data-movable data-object="case-studies-title" data-peel-shape="alpha" aria-label="Pick up Case Studies title sticker"><img src="./assets/case-studies/case-studies-title.svg?v=2" alt="" width="328" height="72" decoding="async" draggable="false"></div>
         </div>
         <div class="case-board__grid">
           <article class="case-card case-card--lush">
@@ -191,6 +200,7 @@
           </article>
         </div>
       </div>
+      <button class="button tidy-button case-tidy" type="button" hidden><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="m2 2 10 10M12 2 2 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Tidy up</span></button>
     </section>
     <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;pointer-events:none"><defs><filter id="puff-refraction" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".018" numOctaves="2" result="noise" seed="7"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
     <div class="cloud-fluff-layer" id="cloud-fluff-layer" aria-hidden="true"></div>
