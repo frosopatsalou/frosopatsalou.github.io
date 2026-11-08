@@ -61,3 +61,27 @@
   .case-card__caption h3 { font-size: 21px; }
   .case-card__caption p { font-size: 14px; }
 }
+
+/* Paper pivots at the pin; each slot keeps its original size when empty. */
+.case-studies { overflow: clip; }
+.case-slot { position: relative; min-width: 0; display: flex; align-items: stretch; }
+.case-slot > .case-card { width: 100%; cursor: grab; touch-action: none; user-select: none; transform-origin: 53% 0; transition: transform 180ms cubic-bezier(.2,.8,.25,1.35), box-shadow 180ms ease; }
+.case-slot > .case-card__pin { z-index: 3; }
+.case-card img { user-select: none; -webkit-user-drag: none; }
+.case-card:focus-visible { outline: 3px solid var(--color-purple); outline-offset: 5px; }
+@media (hover: hover) {
+  .case-slot:not(.is-pulling, .is-falling, .is-empty, .is-returning):hover > .case-card {
+    transform: perspective(900px) rotateX(5deg) rotate(var(--card-tilt)) translateY(-3px);
+    box-shadow: 0 16px 20px rgb(75 46 27 / .3);
+  }
+}
+.case-slot:is(.is-pulling, .is-falling) { z-index: 5; }
+.case-slot.is-pulling > .case-card { cursor: grabbing; transition: none; box-shadow: 0 18px 24px rgb(75 46 27 / .3); }
+.case-slot:is(.is-falling, .is-returning) > .case-card { pointer-events: none; transition: none; }
+.case-slot.is-empty > .case-card { pointer-events: none; }
+.case-card__restore { position: absolute; left: 50%; top: 50%; translate: -50% -50%; white-space: nowrap; --button-bg: var(--color-purple); --button-color: var(--color-white); }
+.case-card__restore[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .case-slot > .case-card { transition: none; }
+  .case-slot:not(.is-pulling):hover > .case-card { transform: none; }
+}

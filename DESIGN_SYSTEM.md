@@ -145,3 +145,6 @@ Home's Case Studies Overview follows the cloud section and its existing pink pap
 
 
 Case Studies uses the supplied vector heading asset. The board frame is 40px at desktop size (16px on mobile), and its background grid is an SVG tile with rounded dashed strokes in #AB5CFF. Moon, SNCB and Visual Identity artwork have individually balanced lettering scales. Card headings use positive 0.015em tracking and 8px of space before descriptions.
+
+
+Case-study cards pivot from the stationary pin on hover with a snappy 180ms lift and alternating 3-degree tilt. Pulling down 52px detaches the paper into a 1150ms drifting fall/fade. Pins and slot dimensions stay fixed; only after the fade completes does a palette-purple Bring back pill appear. Restore fades the card in over 300ms. Short pulls and pointer cancellation settle the card without removing it. Mouse, touch and keyboard (Enter/Space/Arrow Down) are supported, with focus transferred to the restore button and back. Reduced motion uses brief fades instead of tilting/falling. State is scoped per card and resets naturally on page refresh.
