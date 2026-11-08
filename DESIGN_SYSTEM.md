@@ -157,3 +157,6 @@ Case Studies includes nine loose decoration stickers around the frame: two pink 
 
 
 The loose board decorations are now replaced by four existing stationery paper clips, a blue/lime ruler, a magenta/purple stapler, and the supplied pencil with a white sticker border. All retain shared peel/drag and section-local Tidy up behaviour. The earlier tapes, scalloped papers and decorative pins are removed.
+
+
+The board ruler now sits at a stronger crooked angle and crosses the bottom edge. The pencil is clean vector artwork in palette yellow, fuchsia/rose and sky/slate with a white cut outline. Its alpha-aware peel is placed at the visible lower-left tip (62/42 fold), avoiding the cropped eraser end.
