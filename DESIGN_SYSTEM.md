@@ -154,3 +154,6 @@ The updated Case Studies title SVG is a draggable sticker using the existing sha
 
 
 Case Studies includes nine loose decoration stickers around the frame: two pink plaid tapes, blue and purple tapes, two scalloped papers, and three pins. Original supplied art is retained, with white sticker borders and the shared alpha-aware peel/drag controls. Decorations move within the section while the title retains its restricted top-strip bounds. A section-local X Tidy up pill appears after a sticker moves or a card falls. It resets all section stickers and fades back fallen cards, safely cancelling any in-flight fall without delayed removal. It hides once the section is restored.
+
+
+The loose board decorations are now replaced by four existing stationery paper clips, a blue/lime ruler, a magenta/purple stapler, and the supplied pencil with a white sticker border. All retain shared peel/drag and section-local Tidy up behaviour. The earlier tapes, scalloped papers and decorative pins are removed.
