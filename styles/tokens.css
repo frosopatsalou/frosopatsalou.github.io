@@ -1,5 +1,15 @@
 /* Primitive tokens. Every palette family has ten shades; 500 is the exact original. */
 :root {
+  --color-case-lush: #E5F3FF;
+  --color-case-moonlight: #B8FFC6;
+  --color-case-sncb: #A0B7DD;
+  --color-case-spotify: #F0AACE;
+  --color-case-radial: #0E49F4;
+  --color-case-cart: #F2785C;
+  --color-case-paper: #D9BCFF;
+  --color-case-grid: #B99BDE;
+  --color-case-wood: #96613F;
+  --color-case-cork: #F1C59C;
   --color-about-background: #FFFFD3;
   /* fuchsia: #F00FA9 */
   --color-fuchsia-50: #FEF5FC;
