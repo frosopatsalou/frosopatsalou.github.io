@@ -142,3 +142,6 @@ Skill labels are slightly larger (26px, 23.5px for the longest label) with 2.8px
 
 
 Home's Case Studies Overview follows the cloud section and its existing pink paper tear. A lavender grid surrounds a peach corkboard with a brown frame, a pink Cooper heading, and six pinned cards. Project backgrounds use reusable tokens for #E5F3FF, #B8FFC6, #A0B7DD, #F0AACE, #F2785C and a #0E49F4-to-white radial gradient. Original vector logos and pins remain SVG; six embedded-raster mockups are rendered at 4x and compressed to transparent WebP (under 300 KB combined). Cards use three columns on desktop, two below 800px and one below 540px. Project titles and captions remain accessible HTML. Case study links and new animations are reserved for later work.
+
+
+Case Studies uses the supplied vector heading asset. The board frame is 40px at desktop size (16px on mobile), and its background grid is an SVG tile with rounded dashed strokes in #AB5CFF. Moon, SNCB and Visual Identity artwork have individually balanced lettering scales. Card headings use positive 0.015em tracking and 8px of space before descriptions.
