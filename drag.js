@@ -4,7 +4,7 @@
   const status = document.getElementById('drag-status');
   const tidyScopes = [...document.querySelectorAll('[data-tidy-scope]')];
   const areaFor = element => element.closest('[data-drag-area]') || desk;
-  const scopeFor = element => element.closest('[data-tidy-scope]') || desk;
+  const scopeFor = element => element.dataset.tidyExclude === 'true' ? null : element.closest('[data-tidy-scope]') || desk;
   let tidying = false;
   let active = null;
   const announce = text => { status.textContent = text; };
@@ -33,7 +33,7 @@
   items.forEach((element, index) => {
     const image = element.querySelector('img');
     const host = element.querySelector('.hero-face__art') || element;
-    const bookSticker = element.classList.contains('project-sticker');
+    const bookSticker = element.classList.contains('project-sticker') || element.dataset.peelShape === 'alpha';
     let aspect = Number(image.getAttribute('width')) / Number(image.getAttribute('height')) || 1;
     image.classList.add('peel-source');
     const source = image.getAttribute('src');
@@ -70,6 +70,7 @@
     if (object.includes('pen') || object.includes('glue')) { corner = 'left'; a = 57; b = 30; }
     if (object.includes('clip')) { a = 30; b = 32; }
     if (element.classList.contains('hero-face')) { a = 48; b = 48; }
+    if (object === 'case-studies-title') { corner = 'bottom'; a = 80; b = 55; }
     if (object === 'about-face') { a = 38; b = 65; }
     if (element.classList.contains('hero-name')) { corner = 'bottom'; a = 70; b = 38; }
     if (element.classList.contains('hero-role')) { corner = 'bottom'; a = 85; b = 65; }

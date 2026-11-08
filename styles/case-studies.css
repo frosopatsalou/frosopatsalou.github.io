@@ -85,3 +85,11 @@
   .case-slot > .case-card { transition: none; }
   .case-slot:not(.is-pulling):hover > .case-card { transform: none; }
 }
+
+/* The heading sticker is confined to the clear cork strip above the pinned cards. */
+.case-board__top { position: relative; container-type: size; height: clamp(95px, 8vw, 115px); margin-bottom: 40px; }
+.case-board__top h2 { margin: 0; }
+.case-board__title { position: absolute; inset: 0 0 auto; margin-inline: auto; width: min(328px, 100%); aspect-ratio: 328 / 72; filter: drop-shadow(0 2px 1px rgb(35 0 71 / .1)); transition: filter 180ms ease; }
+.case-board__title.is-held { filter: drop-shadow(3px 9px 5px rgb(35 0 71 / .25)); }
+.case-board__title img { width: 100%; height: auto; }
+@media (prefers-reduced-motion: reduce) { .case-board__title { transition: none; } }

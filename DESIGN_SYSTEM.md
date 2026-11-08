@@ -148,3 +148,6 @@ Case Studies uses the supplied vector heading asset. The board frame is 40px at 
 
 
 Case-study cards pivot from the stationary pin on hover with a snappy 180ms lift and alternating 3-degree tilt. Pulling down 52px detaches the paper into a 1150ms drifting fall/fade. Pins and slot dimensions stay fixed; only after the fade completes does a palette-purple Bring back pill appear. Restore fades the card in over 300ms. Short pulls and pointer cancellation settle the card without removing it. Mouse, touch and keyboard (Enter/Space/Arrow Down) are supported, with focus transferred to the restore button and back. Reduced motion uses brief fades instead of tilting/falling. State is scoped per card and resets naturally on page refresh.
+
+
+The updated Case Studies title SVG is a draggable sticker using the existing shared peel renderer and input controls. Its reflected alpha fold preserves the supplied white cut outline. A container-sized drag area confines the complete title to the clear strip above the pinned cards; it cannot cover the cards or leave the board. A ResizeObserver reclamps its position after viewport changes. The title does not join the hero Tidy up scope.

@@ -1,6 +1,20 @@
 (() => {
   const board = document.querySelector('.case-board__grid');
   if (!board) return;
+  // Keep the title inside the clear top strip after a viewport resize as well.
+  const titleSticker = document.querySelector('.case-board__title');
+  const titleArea = titleSticker?.closest('[data-drag-area]');
+  if (titleArea) new ResizeObserver(() => {
+    const area = titleArea.getBoundingClientRect();
+    const rect = titleSticker.getBoundingClientRect();
+    if (!area.width || !area.height) return;
+    const x = parseFloat(titleSticker.style.getPropertyValue('--drag-x')) || 0;
+    const y = parseFloat(titleSticker.style.getPropertyValue('--drag-y')) || 0;
+    const dx = Math.max(area.left - rect.left, Math.min(area.right - rect.right, 0));
+    const dy = Math.max(area.top - rect.top, Math.min(area.bottom - rect.bottom, 0));
+    titleSticker.style.setProperty('--drag-x', x + dx / area.width * 100);
+    titleSticker.style.setProperty('--drag-y', y + dy / area.height * 100);
+  }).observe(titleArea);
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const instructions = document.createElement('p');
   instructions.id = 'case-card-instructions';
