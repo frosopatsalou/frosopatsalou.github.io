@@ -53,8 +53,8 @@
 .notebook[data-expanded="true"] .notebook__binding { transform: translateX(0); }
 .notebook__pages { position: absolute; inset: 0; z-index: 4; visibility: hidden; pointer-events: none; transform-style: preserve-3d; }
 .notebook__pages i { position: absolute; left: 50%; top: 0; width: 50%; height: 100%; transform-origin: left center; transform-style: preserve-3d; visibility: hidden; }
-.notebook__pages i::before,.notebook__pages i::after { content: ''; position: absolute; inset: 0; background: url('../assets/projects/page-right.svg') center / 100% 100% no-repeat; backface-visibility: hidden; }
-.notebook__pages i::after { background-image: url('../assets/projects/page-left.svg'); transform: rotateY(180deg); }
+.notebook__pages i::before,.notebook__pages i::after { content: ''; position: absolute; inset: 0; background: url('../assets/projects/page-right.svg?v=2') center / 100% 100% no-repeat; backface-visibility: hidden; }
+.notebook__pages i::after { background-image: url('../assets/projects/page-left.svg?v=2'); transform: rotateY(180deg); }
 .notebook[data-notebook-state="opening"] .notebook__pages { visibility: visible; }
 .notebook[data-notebook-state="opening"] .notebook__pages i { animation: turn-notebook-page 520ms cubic-bezier(.3,0,.25,1) forwards; }
 .notebook[data-notebook-state="opening"] .notebook__pages i:nth-child(1) { animation-delay: 630ms; z-index: 1; }

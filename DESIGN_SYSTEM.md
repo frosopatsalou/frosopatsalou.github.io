@@ -163,3 +163,6 @@ The board ruler now sits at a stronger crooked angle and crosses the bottom edge
 
 
 The About notebook now opens to an Education and Skills spread using the supplied heading and software-logo SVG assets. Editable HTML covers the university, relevant coursework and International Design Bootcamp in France. The pink scribble, Canva image and Vue logo come from the exact Figma nodes where no matching local asset existed. The existing pages, cover motion and independent spiral remain unchanged. Content is hidden and inert until the opening sequence finishes, and hides again before closing, preventing flashes. Layout uses the existing 1181 x 840 spread coordinates so the content scales with the paper. The Interests bookmark is present visually; its second spread and page-flip interaction are reserved for the next step.
+
+
+The notebook page artwork now comes from the user's updated straight-line book open SVG. Its two page halves retain the shared hinge animation and separate always-visible binding. Interior artwork stays rendered under the cover and turning leaves; left-page content rotates with the paper instead of fading in after opening. Coursework is anchored into separate ruled bands, and the bootcamp starts below the final line. The app collage is inset to 86% about its centre so all logos sit comfortably within the pink scribble.
