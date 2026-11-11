@@ -172,3 +172,6 @@ Notebook app stickers sit 18 design pixels higher. Vue uses the supplied complet
 
 
 Turning notebook leaves now carry printed Education backs, matching the final left page and eliminating the blank-back handoff before it lands. Notebook body copy uses the existing bold Avant Garde weight. All 21 app tiles are shared alpha-aware peel stickers within an inset drag area contained inside the pink scribble; their original collage poses are preserved. Apps are interactive only while the notebook is open, return with the notebook section's Tidy up control and retain their positions across closing/reopening. Cover stickers remain interactive only while closed. Canva's existing rounded/rotated tile appearance is preserved in a self-contained SVG for accurate peeling.
+
+
+Only the final opening leaf now carries the Education print; the earlier leaves remain blank. The underlying stationary Education content stays covered until the final leaf lands at 1150ms, handing off without a late appearance. Paragraph weight returns to Avant Garde Regular while school/category/bootcamp labels retain bold. Body copy increases by roughly 1px at native spread size, with tighter internal paragraph gaps where needed to preserve the ruled bands.

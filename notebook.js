@@ -6,7 +6,7 @@
   const content = book.querySelector('.notebook-spread');
   if (content) { content.inert = true; content.setAttribute('aria-hidden', 'true'); }
   const education = book.querySelector('.notebook-spread__left');
-  book.querySelectorAll('.notebook__pages i').forEach(leaf => {
+  book.querySelectorAll('.notebook__pages i:first-child').forEach(leaf => {
     const back = document.createElement('span');
     back.className = 'notebook__printed-back';
     const print = document.createElement('span');
