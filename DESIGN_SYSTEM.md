@@ -178,3 +178,6 @@ Only the final opening leaf now carries the Education print; the earlier leaves 
 
 
 Printed page backs explicitly reset font-style: normal: their structural i wrappers previously italicised inherited paragraphs during turning. The open and moving print now share identical typography. Cover, scene, page and binding transforms share hinge duration/easing variables and dedicated compositor layers. Closing is 840ms with a softer easing curve, and completion follows the CSS duration plus 40ms rather than the previous fixed 500ms. Opening pace and final-flip-only content remain unchanged.
+
+
+The Creative/Strategy block explicitly uses 1.35 line height on both the turning leaf and final spread. Previously its printed copy inherited 24px from the structural leaf instead of the spread's 20.25px, shifting the Strategy line during the final handoff.
