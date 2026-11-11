@@ -5,6 +5,19 @@
   const closed = book.querySelector('.notebook__closed');
   const content = book.querySelector('.notebook-spread');
   if (content) { content.inert = true; content.setAttribute('aria-hidden', 'true'); }
+  const education = book.querySelector('.notebook-spread__left');
+  book.querySelectorAll('.notebook__pages i').forEach(leaf => {
+    const back = document.createElement('span');
+    back.className = 'notebook__printed-back';
+    const print = document.createElement('span');
+    print.className = 'notebook__page-print';
+    const copy = education.cloneNode(true);
+    copy.removeAttribute('aria-labelledby');
+    copy.querySelectorAll('[id]').forEach(node => node.removeAttribute('id'));
+    print.append(copy);
+    back.append(print);
+    leaf.append(back);
+  });
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   let timer, targetOpen = false;
   function finish() {
@@ -22,7 +35,7 @@
   }
   button.addEventListener('click', () => {
     const state = book.dataset.notebookState;
-    if (!['closed', 'open'].includes(state) || closed.querySelector('.is-held')) return;
+    if (!['closed', 'open'].includes(state) || book.querySelector('.is-held')) return;
     targetOpen = state === 'closed';
     book.dataset.notebookState = targetOpen ? 'opening' : 'closing';
     book.dataset.expanded = String(targetOpen);

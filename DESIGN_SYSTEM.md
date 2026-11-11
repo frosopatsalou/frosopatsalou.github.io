@@ -169,3 +169,6 @@ The notebook page artwork now comes from the user's updated straight-line book o
 
 
 Notebook app stickers sit 18 design pixels higher. Vue uses the supplied complete white-app SVG once, without a duplicated logo or second rotation. The bootcamp block shifts right 16px while retaining its right boundary. Body text uses 0.025em tracking, 0.03em word spacing and disables kerning/ligatures for consistent letter spacing. During opening a blank right-page underlay stays below the flipping leaves until the last leaf begins at 630ms, so Skills is revealed only by the final turn rather than showing between every flip.
+
+
+Turning notebook leaves now carry printed Education backs, matching the final left page and eliminating the blank-back handoff before it lands. Notebook body copy uses the existing bold Avant Garde weight. All 21 app tiles are shared alpha-aware peel stickers within an inset drag area contained inside the pink scribble; their original collage poses are preserved. Apps are interactive only while the notebook is open, return with the notebook section's Tidy up control and retain their positions across closing/reopening. Cover stickers remain interactive only while closed. Canva's existing rounded/rotated tile appearance is preserved in a self-contained SVG for accurate peeling.

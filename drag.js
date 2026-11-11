@@ -158,7 +158,7 @@
     updateTidyVisibility();
   }
   function pick(element, pointer = null) {
-    if (tidying || (element.closest('.notebook') && element.closest('.notebook').dataset.notebookState !== 'closed')) return;
+    if (tidying || (element.closest('.notebook') && element.closest('.notebook').dataset.notebookState !== (element.classList.contains('notebook-skill') ? 'open' : 'closed'))) return;
     if (active) drop();
     active = {
       element, pointer,
@@ -258,7 +258,7 @@
     });
     // Match the clover's physical visible fold size rather than folding empty
     // corners of each image's rectangular bounds. Reuse the alpha hit maps.
-    const bookStickers = items.filter(item => item.classList.contains('project-sticker'));
+    const bookStickers = items.filter(item => item.classList.contains('project-sticker') || item.classList.contains('notebook-skill'));
     const clover = bookStickers.find(item => item.dataset.object === 'book-clover');
     if (clover) {
       const sampleSize = 96;
@@ -314,7 +314,7 @@
       const element = candidates.find(item => {
         if (item.classList.contains('case-decoration') && depth(item)[0] <= 2 && event.target.closest('.case-board')) return false;
           const notebook = item.closest('.notebook');
-          if (notebook && notebook.dataset.notebookState !== 'closed') return false;
+          if (notebook && notebook.dataset.notebookState !== (item.classList.contains('notebook-skill') ? 'open' : 'closed')) return false;
         if (item.classList.contains('project-stationery') && depth(item)[0] <= 2) {
           const notebook = item.closest('.projects').querySelector('.notebook');
             const book = notebook.querySelector(notebook.dataset.notebookState === 'closed' ? '.notebook__closed' : '.notebook__open').getBoundingClientRect();
