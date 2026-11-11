@@ -43,7 +43,10 @@
     if (content) { content.inert = true; content.setAttribute('aria-hidden', 'true'); }
     button.setAttribute('aria-disabled', 'true');
     if (motion.matches) finish();
-    else timer = setTimeout(finish, targetOpen ? 1200 : 500);
+    else {
+      const closingDuration = parseFloat(getComputedStyle(book).getPropertyValue('--notebook-hinge-duration')) || 840;
+      timer = setTimeout(finish, targetOpen ? 1200 : closingDuration + 40);
+    }
   });
   motion.addEventListener('change', () => {
     if (motion.matches && ['opening', 'closing'].includes(book.dataset.notebookState)) finish();

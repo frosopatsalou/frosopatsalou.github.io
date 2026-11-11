@@ -34,7 +34,7 @@
 .notebook-spread__left, .notebook-spread__right { font-weight: 400; }
 
 /* Printed content moves with the left leaf throughout opening and closing. */
-.notebook-spread__left { transform-origin: 50% 50%; transform: rotateY(180deg); backface-visibility: hidden; transition: transform 480ms cubic-bezier(.3,0,.2,1); }
+.notebook-spread__left { transform-origin: 50% 50%; transform: rotateY(180deg); backface-visibility: hidden; transition: transform var(--notebook-hinge-duration, 480ms) var(--notebook-hinge-ease, cubic-bezier(.3,0,.2,1)); }
 .notebook[data-expanded="true"] .notebook-spread__left { transform: rotateY(0); }
 @media (prefers-reduced-motion: reduce) { .notebook-spread__left { transition: none; } }
 
@@ -53,3 +53,6 @@
    On landing, this printed leaf and the stationary page hand off in the same frame. */
 .notebook[data-notebook-state="opening"] .notebook-spread > .notebook-spread__left { animation: reveal-landed-education 1150ms step-end forwards; }
 @keyframes reveal-landed-education { from { visibility: hidden; } to { visibility: visible; } }
+
+.notebook__page-print { font-style: normal; }
+.notebook-spread > .notebook-spread__left { will-change: transform; }

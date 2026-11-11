@@ -175,3 +175,6 @@ Turning notebook leaves now carry printed Education backs, matching the final le
 
 
 Only the final opening leaf now carries the Education print; the earlier leaves remain blank. The underlying stationary Education content stays covered until the final leaf lands at 1150ms, handing off without a late appearance. Paragraph weight returns to Avant Garde Regular while school/category/bootcamp labels retain bold. Body copy increases by roughly 1px at native spread size, with tighter internal paragraph gaps where needed to preserve the ruled bands.
+
+
+Printed page backs explicitly reset font-style: normal: their structural i wrappers previously italicised inherited paragraphs during turning. The open and moving print now share identical typography. Cover, scene, page and binding transforms share hinge duration/easing variables and dedicated compositor layers. Closing is 840ms with a softer easing curve, and completion follows the CSS duration plus 40ms rather than the previous fixed 500ms. Opening pace and final-flip-only content remain unchanged.
