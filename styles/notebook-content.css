@@ -20,13 +20,13 @@
 .notebook-coursework__visual p + p { margin-top: calc(16 / 1181 * 100cqw); }
 .notebook-coursework__creative { position: absolute; top: calc(236 / 1181 * 100cqw); width: 100%; margin: 0; }
 .notebook-coursework__creative p + p { margin-top: calc(14 / 1181 * 100cqw); }
-.notebook-bootcamp { left: calc(135 / 1181 * 100%); top: calc(712 / 840 * 100%); width: calc(412 / 1181 * 100%); line-height: 1.25; }
+.notebook-bootcamp { left: calc(151 / 1181 * 100%); top: calc(712 / 840 * 100%); width: calc(396 / 1181 * 100%); line-height: 1.25; }
 .notebook-bootcamp p:first-child { font-size: calc(15 / 1181 * 100cqw); font-weight: 700; color: var(--color-blue); margin-bottom: calc(6 / 1181 * 100cqw); }
 .notebook-spread__scribble { position: absolute; left: calc(613 / 1181 * 100%); top: calc(160 / 840 * 100%); width: calc(475 / 1181 * 100%); height: auto; pointer-events: none; }
-.notebook-skills { position: absolute; inset: 0; transform: scale(.86); transform-origin: 73.16% 51.43%; }
+.notebook-skills { position: absolute; inset: 0; transform: translateY(calc(-18 / 1181 * 100cqw)) scale(.86); transform-origin: 73.16% 51.43%; }
 .notebook-skill { position: absolute; left: calc(var(--x) / 1181 * 100%); top: calc(var(--y) / 840 * 100%); width: calc(var(--w) / 1181 * 100%); height: calc(var(--h) / 840 * 100%); object-fit: contain; user-select: none; }
 .notebook-skill--canva img { width: 88.56%; height: auto; margin: 5.72%; border-radius: 15%; rotate: 7.98deg; }
-.notebook-skill--vue > img:first-child { display: block; width: 100%; height: auto; rotate: -9.7deg; }
+.notebook-skill--vue > img:first-child { display: block; width: 100%; height: auto; }
 .notebook-skill__vue-logo { position: absolute; left: 23%; top: 23%; width: 54%; height: auto; rotate: -9.7deg; }
 .notebook-bookmark { position: absolute; left: calc(1140 / 1181 * 100%); top: calc(35 / 840 * 100%); width: calc(45 / 1181 * 100%); height: calc(168 / 840 * 100%); border-radius: 0 calc(20 / 1181 * 100cqw) calc(20 / 1181 * 100cqw) 0; display: grid; place-items: center; writing-mode: vertical-rl; background: var(--color-fuchsia); color: var(--color-white); font: 700 calc(24 / 1181 * 100cqw)/1 var(--font-heading); }
 @media (prefers-reduced-motion: reduce) { .notebook[data-notebook-state="open"] .notebook-spread { transition: none; } }
@@ -37,3 +37,6 @@
 .notebook-spread__left { transform-origin: 50% 50%; transform: rotateY(180deg); backface-visibility: hidden; transition: transform 480ms cubic-bezier(.3,0,.2,1); }
 .notebook[data-expanded="true"] .notebook-spread__left { transform: rotateY(0); }
 @media (prefers-reduced-motion: reduce) { .notebook-spread__left { transition: none; } }
+
+/* Consistent tracking prevents tight letter pairs and decorative ligatures in body copy. */
+.notebook-education, .notebook-coursework, .notebook-bootcamp { font-kerning: none; font-variant-ligatures: none; font-feature-settings: "kern" 0, "liga" 0, "clig" 0; letter-spacing: .025em; word-spacing: .03em; }

@@ -166,3 +166,6 @@ The About notebook now opens to an Education and Skills spread using the supplie
 
 
 The notebook page artwork now comes from the user's updated straight-line book open SVG. Its two page halves retain the shared hinge animation and separate always-visible binding. Interior artwork stays rendered under the cover and turning leaves; left-page content rotates with the paper instead of fading in after opening. Coursework is anchored into separate ruled bands, and the bootcamp starts below the final line. The app collage is inset to 86% about its centre so all logos sit comfortably within the pink scribble.
+
+
+Notebook app stickers sit 18 design pixels higher. Vue uses the supplied complete white-app SVG once, without a duplicated logo or second rotation. The bootcamp block shifts right 16px while retaining its right boundary. Body text uses 0.025em tracking, 0.03em word spacing and disables kerning/ligatures for consistent letter spacing. During opening a blank right-page underlay stays below the flipping leaves until the last leaf begins at 630ms, so Skills is revealed only by the final turn rather than showing between every flip.

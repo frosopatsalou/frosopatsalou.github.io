@@ -71,3 +71,9 @@
 @media (prefers-reduced-motion: reduce) { .notebook__scene,.notebook__cover,.notebook__left-page,.notebook__binding { transition: none !important; } .notebook__pages i { animation: none !important; } }
 /* Size the notebook section to its contents rather than a second empty viewport. */
 .projects { --project-stage-height: calc(var(--book-height) + var(--connector-height) + 80px); }
+
+/* A blank underlying leaf covers the final printed spread between the early page turns.
+   The last turning leaf takes over at 630ms and uncovers Skills progressively. */
+.notebook__page-underlay { position: absolute; left: 50%; top: 0; width: 50%; height: 100%; z-index: 0; visibility: hidden; background: url('../assets/projects/page-right.svg?v=2') center / 100% 100% no-repeat; }
+.notebook[data-notebook-state="opening"] .notebook__page-underlay { animation: hold-blank-notebook-leaf 630ms step-end forwards; }
+@keyframes hold-blank-notebook-leaf { from { visibility: visible; } to { visibility: hidden; } }
