@@ -312,6 +312,7 @@
         return bd[0] - ad[0] || bd[1] - ad[1] || items.indexOf(b) - items.indexOf(a);
       });
       const element = candidates.find(item => {
+        if (item.closest('[hidden]')) return false;
         if (item.classList.contains('case-decoration') && depth(item)[0] <= 2 && event.target.closest('.case-board')) return false;
           const notebook = item.closest('.notebook');
           if (notebook && notebook.dataset.notebookState !== (item.classList.contains('notebook-skill') ? 'open' : 'closed')) return false;

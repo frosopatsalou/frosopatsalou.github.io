@@ -181,3 +181,6 @@ Printed page backs explicitly reset font-style: normal: their structural i wrapp
 
 
 The Creative/Strategy block explicitly uses 1.35 line height on both the turning leaf and final spread. Previously its printed copy inherited 24px from the structural leaf instead of the spread's 20.25px, shifting the Strategy line during the final handoff.
+
+
+The notebook has two preserved spreads: Education/Skills and a blank Interests spread. The pink Interests bookmark turns a single leaf forward over 680ms; the blue Education bookmark reverses the turn. The moving front carries a flattened view of the live app positions and the back remains blank. The independent spiral stays visible above the leaf. Interactions lock during turns, focus moves to the destination bookmark, and reduced motion switches immediately. Closing/reopening retains the selected spread and app sticker positions; refresh starts at Education. The Interests pages remain empty until their design is supplied.

@@ -56,3 +56,21 @@
 
 .notebook__page-print { font-style: normal; }
 .notebook-spread > .notebook-spread__left { will-change: transform; }
+
+/* Bookmarks switch between two preserved spreads. Interests stays blank for now. */
+.notebook-spread[hidden] { display: none; }
+.notebook-bookmark { border: 0; padding: 0; cursor: pointer; pointer-events: auto; }
+.notebook-bookmark:hover { filter: brightness(1.06); }
+.notebook-bookmark:focus-visible { outline: 3px dashed var(--color-purple); outline-offset: 4px; }
+.notebook-bookmark:disabled { cursor: default; }
+.notebook-bookmark--education { background: var(--color-blue); }
+.notebook[data-active-spread="interests"] .notebook__printed-back { display: none; }
+.notebook[data-spread-turn] .notebook-spread[data-spread="education"] > .notebook-spread__right { visibility: hidden; }
+.notebook[data-spread-turn] .notebook-bookmark { visibility: hidden; }
+.notebook__spread-turn { position: absolute; left: 50%; top: 0; width: 50%; height: 100%; z-index: 5; transform-origin: left center; transform-style: preserve-3d; will-change: transform; pointer-events: none; font-style: normal; }
+.notebook__turn-front, .notebook__turn-back { position: absolute; inset: 0; backface-visibility: hidden; background: url('../assets/projects/page-right.svg?v=2') center / 100% 100% no-repeat; }
+.notebook__turn-back { background-image: url('../assets/projects/page-left.svg?v=2'); transform: rotateY(180deg); }
+.notebook__turn-front { overflow: clip; }
+.notebook__turn-print { position: absolute; left: -100%; top: 0; width: 200%; height: 100%; container-type: size; font-style: normal; }
+.notebook__turn-print .notebook-spread__right { visibility: visible; }
+.notebook__turn-print * { pointer-events: none !important; }
