@@ -15,9 +15,10 @@
   <link rel="stylesheet" href="./styles/hero.css?v=9">
   <link rel="stylesheet" href="./styles/drag.css?v=5">
   <link rel="stylesheet" href="./styles/value-prop.css?v=8">
-  <link rel="stylesheet" href="./styles/projects.css?v=10">
+  <link rel="stylesheet" href="./styles/projects.css?v=11">
+  <link rel="stylesheet" href="./styles/notebook-content.css?v=1">
   <link rel="stylesheet" href="./styles/about.css?v=11">
-  <script src="./notebook.js?v=5" defer></script>
+  <script src="./notebook.js?v=6" defer></script>
   <script src="./navigation.js?v=2" defer></script>
   <script src="./drag.js?v=17" defer></script>
   <script src="./hero.js?v=8" defer></script>
@@ -67,9 +68,53 @@
       <div class="project-item project-stationery projects__ruler" data-movable data-object="project-ruler"><img src="./assets/projects/ruler.svg" alt="" draggable="false"></div>
       <div class="notebook" data-notebook-state="closed" aria-label="Closed A Work in Progress notebook">
         <div class="notebook__scene">
-        <div class="notebook__open" aria-label="Open purple notebook with blank lined pages">
+        <div class="notebook__open" aria-label="Open purple notebook with Education and Skills pages">
           <img class="notebook__left-page" src="./assets/projects/page-left.svg" alt="" width="590.5" height="840" draggable="false">
           <img class="notebook__right-page" src="./assets/projects/page-right.svg" alt="" width="590.5" height="840" draggable="false">
+          <div class="notebook-spread" data-spread="education" aria-label="Education, extracurricular experience and skills">
+            <section class="notebook-spread__left" aria-labelledby="education-heading">
+              <h3 class="notebook-spread__heading notebook-spread__education" id="education-heading"><img src="./assets/notebook/education.svg" alt="Education" width="270" height="85" draggable="false"></h3>
+              <div class="notebook-education">
+                <div><p class="notebook-education__school">Thomas More University of Applied Sciences-</p><p class="notebook-education__degree">Bachelor's in International Experience Design</p></div>
+                <div class="notebook-education__location"><strong>Belgium</strong><em>2024-Now</em></div>
+              </div>
+              <div class="notebook-coursework">
+                <div class="notebook-coursework__ux"><h4>Relevant Coursework:</h4><p><strong>UX/UI:</strong> User Research, User Journeys, Wireframing, Prototyping, Usability Testing</p></div>
+                <div class="notebook-coursework__visual"><p><strong>Visual Design:</strong> Branding, Typography, Visual Identity, Design Systems</p><p><strong>Development:</strong> Front-End, Back-End, Web Development</p></div>
+                <div class="notebook-coursework__creative"><p><strong>Creative:</strong> Motion Design, 3D Modeling, Animation</p><p><strong>Strategy:</strong> Marketing, Business, Agile &amp; Scrum</p></div>
+              </div>
+              <h3 class="notebook-spread__heading notebook-spread__extracurricular" id="extracurricular-heading"><img src="./assets/notebook/extracurricular.svg" alt="Extracurricular" width="394" height="101" draggable="false"></h3>
+              <div class="notebook-bootcamp"><p>International Design Bootcamp in France</p><p>Collaborated in a multidisciplinary team on a real-world design challenge for an industry partner.</p></div>
+            </section>
+            <section class="notebook-spread__right" aria-labelledby="skills-heading">
+              <h3 class="notebook-spread__heading notebook-spread__skills" id="skills-heading"><img src="./assets/notebook/skills.svg" alt="Skills" width="156" height="75" draggable="false"></h3>
+              <img class="notebook-spread__scribble" src="./assets/notebook/skills-scribble.svg" alt="" draggable="false">
+              <div class="notebook-skills" role="group" aria-label="Design and development tools">
+                <img class="notebook-skill" style="--x:708;--y:207;--w:79.0;--h:79.0" src="./assets/notebook/figma.svg" alt="Figma" width="79.0" height="79.0" draggable="false">
+                <img class="notebook-skill" style="--x:799;--y:203;--w:61.0;--h:61.0" src="./assets/notebook/pinterest.svg" alt="Pinterest" width="61.0" height="61.0" draggable="false">
+                <img class="notebook-skill" style="--x:952;--y:203;--w:66.0;--h:66.0" src="./assets/notebook/blender.svg" alt="Blender" width="66.0" height="66.0" draggable="false">
+                <img class="notebook-skill" style="--x:720;--y:287;--w:72.0;--h:72.0" src="./assets/notebook/vscode.svg" alt="Visual Studio Code" width="72.0" height="72.0" draggable="false">
+                <img class="notebook-skill" style="--x:721;--y:371;--w:54.0;--h:54.0" src="./assets/notebook/picsart.svg" alt="Picsart" width="54.0" height="54.0" draggable="false">
+                <img class="notebook-skill" style="--x:778;--y:347;--w:61.0;--h:61.0" src="./assets/notebook/notion.svg" alt="Notion" width="61.0" height="61.0" draggable="false">
+                <img class="notebook-skill" style="--x:940;--y:415;--w:63.0;--h:63.0" src="./assets/notebook/photoshop.svg" alt="Adobe Photoshop" width="63.0" height="63.0" draggable="false">
+                <img class="notebook-skill" style="--x:801;--y:285;--w:122.0;--h:50.0" src="./assets/notebook/github.svg" alt="GitHub" width="122.0" height="50.0" draggable="false">
+                <img class="notebook-skill" style="--x:848;--y:340;--w:72.0;--h:72.0" src="./assets/notebook/illustrator.svg" alt="Adobe Illustrator" width="72.0" height="72.0" draggable="false">
+                <img class="notebook-skill" style="--x:949;--y:490;--w:72.0;--h:72.0" src="./assets/notebook/css.svg" alt="CSS" width="72.0" height="72.0" draggable="false">
+                <img class="notebook-skill" style="--x:932.7;--y:348.7;--w:66.0;--h:66.0" src="./assets/notebook/after-effects.svg" alt="Adobe After Effects" width="66.0" height="66.0" draggable="false">
+                <img class="notebook-skill" style="--x:708;--y:425;--w:124.0;--h:64.0" src="./assets/notebook/figjam.svg" alt="FigJam" width="124.0" height="64.0" draggable="false">
+                <img class="notebook-skill" style="--x:855;--y:412;--w:67.0;--h:67.0" src="./assets/notebook/lightroom.svg" alt="Adobe Lightroom" width="67.0" height="67.0" draggable="false">
+                <img class="notebook-skill" style="--x:863;--y:486;--w:65.0;--h:65.0" src="./assets/notebook/javascript.svg" alt="JavaScript" width="65.0" height="65.0" draggable="false">
+                <img class="notebook-skill" style="--x:797;--y:586;--w:67.0;--h:67.0" src="./assets/notebook/word.svg" alt="Microsoft Word" width="67.0" height="67.0" draggable="false">
+                <img class="notebook-skill" style="--x:873;--y:594;--w:126.0;--h:63.0" src="./assets/notebook/trello.svg" alt="Trello" width="126.0" height="63.0" draggable="false">
+                <img class="notebook-skill" style="--x:936;--y:281;--w:62.0;--h:62.0" src="./assets/notebook/capcut.svg" alt="CapCut" width="62.0" height="62.0" draggable="false">
+                <img class="notebook-skill" style="--x:788;--y:500;--w:71.0;--h:71.0" src="./assets/notebook/html.svg" alt="HTML" width="71.0" height="71.0" draggable="false">
+                <img class="notebook-skill" style="--x:711;--y:585;--w:69.0;--h:69.0" src="./assets/notebook/powerpoint.svg" alt="Microsoft PowerPoint" width="69.0" height="69.0" draggable="false">
+                <div class="notebook-skill notebook-skill--canva" style="--x:879;--y:206;--w:67.75;--h:67.75"><img src="./assets/notebook/canva.png" alt="Canva" width="60" height="60" draggable="false"></div>
+                <div class="notebook-skill notebook-skill--vue" style="--x:713;--y:506;--w:64;--h:64"><img src="./assets/notebook/white-app.svg" alt="" width="64" height="64" draggable="false"><img class="notebook-skill__vue-logo" src="./assets/notebook/vue.svg" alt="Vue.js" width="35" height="35" draggable="false"></div>
+              </div>
+            </section>
+            <span class="notebook-bookmark" aria-hidden="true">Interests</span>
+          </div>
         </div>
         <div class="notebook__pages" aria-hidden="true"><i></i><i></i><i></i></div>
         <div class="notebook__closed">

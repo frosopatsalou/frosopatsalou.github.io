@@ -1,0 +1,34 @@
+/* Coordinates use the existing 1181 × 840 notebook spread, so content and paper scale together. */
+.notebook-spread { position: absolute; inset: 0; container-type: size; visibility: hidden; opacity: 0; pointer-events: none; font-family: var(--font-body); font-size: calc(14 / 1181 * 100cqw); line-height: 1.35; letter-spacing: 0; color: var(--color-text); }
+.notebook[data-notebook-state="open"] .notebook-spread { visibility: visible; opacity: 1; pointer-events: auto; transition: opacity 160ms ease-out; }
+.notebook-spread__left, .notebook-spread__right { position: absolute; inset: 0; pointer-events: none; }
+.notebook-spread__heading { position: absolute; margin: 0; line-height: 0; }
+.notebook-spread__heading img { display: block; width: 100%; height: auto; }
+.notebook-spread__education { left: calc(118 / 1181 * 100%); top: calc(45 / 840 * 100%); width: calc(270 / 1181 * 100%); }
+.notebook-spread__extracurricular { left: calc(115 / 1181 * 100%); top: calc(584 / 840 * 100%); width: calc(394 / 1181 * 100%); }
+.notebook-spread__skills { left: calc(670 / 1181 * 100%); top: calc(60 / 840 * 100%); width: calc(156 / 1181 * 100%); }
+.notebook-education, .notebook-coursework, .notebook-bootcamp { position: absolute; pointer-events: auto; }
+.notebook-education { left: calc(141 / 1181 * 100%); top: calc(152 / 840 * 100%); width: calc(415 / 1181 * 100%); display: grid; grid-template-columns: minmax(0, 1fr) calc(92 / 1181 * 100cqw); gap: calc(50 / 1181 * 100cqw); font-size: calc(15 / 1181 * 100cqw); line-height: 1.25; }
+.notebook-education__school { color: var(--color-purple); font-weight: 700; }
+.notebook-education__degree { margin-top: calc(10 / 1181 * 100cqw); font-size: calc(11 / 1181 * 100cqw); font-style: italic; white-space: nowrap; }
+.notebook-education__location { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: calc(5 / 1181 * 100cqw); }
+.notebook-coursework { left: calc(144 / 1181 * 100%); top: calc(256 / 840 * 100%); width: calc(406 / 1181 * 100%); height: calc(297 / 840 * 100%); }
+.notebook-coursework h4 { font: 700 calc(16 / 1181 * 100cqw) / 1.25 var(--font-body); letter-spacing: 0; text-align: left; color: var(--color-rose); text-decoration: underline; margin: 0 0 calc(10 / 1181 * 100cqw); }
+.notebook-coursework strong { font-style: italic; font-weight: 700; }
+.notebook-coursework__ux { font-size: calc(15 / 1181 * 100cqw); line-height: 1.33; }
+.notebook-coursework__visual { margin-top: calc(44 / 1181 * 100cqw); line-height: 1.43; }
+.notebook-coursework__visual p + p { margin-top: calc(20 / 1181 * 100cqw); }
+.notebook-coursework__creative { margin-top: calc(44 / 1181 * 100cqw); }
+.notebook-coursework__creative p + p { margin-top: calc(14 / 1181 * 100cqw); }
+.notebook-bootcamp { left: calc(135 / 1181 * 100%); top: calc(710 / 840 * 100%); width: calc(412 / 1181 * 100%); line-height: 1.25; }
+.notebook-bootcamp p:first-child { font-size: calc(15 / 1181 * 100cqw); font-weight: 700; color: var(--color-blue); margin-bottom: calc(6 / 1181 * 100cqw); }
+.notebook-spread__scribble { position: absolute; left: calc(613 / 1181 * 100%); top: calc(160 / 840 * 100%); width: calc(475 / 1181 * 100%); height: auto; pointer-events: none; }
+.notebook-skills { position: absolute; inset: 0; }
+.notebook-skill { position: absolute; left: calc(var(--x) / 1181 * 100%); top: calc(var(--y) / 840 * 100%); width: calc(var(--w) / 1181 * 100%); height: calc(var(--h) / 840 * 100%); object-fit: contain; user-select: none; }
+.notebook-skill--canva img { width: 88.56%; height: auto; margin: 5.72%; border-radius: 15%; rotate: 7.98deg; }
+.notebook-skill--vue > img:first-child { display: block; width: 100%; height: auto; rotate: -9.7deg; }
+.notebook-skill__vue-logo { position: absolute; left: 23%; top: 23%; width: 54%; height: auto; rotate: -9.7deg; }
+.notebook-bookmark { position: absolute; left: calc(1140 / 1181 * 100%); top: calc(35 / 840 * 100%); width: calc(45 / 1181 * 100%); height: calc(168 / 840 * 100%); border-radius: 0 calc(20 / 1181 * 100cqw) calc(20 / 1181 * 100cqw) 0; display: grid; place-items: center; writing-mode: vertical-rl; background: var(--color-fuchsia); color: var(--color-white); font: 700 calc(24 / 1181 * 100cqw)/1 var(--font-heading); }
+@media (prefers-reduced-motion: reduce) { .notebook[data-notebook-state="open"] .notebook-spread { transition: none; } }
+.notebook-spread__left, .notebook-spread__right { font-size: calc(14 / 1181 * 100cqw); }
+.notebook-spread__left, .notebook-spread__right { font-weight: 400; }

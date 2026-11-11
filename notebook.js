@@ -3,6 +3,8 @@
   if (!book) return;
   const button = book.querySelector('.notebook__indicator');
   const closed = book.querySelector('.notebook__closed');
+  const content = book.querySelector('.notebook-spread');
+  if (content) { content.inert = true; content.setAttribute('aria-hidden', 'true'); }
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   let timer, targetOpen = false;
   function finish() {
@@ -10,6 +12,7 @@
     book.dataset.notebookState = targetOpen ? 'open' : 'closed';
     book.setAttribute('aria-label', `${targetOpen ? 'Open' : 'Closed'} A Work in Progress notebook`);
     closed.inert = targetOpen;
+    if (content) { content.inert = !targetOpen; content.setAttribute('aria-hidden', String(!targetOpen)); }
     button.setAttribute('aria-disabled', 'false');
     button.setAttribute('aria-expanded', String(targetOpen));
     button.setAttribute('aria-label', targetOpen ? 'Close notebook' : 'Open notebook');
@@ -24,6 +27,7 @@
     book.dataset.notebookState = targetOpen ? 'opening' : 'closing';
     book.dataset.expanded = String(targetOpen);
     closed.inert = true;
+    if (content) { content.inert = true; content.setAttribute('aria-hidden', 'true'); }
     button.setAttribute('aria-disabled', 'true');
     if (motion.matches) finish();
     else timer = setTimeout(finish, targetOpen ? 1200 : 500);

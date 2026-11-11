@@ -160,3 +160,6 @@ The loose board decorations are now replaced by four existing stationery paper c
 
 
 The board ruler now sits at a stronger crooked angle and crosses the bottom edge. The pencil is clean vector artwork in palette yellow, fuchsia/rose and sky/slate with a white cut outline. Its alpha-aware peel is placed at the visible lower-left tip (62/42 fold), avoiding the cropped eraser end.
+
+
+The About notebook now opens to an Education and Skills spread using the supplied heading and software-logo SVG assets. Editable HTML covers the university, relevant coursework and International Design Bootcamp in France. The pink scribble, Canva image and Vue logo come from the exact Figma nodes where no matching local asset existed. The existing pages, cover motion and independent spiral remain unchanged. Content is hidden and inert until the opening sequence finishes, and hides again before closing, preventing flashes. Layout uses the existing 1181 x 840 spread coordinates so the content scales with the paper. The Interests bookmark is present visually; its second spread and page-flip interaction are reserved for the next step.
