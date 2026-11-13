@@ -29,7 +29,7 @@
 .case-card--sncb { --case-image-background: var(--color-case-sncb); }
 .case-card--spotify { --case-image-background: var(--color-case-spotify); }
 .case-card--cart { --case-image-background: var(--color-case-cart); }
-.case-card--moodboard { --case-image-background: radial-gradient(ellipse at center, var(--color-case-radial), var(--color-white) 76%); }
+.case-card--scroll-world { --case-image-background: var(--color-yellow); }
 .case-card__mockup { position: absolute; width: 57%; height: 94%; left: 21.5%; top: 3%; object-fit: contain; }
 .case-card__word { position: absolute; top: 50%; transform: translateY(-50%); width: 12%; height: 78%; object-fit: contain; }
 .case-card__word--left { left: 7%; }
@@ -37,8 +37,12 @@
 /* Match the lettering scale within each pair rather than stretching every SVG into the same box. */
 .case-card--moonlight .case-card__word--left { width: 9.4%; }
 .case-card--sncb .case-card__word--left { width: 8.5%; }
-.case-card--moodboard .case-card__word--left { width: 8.5%; }
-.case-card--moodboard .case-card__word--right { width: 10.4%; }
+.case-card--scroll-world .case-card__image { container-type: inline-size; }
+.case-card--scroll-world .case-card__mockup { width: 49%; left: 25.5%; height: 84%; top: 8%; }
+.case-card--scroll-world .case-card__word { display: flex; align-items: center; justify-content: center; color: var(--color-case-scroll-lettering); font: 700 calc(40 / 320 * 100cqw) / 1 var(--font-heading); }
+.case-card--scroll-world .case-card__word > span { display: block; flex-shrink: 0; white-space: nowrap; }
+.case-card--scroll-world .case-card__word--left > span { rotate: -90deg; }
+.case-card--scroll-world .case-card__word--right > span { rotate: 90deg; }
 .case-card__caption { padding: 12px 10px 16px; }
 .case-card__caption h3 { font-size: clamp(17px, 1.55vw, 22px); line-height: 1.14; letter-spacing: .015em; margin-bottom: 8px; text-wrap: initial; }
 .case-card__caption p { font: 400 clamp(12px, .96vw, 14px) / 1.2 var(--font-body); letter-spacing: 0; }

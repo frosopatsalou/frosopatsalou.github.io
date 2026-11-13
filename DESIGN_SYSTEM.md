@@ -184,3 +184,6 @@ The Creative/Strategy block explicitly uses 1.35 line height on both the turning
 
 
 The notebook has two preserved spreads: Education/Skills and a blank Interests spread. The pink Interests bookmark turns a single leaf forward over 680ms; the blue Education bookmark reverses the turn. The moving front carries a flattened view of the live app positions and the back remains blank. The independent spiral stays visible above the leaf. Interactions lock during turns, focus moves to the destination bookmark, and reduced motion switches immediately. Closing/reopening retains the selected spread and app sticker positions; refresh starts at Education. The Interests pages remain empty until their design is supplied.
+
+
+The sixth Home case-study card now showcases Scroll World instead of Visual Identity. It uses the supplied desktop mockup, a palette-yellow background, blue vertical Scroll/World lettering and the provided scroll-adventure description. The optimized transparent WebP preserves the source mockup. Existing pin hover, fall/restore, and section Tidy up interactions apply automatically to the replacement card.
