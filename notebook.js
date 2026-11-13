@@ -36,16 +36,13 @@
   openingBack.className = 'notebook__printed-back';
   const openingPrint = document.createElement('span');
   openingPrint.className = 'notebook__page-print';
-  const educationCopy = education.cloneNode(true);
-  educationCopy.removeAttribute('aria-labelledby');
-  educationCopy.querySelectorAll('[id]').forEach(node => node.removeAttribute('id'));
-  openingPrint.append(educationCopy);
+  openingPrint.append(printedCopy(education));
   openingBack.append(openingPrint);
   openingLeaf.append(openingBack);
-  function printedInterests() {
-    const copy = interestsLeft.cloneNode(true);
-    const stickers = interestsLeft.querySelectorAll('.interest-sticker');
-    copy.querySelectorAll('.interest-sticker').forEach((sticker, index) => {
+  function printedCopy(source) {
+    const copy = source.cloneNode(true);
+    const stickers = source.querySelectorAll('[data-movable]');
+    copy.querySelectorAll('[data-movable]').forEach((sticker, index) => {
       sticker.querySelectorAll('.peel-art').forEach(art => art.remove());
       sticker.querySelector('img').classList.remove('peel-source');
       sticker.style.translate = getComputedStyle(stickers[index]).translate;
@@ -56,6 +53,7 @@
     copy.querySelectorAll('[id]').forEach(node => node.removeAttribute('id'));
     return copy;
   }
+  function printedInterests() { return printedCopy(interestsLeft); }
   showSpread(currentSpread);
 
   function finish() {
@@ -75,7 +73,7 @@
     const state = book.dataset.notebookState;
     if (turning || !['closed', 'open'].includes(state) || book.querySelector('.is-held')) return;
     targetOpen = state === 'closed';
-    if (targetOpen) openingPrint.replaceChildren(currentSpread === 'interests' ? printedInterests() : educationCopy.cloneNode(true));
+    if (targetOpen) openingPrint.replaceChildren(printedCopy(currentSpread === 'interests' ? interestsLeft : education));
     book.dataset.notebookState = targetOpen ? 'opening' : 'closing';
     book.dataset.expanded = String(targetOpen);
     closed.inert = true;
@@ -90,19 +88,7 @@
 
   function printedSkills() {
     const source = educationSpread.querySelector('.notebook-spread__right');
-    const copy = source.cloneNode(true);
-    copy.removeAttribute('aria-labelledby');
-    copy.querySelectorAll('[id]').forEach(node => node.removeAttribute('id'));
-    const originals = source.querySelectorAll('.notebook-skill');
-    copy.querySelectorAll('.notebook-skill').forEach((tile, index) => {
-      // Flatten the live peel renderer to its original artwork for a cheap, static leaf.
-      tile.querySelectorAll('.peel-art').forEach(svg => svg.remove());
-      tile.querySelector('img').classList.remove('peel-source');
-      tile.style.translate = getComputedStyle(originals[index]).translate;
-      tile.classList.remove('is-draggable', 'is-held');
-      ['data-movable', 'tabindex', 'role', 'aria-pressed', 'aria-describedby'].forEach(attribute => tile.removeAttribute(attribute));
-    });
-    return copy;
+    return printedCopy(source);
   }
   function turnTo(name) {
     if (turning || name === currentSpread || book.dataset.notebookState !== 'open' || book.querySelector('.is-held')) return;

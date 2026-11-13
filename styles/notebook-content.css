@@ -74,3 +74,11 @@
 .notebook__turn-print { position: absolute; left: -100%; top: 0; width: 200%; height: 100%; container-type: size; font-style: normal; }
 .notebook__turn-print .notebook-spread__right { visibility: visible; }
 .notebook__turn-print * { pointer-events: none !important; }
+
+/* Heading stickers use the same physical page boundaries as the Interests stickers. */
+.notebook-title-area { position: absolute; top: calc(19 / 840 * 100%); width: calc(551.5 / 1181 * 100%); height: calc(778 / 840 * 100%); container-type: size; pointer-events: none; z-index: 2; }
+.notebook-title-area--left { left: calc(39 / 1181 * 100%); }
+.notebook-title-area--right { left: 50%; }
+.notebook-title-area .notebook-spread__education { left: calc(79 / 551.5 * 100%); top: calc(21 / 778 * 100%); width: calc(270 / 551.5 * 100%); }
+.notebook-title-area .notebook-spread__extracurricular { left: calc(76 / 551.5 * 100%); top: calc(579 / 778 * 100%); width: calc(360 / 551.5 * 100%); }
+.notebook-title-area .notebook-spread__skills { left: calc(79.5 / 551.5 * 100%); top: calc(26 / 778 * 100%); width: calc(156 / 551.5 * 100%); }

@@ -220,3 +220,6 @@ Notebook clips now preload on About entry and seek to their own first decoded fr
 
 
 Interests tapes and both Froso cutouts now reuse the shared alpha-aware peel/drag interaction. Two independent contained areas follow the left and right paper bounds, so stickers cannot cross the centre crease or leave their page. The photo assets have white silhouette borders; the seated crop keeps gently rounded lower corners. Mouse, touch and keyboard movement share the existing controls, retained positions survive notebook flips/reopening, and the notebook Tidy up resets all four. Turning-leaf copies flatten the live stickers to avoid duplicate peel definitions. The two doodles use separate wiggle/bounce loops while Interests is open and visible, pause off-screen/on other spreads and stop for reduced motion.
+
+
+The Clocked off, Education, Extracurricular and Skills headings now have white silhouette borders and shared alpha-aware peel/drag behaviour. Heading stickers are constrained to their own paper half and reset with the notebook Tidy up control. A shared printed-copy helper flattens all live stickers for opening and bookmark leaves, preserving moved poses without duplicate peel renderers. The standing cutout shifts 12 design pixels right. General bookmark radii account for its 180-degree rotation so the visible left corners are rounded.

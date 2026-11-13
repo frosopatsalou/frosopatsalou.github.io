@@ -16,11 +16,11 @@
   <link rel="stylesheet" href="./styles/drag.css?v=5">
   <link rel="stylesheet" href="./styles/value-prop.css?v=8">
   <link rel="stylesheet" href="./styles/projects.css?v=15">
-  <link rel="stylesheet" href="./styles/notebook-content.css?v=9">
-  <link rel="stylesheet" href="./styles/notebook-interests.css?v=6">
+  <link rel="stylesheet" href="./styles/notebook-content.css?v=10">
+  <link rel="stylesheet" href="./styles/notebook-interests.css?v=7">
   <link rel="stylesheet" href="./styles/about.css?v=11">
   <script src="./notebook-polaroids.js?v=4" defer></script>
-  <script src="./notebook.js?v=13" defer></script>
+  <script src="./notebook.js?v=14" defer></script>
   <script src="./navigation.js?v=2" defer></script>
   <script src="./drag.js?v=23" defer></script>
   <script src="./hero.js?v=8" defer></script>
@@ -75,7 +75,8 @@
           <img class="notebook__right-page" src="./assets/projects/page-right.svg?v=2" alt="" width="590.5" height="840" draggable="false">
           <div class="notebook-spread" id="notebook-education" data-spread="education" aria-label="Education, extracurricular experience and skills">
             <section class="notebook-spread__left" aria-labelledby="education-heading">
-              <h3 class="notebook-spread__heading notebook-spread__education" id="education-heading"><img src="./assets/notebook/education.svg" alt="Education" width="270" height="85" draggable="false"></h3>
+              <div class="notebook-title-area notebook-title-area--left" data-drag-area data-drag-contain="true" data-drag-inset="0" role="group" aria-label="Left page title stickers"><h3 class="notebook-spread__heading notebook-spread__education notebook-title interest-sticker" data-movable data-peel-shape="alpha" data-notebook-item="open" data-object="notebook-title-education" aria-label="Pick up Education title sticker" id="education-heading"><img src="./assets/notebook/education-title-sticker.svg" alt="Education" width="280" height="95" draggable="false"></h3><h3 class="notebook-spread__heading notebook-spread__extracurricular notebook-title interest-sticker" data-movable data-peel-shape="alpha" data-notebook-item="open" data-object="notebook-title-extracurricular" aria-label="Pick up Extracurricular title sticker" id="extracurricular-heading"><img src="./assets/notebook/extracurricular-title-sticker.svg" alt="Extracurricular" width="404" height="111" draggable="false"></h3></div>
+
               <div class="notebook-education">
                 <div><p class="notebook-education__school">Thomas More University of Applied Sciences-</p><p class="notebook-education__degree">Bachelor's in International Experience Design</p></div>
                 <div class="notebook-education__location"><strong>Belgium</strong><em>2024-Now</em></div>
@@ -85,11 +86,12 @@
                 <div class="notebook-coursework__visual"><p><strong>Visual Design:</strong> Branding, Typography, Visual Identity, Design Systems</p><p><strong>Development:</strong> Front-End, Back-End, Web Development</p></div>
                 <div class="notebook-coursework__creative"><p><strong>Creative:</strong> Motion Design, 3D Modeling, Animation</p><p><strong>Strategy:</strong> Marketing, Business, Agile &amp; Scrum</p></div>
               </div>
-              <h3 class="notebook-spread__heading notebook-spread__extracurricular" id="extracurricular-heading"><img src="./assets/notebook/extracurricular.svg" alt="Extracurricular" width="394" height="101" draggable="false"></h3>
+
               <div class="notebook-bootcamp"><p>International Design Bootcamp in France</p><p>Collaborated in a multidisciplinary team on a real-world design challenge for an industry partner.</p></div>
             </section>
             <section class="notebook-spread__right" aria-labelledby="skills-heading">
-              <h3 class="notebook-spread__heading notebook-spread__skills" id="skills-heading"><img src="./assets/notebook/skills.svg" alt="Skills" width="156" height="75" draggable="false"></h3>
+              <div class="notebook-title-area notebook-title-area--right" data-drag-area data-drag-contain="true" data-drag-inset="0" role="group" aria-label="Right page title stickers"><h3 class="notebook-spread__heading notebook-spread__skills notebook-title interest-sticker" data-movable data-peel-shape="alpha" data-notebook-item="open" data-object="notebook-title-skills" aria-label="Pick up Skills title sticker" id="skills-heading"><img src="./assets/notebook/skills-title-sticker.svg" alt="Skills" width="166" height="85" draggable="false"></h3></div>
+
               <img class="notebook-spread__scribble" src="./assets/notebook/skills-scribble.svg" alt="" draggable="false">
               <div class="notebook-skills" data-drag-area data-drag-contain="true" data-drag-inset="1" role="group" aria-label="Design and development tools">
                 <div class="notebook-skill" style="--x:39.8400;--y:20.5000;--w:67.9400;--h:67.9400" data-movable data-peel-shape="alpha" data-object="app-figma" aria-label="Pick up Figma sticker"><img src="./assets/notebook/figma.svg" alt="Figma" width="79.0" height="79.0" draggable="false"></div>
@@ -119,7 +121,7 @@
           </div>
           <div class="notebook-spread" id="notebook-interests" data-spread="interests" aria-label="Interests: games, creativity and travel" hidden inert aria-hidden="true">
             <section class="notebook-interests__left interests-page" aria-labelledby="interests-heading">
-              <h3 class="interests-heading" id="interests-heading"><img src="./assets/notebook/interests/clocked-off-title.svg" alt="When I’m Clocked off" width="426" height="81" draggable="false"></h3>
+
               <div class="interest-stack interest-stack--games" aria-label="Games and creative hobbies">
                 <div class="interest-polaroid" style="--x:346.0235;--y:333.8305;--w:245.367;--h:289.881;--angle:0deg"><div class="interest-polaroid__photo" style="left:5.31041%;top:5.79548%;width:88.93820%;height:73.18831%"><img src="./assets/notebook/interests/photo-0.webp" alt="Playing video games" style="height:132.67%;left:0.44%;top:-32.46%" draggable="false" decoding="async"></div></div>
                 <div class="interest-polaroid" style="--x:330.01;--y:332.7555;--w:245.367;--h:289.881;--angle:-5.96deg"><div class="interest-polaroid__photo" style="left:5.31041%;top:5.79548%;width:88.93820%;height:73.18831%"><img src="./assets/notebook/interests/photo-1.webp" alt="A colourful LEGO creation" style="height:132.67%;left:-0.18%;top:-25.85%" draggable="false" decoding="async"></div></div>
@@ -130,6 +132,7 @@
                 <div class="interest-polaroid" style="--x:327.57349999999997;--y:324.0505;--w:245.367;--h:289.881;--angle:0deg"><div class="interest-polaroid__photo" style="left:5.31041%;top:5.79548%;width:88.93820%;height:73.18831%"><img src="./assets/notebook/interests/photo-5.webp" alt="Painting with friends" style="height:132.67%;left:-0.18%;top:-25.85%" draggable="false" decoding="async"></div></div>
               </div>
               <div class="interests-sticker-area interests-sticker-area--left" data-drag-area data-drag-contain="true" data-drag-inset="0" role="group" aria-label="Stickers on the left notebook page">
+              <h3 class="interests-heading notebook-title interest-sticker" data-movable data-peel-shape="alpha" data-notebook-item="open" data-object="interests-title" aria-label="Pick up When I’m Clocked off title sticker" id="interests-heading"><img src="./assets/notebook/clocked-off-title-sticker.svg" alt="When I’m Clocked off" width="436" height="91" draggable="false"></h3>
               <div class="interests-tape interests-tape--pink interest-sticker" data-movable data-peel-shape="alpha" data-notebook-item="open" data-object="interests-plaid-tape" aria-label="Pick up plaid tape"><img src="./assets/notebook/interests/tape-plaid.svg" alt="" draggable="false"></div>
               <div class="interests-seated interest-sticker" data-movable data-peel-shape="alpha" data-notebook-item="open" data-object="interests-person-seated" aria-label="Pick up seated Froso sticker"><img src="./assets/notebook/interests/seated-sticker.svg" alt="Froso smiling with her eyes closed" width="262" height="304" draggable="false"></div>
               </div>
