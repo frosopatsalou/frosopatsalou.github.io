@@ -190,3 +190,6 @@ The sixth Home case-study card now showcases Scroll World instead of Visual Iden
 
 
 The Home cloud now floats gently on a 4.8-second loop, with an independent 3.8-second soft puffing scale on its artwork. Text follows the small translation without scaling or distortion. Motion pauses while pulling fluff or using keyboard focus within the cloud, off-screen and in hidden tabs. Reduced motion disables the ambient loops. Existing highlighter hovers, spinning circles and pullable fluff remain unchanged.
+
+
+The cloud's ambient motion is more playful: its bob runs over 2.8s with a 25px vertical range, slight sideways drift and a small rebound. Artwork puffs over 2.4s with up to 2.5% squash/stretch and a subtle tilt. Text follows translation only. Interaction, off-screen pauses and reduced-motion handling remain unchanged.
