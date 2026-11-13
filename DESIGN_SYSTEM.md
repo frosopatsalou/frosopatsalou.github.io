@@ -214,3 +214,6 @@ The seated Interests cutout now ends at design x568, just beneath the left edge 
 
 
 The sewing, boats and waterfall Polaroids use the original video clips, converted to silent 30fps H.264 MP4 with fast-start metadata and a 720px maximum dimension. HDR travel clips are tone-mapped to BT.709. Poster images remain as fallbacks; video sources load only when a clip is on top. Playback is muted, looping and inline, and pauses during photo flicks, on other spreads, when closed, off-screen, in a hidden tab or with reduced motion. The travel caption uses an explicit 1 line height for equal 24px native baselines; its stack and tape move up another 12 design pixels.
+
+
+Notebook clips now preload on About entry and seek to their own first decoded frame, replacing the mismatched poster before they are revealed. On a photo cycle, the incoming clip restarts at zero and produces a video frame before its Polaroid is promoted to the top; it keeps playing during the return flick. Outgoing clips pause and reset for the next visit. Browser QA confirmed all three clips were ready and already playing at the exact stack reorder.

@@ -3,13 +3,29 @@
   if (!book) return;
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const videos = [...book.querySelectorAll('#notebook-interests video')];
+  const incomingVideos = new Set();
+  const ready = new Map(videos.map(video => {
+    video.preload = 'auto';
+    video.muted = true;
+    const loaded = new Promise(resolve => {
+      video.addEventListener('loadeddata', () => {
+        // Seeking clears the poster and paints the clip's own opening frame.
+        video.currentTime = .001;
+        resolve(true);
+      }, { once: true });
+      video.addEventListener('error', () => resolve(false), { once: true });
+    });
+    video.src = video.dataset.src;
+    return [video, loaded];
+  }));
   let inView = false;
   function syncPlayback() {
     videos.forEach(video => {
       const play = inView && !document.hidden && !reduceMotion.matches &&
         book.dataset.notebookState === 'open' && book.dataset.activeSpread === 'interests' &&
-        !book.dataset.spreadTurn && video.closest('.interest-polaroid').classList.contains('is-top') &&
-        !video.closest('.interest-stack').classList.contains('is-cycling');
+        !book.dataset.spreadTurn && (incomingVideos.has(video) ||
+        (video.closest('.interest-polaroid').classList.contains('is-top') &&
+        !video.closest('.interest-stack').classList.contains('is-cycling')));
       if (play) {
         if (!video.getAttribute('src')) video.src = video.dataset.src;
         video.muted = true;
@@ -27,6 +43,21 @@
   });
   document.addEventListener('visibilitychange', syncPlayback);
   reduceMotion.addEventListener('change', syncPlayback);
+  async function startIncoming(video) {
+    if (!video || reduceMotion.matches || !await ready.get(video)) return;
+    incomingVideos.add(video);
+    video.currentTime = 0;
+    try {
+      await video.play();
+      if (video.requestVideoFrameCallback) {
+        // Keep the outgoing photo above it until a real video frame is ready.
+        await new Promise(resolve => {
+          const timeout = setTimeout(resolve, 250);
+          video.requestVideoFrameCallback(() => { clearTimeout(timeout); resolve(); });
+        });
+      }
+    } catch (_) { /* Retain the poster when playback is unavailable. */ }
+  }
   book.querySelectorAll('#notebook-interests .interest-stack').forEach(stack => {
     let busy = false;
     const cards = () => [...stack.children];
@@ -53,6 +84,7 @@
       const direction = stack.classList.contains('interest-stack--travel') ? 1 : -1;
       const lifted = `translate(${direction * width * .72}px, ${-width * .22}px) rotate(${direction * 14}deg) ${base}`;
       let animation;
+      const incomingVideo = card.previousElementSibling?.querySelector('video');
       try {
         if (!reduceMotion.matches) {
           animation = card.animate([
@@ -61,7 +93,10 @@
           ], { duration: 190, easing: 'cubic-bezier(.2,.75,.25,1)', fill: 'forwards' });
           await animation.finished;
         }
+        await startIncoming(incomingVideo);
         stack.prepend(card);
+        const outgoingVideo = card.querySelector('video');
+        if (outgoingVideo?.readyState >= 2) outgoingVideo.currentTime = .001;
         animation?.cancel();
         sync();
         if (keyboard) stack.lastElementChild.focus({ preventScroll: true });
@@ -79,6 +114,7 @@
         animation?.cancel();
         busy = false;
         stack.classList.remove('is-cycling');
+        incomingVideos.delete(incomingVideo);
         sync();
       }
     }
