@@ -102,8 +102,8 @@
 }
 
 /* Slow, pillowy buoyancy: smooth drift and a full, softly breathing silhouette. */
-.value-prop__cloud { animation: cloud-bob 4200ms ease-in-out infinite; animation-play-state: paused; }
-.value-prop__cloud-art, .value-prop__cloud::before, .value-prop__cloud::after { animation: cloud-puff 3400ms ease-in-out infinite; animation-play-state: paused; transform-origin: center; }
+.value-prop__cloud { animation: cloud-bob 3600ms ease-in-out infinite; animation-play-state: paused; }
+.value-prop__cloud-art, .value-prop__cloud::before, .value-prop__cloud::after { animation: cloud-puff 2900ms ease-in-out infinite; animation-play-state: paused; transform-origin: center; }
 .value-prop__cloud.is-cloud-active, .value-prop__cloud.is-cloud-active .value-prop__cloud-art, .value-prop__cloud.is-cloud-active::before, .value-prop__cloud.is-cloud-active::after { animation-play-state: running; }
 .value-prop__cloud:is(.is-plucking, :focus-within), .value-prop__cloud:is(.is-plucking, :focus-within) .value-prop__cloud-art, .value-prop__cloud:is(.is-plucking, :focus-within)::before, .value-prop__cloud:is(.is-plucking, :focus-within)::after { animation-play-state: paused; }
 @keyframes cloud-bob {
@@ -117,3 +117,7 @@
 @media (prefers-reduced-motion: reduce) {
   .value-prop__cloud, .value-prop__cloud-art, .value-prop__cloud::before, .value-prop__cloud::after { animation: none; }
 }
+
+/* Curved lettering has its own painted hit area and spins about the circle centre. */
+.value-link svg { transform-origin: 45% 52%; }
+.value-link text, .value-link textPath { pointer-events: visiblePainted; cursor: pointer; }

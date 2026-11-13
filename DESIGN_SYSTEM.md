@@ -196,3 +196,6 @@ The cloud's ambient motion is more playful: its bob runs over 2.8s with a 25px v
 
 
 Cloud motion is deliberately soft and buoyant rather than snappy: a 6.2-second smooth drift and 5-second breathing loop. The artwork stays slightly fuller at rest and gently expands vertically, with only a quarter-degree tilt and no sharp rebounds or compressed poses. Text remains undistorted; interaction pauses and reduced-motion support remain intact.
+
+
+The smooth cloud pace is now 3.6s for drift and 2.9s for puffing. Clicking the painted curved lettering spins that label independently around its circle centre and returns it to its original pose. Clicking the circle still spins the illustration; keyboard activation retains that behaviour. Repeated clicks resume from the current angle and finish on a complete revolution, preserving the original resting position.

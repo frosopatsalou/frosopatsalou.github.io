@@ -25,18 +25,20 @@
   fitCloud();
 
   section.querySelectorAll('.value-link').forEach(button => {
-    button.addEventListener('click', () => {
-      const image = button.querySelector('img');
-      const matrix = new DOMMatrix(getComputedStyle(image).transform);
+    button.addEventListener('click', event => {
+      const lettering = event.target.closest('svg');
+      const target = lettering || button.querySelector('img');
+      const matrix = new DOMMatrix(getComputedStyle(target).transform);
       const angle = (Math.atan2(matrix.b, matrix.a) * 180 / Math.PI + 360) % 360;
-      spins.get(button)?.cancel();
+      spins.get(target)?.cancel();
       button.dataset.spins = String(Number(button.dataset.spins || 0) + 1);
-      const animation = image.animate(motion.matches ? [{ filter: 'brightness(1)' }, { filter: 'brightness(1.15)' }, { filter: 'brightness(1)' }] : [{ transform: `rotate(${angle}deg)` }, { transform: `rotate(${Math.ceil(angle / 360) * 360 + 360}deg)` }], {
+      button.dataset.lastSpin = lettering ? 'text' : 'circle';
+      const animation = target.animate(motion.matches ? [{ filter: 'brightness(1)' }, { filter: 'brightness(1.15)' }, { filter: 'brightness(1)' }] : [{ transform: `rotate(${angle}deg)` }, { transform: `rotate(${Math.ceil(angle / 360) * 360 + 360}deg)` }], {
         duration: motion.matches ? 180 : 850,
         easing: 'cubic-bezier(.16,1,.3,1)',
       });
-      spins.set(button, animation);
-      animation.finished.catch(() => {}).then(() => { if (spins.get(button) === animation) spins.delete(button); });
+      spins.set(target, animation);
+      animation.finished.catch(() => {}).then(() => { if (spins.get(target) === animation) spins.delete(target); });
     });
   });
 
