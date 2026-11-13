@@ -193,3 +193,6 @@ The Home cloud now floats gently on a 4.8-second loop, with an independent 3.8-s
 
 
 The cloud's ambient motion is more playful: its bob runs over 2.8s with a 25px vertical range, slight sideways drift and a small rebound. Artwork puffs over 2.4s with up to 2.5% squash/stretch and a subtle tilt. Text follows translation only. Interaction, off-screen pauses and reduced-motion handling remain unchanged.
+
+
+Cloud motion is deliberately soft and buoyant rather than snappy: a 6.2-second smooth drift and 5-second breathing loop. The artwork stays slightly fuller at rest and gently expands vertically, with only a quarter-degree tilt and no sharp rebounds or compressed poses. Text remains undistorted; interaction pauses and reduced-motion support remain intact.

@@ -101,24 +101,18 @@
  .value-prop__sentence { width: 82%; }
 }
 
-/* Playful buoyancy with snappy rebounds; only the artwork squashes and tilts. */
-.value-prop__cloud { animation: cloud-bob 2800ms cubic-bezier(.45,0,.2,1) infinite; animation-play-state: paused; }
-.value-prop__cloud-art, .value-prop__cloud::before, .value-prop__cloud::after { animation: cloud-puff 2400ms ease-in-out infinite; animation-play-state: paused; transform-origin: center; }
+/* Slow, pillowy buoyancy: smooth drift and a full, softly breathing silhouette. */
+.value-prop__cloud { animation: cloud-bob 6200ms ease-in-out infinite; animation-play-state: paused; }
+.value-prop__cloud-art, .value-prop__cloud::before, .value-prop__cloud::after { animation: cloud-puff 5000ms ease-in-out infinite; animation-play-state: paused; transform-origin: center; }
 .value-prop__cloud.is-cloud-active, .value-prop__cloud.is-cloud-active .value-prop__cloud-art, .value-prop__cloud.is-cloud-active::before, .value-prop__cloud.is-cloud-active::after { animation-play-state: running; }
 .value-prop__cloud:is(.is-plucking, :focus-within), .value-prop__cloud:is(.is-plucking, :focus-within) .value-prop__cloud-art, .value-prop__cloud:is(.is-plucking, :focus-within)::before, .value-prop__cloud:is(.is-plucking, :focus-within)::after { animation-play-state: paused; }
 @keyframes cloud-bob {
-  0%, 100% { translate: -5px 3px; }
-  20% { translate: 0 -7px; }
-  42% { translate: 7px -18px; }
-  62% { translate: 3px -6px; }
-  78% { translate: -6px 7px; }
-  90% { translate: -7px 0; }
+  0%, 100% { translate: -4px 4px; }
+  50% { translate: 4px -12px; }
 }
 @keyframes cloud-puff {
-  0%, 100% { scale: 1 1; rotate: -.65deg; }
-  32% { scale: 1.025 .975; rotate: .75deg; }
-  64% { scale: .99 1.025; rotate: -.4deg; }
-  82% { scale: 1.012 .99; rotate: -.8deg; }
+  0%, 100% { scale: 1.015 1.035; rotate: -.25deg; }
+  50% { scale: 1.035 1.065; rotate: .25deg; }
 }
 @media (prefers-reduced-motion: reduce) {
   .value-prop__cloud, .value-prop__cloud-art, .value-prop__cloud::before, .value-prop__cloud::after { animation: none; }
