@@ -100,3 +100,22 @@
  .value-prop { padding-inline: 12px; }
  .value-prop__sentence { width: 82%; }
 }
+
+/* Gentle buoyancy and a soft puffing silhouette, with the sentence kept undistorted. */
+.value-prop__cloud { animation: cloud-bob 4800ms ease-in-out infinite; animation-play-state: paused; }
+.value-prop__cloud-art, .value-prop__cloud::before, .value-prop__cloud::after { animation: cloud-puff 3800ms ease-in-out infinite; animation-play-state: paused; transform-origin: center; }
+.value-prop__cloud.is-cloud-active, .value-prop__cloud.is-cloud-active .value-prop__cloud-art, .value-prop__cloud.is-cloud-active::before, .value-prop__cloud.is-cloud-active::after { animation-play-state: running; }
+.value-prop__cloud:is(.is-plucking, :focus-within), .value-prop__cloud:is(.is-plucking, :focus-within) .value-prop__cloud-art, .value-prop__cloud:is(.is-plucking, :focus-within)::before, .value-prop__cloud:is(.is-plucking, :focus-within)::after { animation-play-state: paused; }
+@keyframes cloud-bob {
+  0%, 100% { translate: 0 3px; }
+  25% { translate: 3px -3px; }
+  50% { translate: 0 -8px; }
+  75% { translate: -3px -2px; }
+}
+@keyframes cloud-puff {
+  0%, 100% { scale: 1 1; }
+  50% { scale: 1.012 .988; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .value-prop__cloud, .value-prop__cloud-art, .value-prop__cloud::before, .value-prop__cloud::after { animation: none; }
+}

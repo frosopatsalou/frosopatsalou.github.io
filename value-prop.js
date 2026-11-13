@@ -6,6 +6,13 @@
   const layer = document.getElementById('cloud-fluff-layer');
   const source = document.getElementById('fluff-source').src;
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  let cloudOnScreen = false;
+  const syncCloudMotion = () => cloud.classList.toggle('is-cloud-active', cloudOnScreen && !document.hidden);
+  new IntersectionObserver(entries => {
+    cloudOnScreen = entries[0].isIntersecting;
+    syncCloudMotion();
+  }, {rootMargin: '100px', threshold: 0}).observe(cloud);
+  document.addEventListener('visibilitychange', syncCloudMotion);
   const spins = new Map();
   let held = null;
   const sentence = cloud.querySelector('.value-prop__sentence');

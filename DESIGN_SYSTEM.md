@@ -187,3 +187,6 @@ The notebook has two preserved spreads: Education/Skills and a blank Interests s
 
 
 The sixth Home case-study card now showcases Scroll World instead of Visual Identity. It uses the supplied desktop mockup, a palette-yellow background, blue vertical Scroll/World lettering and the provided scroll-adventure description. The optimized transparent WebP preserves the source mockup. Existing pin hover, fall/restore, and section Tidy up interactions apply automatically to the replacement card.
+
+
+The Home cloud now floats gently on a 4.8-second loop, with an independent 3.8-second soft puffing scale on its artwork. Text follows the small translation without scaling or distortion. Motion pauses while pulling fluff or using keyboard focus within the cloud, off-screen and in hidden tabs. Reduced motion disables the ambient loops. Existing highlighter hovers, spinning circles and pullable fluff remain unchanged.
