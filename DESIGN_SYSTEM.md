@@ -205,3 +205,6 @@ The Interests spread now has a static scrapbook composition matching Work 3: lay
 
 
 Interests Polaroids now cycle independently: click or press Enter/Space on the top photo to flick it out and tuck it behind its stack over 420ms. Only the top photo is interactive; repeated input locks during the flick, and reduced motion swaps immediately. Each stack contains seven populated photos, including supplied sewing, boat and waterfall frames. Photo order survives bookmark turns and reopening. The complete plaid tape SVG replaces the failed mask, the updated standing SVG replaces the original cutout, the seated cutout ends at the centre crease, and the travel stack is 10% larger, 26 design pixels left and 36 pixels lower.
+
+
+The Interests heading uses the supplied Clocked off title SVG. The seated cutout is shifted a further 20.5 design pixels right with a 34px lower-right crop radius. Travel Polaroids and tape move together 30px right. The standing SVG is 480px tall, shifted left, with its visible feet anchored at design y698 on the lowest blue notebook rule. All dimensions continue to scale with the notebook.
