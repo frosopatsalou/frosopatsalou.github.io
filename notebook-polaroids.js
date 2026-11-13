@@ -2,6 +2,31 @@
   const book = document.querySelector('.notebook');
   if (!book) return;
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const videos = [...book.querySelectorAll('#notebook-interests video')];
+  let inView = false;
+  function syncPlayback() {
+    videos.forEach(video => {
+      const play = inView && !document.hidden && !reduceMotion.matches &&
+        book.dataset.notebookState === 'open' && book.dataset.activeSpread === 'interests' &&
+        !book.dataset.spreadTurn && video.closest('.interest-polaroid').classList.contains('is-top') &&
+        !video.closest('.interest-stack').classList.contains('is-cycling');
+      if (play) {
+        if (!video.getAttribute('src')) video.src = video.dataset.src;
+        video.muted = true;
+        video.play().catch(() => {}); // Keep the poster if a browser blocks autoplay.
+      } else video.pause();
+    });
+  }
+  new IntersectionObserver(entries => {
+    inView = entries[0].isIntersecting;
+    syncPlayback();
+  }, { threshold: .02 }).observe(book);
+  new MutationObserver(syncPlayback).observe(book, {
+    attributes: true,
+    attributeFilter: ['data-notebook-state', 'data-active-spread', 'data-spread-turn']
+  });
+  document.addEventListener('visibilitychange', syncPlayback);
+  reduceMotion.addEventListener('change', syncPlayback);
   book.querySelectorAll('#notebook-interests .interest-stack').forEach(stack => {
     let busy = false;
     const cards = () => [...stack.children];
@@ -15,11 +40,13 @@
         card.setAttribute('aria-hidden', String(!active));
         card.setAttribute('aria-label', `${card.querySelector('img').alt}. Show next photo`);
       });
+      syncPlayback();
     }
     async function cycle(card, keyboard) {
       if (busy || card !== stack.lastElementChild || book.dataset.notebookState !== 'open' || book.dataset.spreadTurn) return;
       busy = true;
       stack.classList.add('is-cycling');
+      syncPlayback();
       const base = getComputedStyle(card).transform;
       // Scale the flick with the page rather than using fixed screen pixels.
       const width = card.getBoundingClientRect().width;
