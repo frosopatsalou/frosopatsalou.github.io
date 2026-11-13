@@ -39,7 +39,7 @@
 .case-card--sncb .case-card__word--left { width: 8.5%; }
 .case-card--scroll-world .case-card__image { container-type: inline-size; }
 .case-card--scroll-world .case-card__mockup { width: 49%; left: 25.5%; height: 84%; top: 8%; }
-.case-card--scroll-world .case-card__word { display: flex; align-items: center; justify-content: center; color: var(--color-case-scroll-lettering); font: 700 calc(40 / 320 * 100cqw) / 1 var(--font-heading); }
+.case-card--scroll-world .case-card__word { display: flex; align-items: center; justify-content: center; color: var(--color-case-scroll-lettering); font: 700 calc(40 / 320 * 100cqw) / 1 Georgia, serif; }
 .case-card--scroll-world .case-card__word > span { display: block; flex-shrink: 0; white-space: nowrap; }
 .case-card--scroll-world .case-card__word--left > span { rotate: -90deg; }
 .case-card--scroll-world .case-card__word--right > span { rotate: 90deg; }
