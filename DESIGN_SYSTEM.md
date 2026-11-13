@@ -208,3 +208,6 @@ Interests Polaroids now cycle independently: click or press Enter/Space on the t
 
 
 The Interests heading uses the supplied Clocked off title SVG. The seated cutout is shifted a further 20.5 design pixels right with a 34px lower-right crop radius. Travel Polaroids and tape move together 30px right. The standing SVG is 480px tall, shifted left, with its visible feet anchored at design y698 on the lowest blue notebook rule. All dimensions continue to scale with the notebook.
+
+
+The seated Interests cutout now ends at design x568, just beneath the left edge of the independent spiral. Both lower corners use a subtle 12px radius. Travel Polaroids and purple tape are nudged up together by 12 design pixels.
