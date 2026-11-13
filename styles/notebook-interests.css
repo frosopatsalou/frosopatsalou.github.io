@@ -1,4 +1,4 @@
-/* Static scrapbook composition in the existing 1181 × 840 notebook coordinate space. */
+/* Scrapbook composition in the existing 1181 × 840 notebook coordinate space. */
 .interests-page { position: absolute; inset: 0; font-style: normal; }
 .interests-heading { position: absolute; left: calc(116 / 1181 * 100%); top: calc(47 / 840 * 100%); width: calc(430 / 1181 * 100%); margin: 0; rotate: -3.75deg; font: 700 calc(36 / 1181 * 100cqw)/1.15 var(--font-heading); letter-spacing: 0; white-space: nowrap; color: var(--color-white); }
 .interests-heading span { -webkit-text-stroke: calc(16 / 1181 * 100cqw) var(--color-purple); paint-order: stroke fill; }
@@ -8,11 +8,11 @@
 .interest-polaroid__photo img { position: absolute; width: 100%; max-width: none; object-fit: fill; user-select: none; pointer-events: none; }
 .interests-tape { position: absolute; pointer-events: none; mask-composite: intersect; mask-repeat: no-repeat; mask-size: 100% 100%; }
 .interests-tape img { display: block; width: 100%; height: 100%; max-width: none; object-fit: fill; }
-.interests-tape--pink { left: calc(127.9 / 1181 * 100%); top: calc(161 / 840 * 100%); width: calc(166.784 / 1181 * 100%); height: calc(47.5365 / 840 * 100%); rotate: -21.58deg; mask-mode: luminance, alpha; mask-image: url('../assets/notebook/interests/mask-pink-a.svg'), url('../assets/notebook/interests/mask-pink-b.svg'); }
-.interests-tape--purple { left: calc(732.7 / 1181 * 100%); top: calc(49.35 / 840 * 100%); width: calc(230.297 / 1181 * 100%); height: calc(85.1427 / 840 * 100%); rotate: 13.3deg; mask-mode: alpha, luminance; mask-image: url('../assets/notebook/interests/mask-purple-a.svg'), url('../assets/notebook/interests/mask-purple-b.svg'); }
-.interests-seated { position: absolute; left: calc(326 / 1181 * 100%); top: calc(509 / 840 * 100%); width: calc(246 / 1181 * 100%); height: calc(288 / 840 * 100%); overflow: hidden; border-bottom-right-radius: calc(5 / 1181 * 100cqw); pointer-events: none; }
+.interests-tape--pink { left: calc(125 / 1181 * 100%); top: calc(132 / 840 * 100%); width: calc(173 / 1181 * 100%); height: calc(106 / 840 * 100%); }
+.interests-tape--purple { left: calc(690 / 1181 * 100%); top: calc(58 / 840 * 100%); width: calc(268.4 / 1181 * 100%); height: calc(149.6 / 840 * 100%); }
+.interests-seated { position: absolute; left: calc(344.5 / 1181 * 100%); top: calc(509 / 840 * 100%); width: calc(246 / 1181 * 100%); height: calc(288 / 840 * 100%); overflow: hidden; border-bottom-right-radius: calc(5 / 1181 * 100cqw); pointer-events: none; }
 .interests-seated img { display: block; width: 113.82%; height: auto; max-width: none; }
-.interests-standing { position: absolute; left: calc(935 / 1181 * 100%); top: calc(287 / 840 * 100%); width: calc(177.264 / 1181 * 100%); height: calc(414.287 / 840 * 100%); object-fit: cover; pointer-events: none; }
+.interests-standing { position: absolute; left: calc(935 / 1181 * 100%); top: calc(287 / 840 * 100%); width: calc(228.25 / 1181 * 100%); height: calc(414.287 / 840 * 100%); object-fit: contain; pointer-events: none; }
 .interests-caption { position: absolute; margin: 0; font: 400 calc(24 / 1181 * 100cqw)/normal var(--font-display); letter-spacing: 0; color: var(--color-text); }
 .interests-caption--games { left: calc(142 / 1181 * 100%); top: calc(611 / 840 * 100%); width: calc(227 / 1181 * 100%); }
 .interests-caption--travel { left: calc(646 / 1181 * 100%); top: calc(496 / 840 * 100%); width: calc(263 / 1181 * 100%); }
@@ -30,3 +30,11 @@
 .notebook__turn-back-print { position: absolute; left: 0; top: 0; width: 200%; height: 100%; container-type: size; }
 .notebook__turn-back-print .notebook-interests__left { transform: none; transition: none; visibility: visible; }
 @media (prefers-reduced-motion: reduce) { .notebook-interests__left { transition: none; } }
+
+.interests-page { pointer-events: none; }
+.interest-stack--travel { transform: translate(calc(-26 / 1181 * 100cqw), calc(36 / 1181 * 100cqw)) scale(1.1); transform-origin: 66% 29.4%; }
+.interest-polaroid { outline: none; touch-action: manipulation; }
+.interest-polaroid.is-top { pointer-events: auto; cursor: pointer; }
+.interest-polaroid.is-top:focus-visible { outline: calc(3 / 1181 * 100cqw) solid var(--color-purple); outline-offset: calc(5 / 1181 * 100cqw); }
+.interest-stack.is-cycling .interest-polaroid { pointer-events: none; }
+.notebook__page-print .interest-polaroid, .notebook__turn-back-print .interest-polaroid { pointer-events: none; }
