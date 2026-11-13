@@ -41,3 +41,32 @@
 
 .interest-polaroid__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 .interests-caption--travel { line-height: 1; }
+
+/* Each half is its own coordinate and containment area for loose stickers. */
+.interests-sticker-area { position: absolute; top: calc(19 / 840 * 100%); width: calc(551.5 / 1181 * 100%); height: calc(778 / 840 * 100%); container-type: size; pointer-events: none; z-index: 2; }
+.interests-sticker-area--left { left: calc(39 / 1181 * 100%); }
+.interests-sticker-area--right { left: 50%; }
+.interests-tape--pink { left: calc(86 / 551.5 * 100%); top: calc(113 / 778 * 100%); width: calc(173 / 551.5 * 100%); height: calc(106 / 778 * 100%); }
+.interests-seated { left: calc(283 / 551.5 * 100%); top: calc(490 / 778 * 100%); width: calc(246 / 551.5 * 100%); height: calc(288 / 778 * 100%); overflow: visible; border-radius: 0; }
+.interests-tape--purple { left: calc(129.5 / 551.5 * 100%); top: calc(15 / 778 * 100%); width: calc(268.4 / 551.5 * 100%); height: calc(149.6 / 778 * 100%); }
+.interests-standing { left: calc(269.5 / 551.5 * 100%); top: calc(229 / 778 * 100%); width: calc(264.453 / 551.5 * 100%); height: calc(480 / 778 * 100%); }
+.interest-sticker > img { display: block; width: 100%; height: 100%; max-width: none; object-fit: fill; }
+.interest-sticker.is-draggable { pointer-events: auto; filter: drop-shadow(0 2px 1px rgb(35 0 71 / .12)); }
+.interest-sticker.is-held { filter: drop-shadow(4px 9px 5px rgb(35 0 71 / .22)); }
+.notebook__page-print .interest-sticker, .notebook__turn-back-print .interest-sticker { pointer-events: none; }
+.interests-doodle { animation: interests-doodle-wiggle 1.7s ease-in-out infinite; animation-play-state: paused; transform-origin: 60% 70%; }
+.interests-doodle--travel { animation-name: interests-doodle-bounce; animation-duration: 1.9s; animation-delay: -.6s; transform-origin: 70% 85%; }
+.notebook.is-interests-visible #notebook-interests .interests-doodle { animation-play-state: running; }
+@keyframes interests-doodle-wiggle {
+  0%, 65%, 100% { transform: rotate(0) scale(1); }
+  18% { transform: rotate(-10deg) scale(1.08); }
+  32% { transform: rotate(7deg) scale(1.04); }
+  46% { transform: rotate(-4deg) scale(1); }
+}
+@keyframes interests-doodle-bounce {
+  0%, 65%, 100% { transform: translateY(0) rotate(0); }
+  22% { transform: translateY(calc(-5 / 1181 * 100cqw)) rotate(7deg); }
+  40% { transform: translateY(calc(2 / 1181 * 100cqw)) rotate(-5deg); }
+  52% { transform: translateY(0) rotate(2deg); }
+}
+@media (prefers-reduced-motion: reduce) { .interests-doodle { animation: none; } }

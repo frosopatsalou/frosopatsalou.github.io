@@ -5,6 +5,7 @@
   const tidyScopes = [...document.querySelectorAll('[data-tidy-scope]')];
   const areaFor = element => element.closest('[data-drag-area]') || desk;
   const scopeFor = element => element.dataset.tidyExclude === 'true' ? null : element.closest('[data-tidy-scope]') || desk;
+  const notebookStateFor = element => element.dataset.notebookItem || (element.classList.contains('notebook-skill') ? 'open' : 'closed');
   let tidying = false;
   let active = null;
   const announce = text => { status.textContent = text; };
@@ -72,6 +73,7 @@
     if (element.classList.contains('hero-face')) { a = 48; b = 48; }
     if (object === 'board-pencil') { corner = 'bottom-left'; a = 62; b = 42; }
     if (object === 'case-studies-title') { corner = 'bottom'; a = 80; b = 55; }
+    if (object.startsWith('interests-')) { corner = 'bottom'; a = 50; b = 55; }
     if (object === 'about-face') { a = 38; b = 65; }
     if (element.classList.contains('hero-name')) { corner = 'bottom'; a = 70; b = 38; }
     if (element.classList.contains('hero-role')) { corner = 'bottom'; a = 85; b = 65; }
@@ -158,7 +160,7 @@
     updateTidyVisibility();
   }
   function pick(element, pointer = null) {
-    if (tidying || (element.closest('.notebook') && element.closest('.notebook').dataset.notebookState !== (element.classList.contains('notebook-skill') ? 'open' : 'closed'))) return;
+    if (tidying || (element.closest('.notebook') && element.closest('.notebook').dataset.notebookState !== notebookStateFor(element))) return;
     if (active) drop();
     active = {
       element, pointer,
@@ -315,7 +317,7 @@
         if (item.closest('[hidden]')) return false;
         if (item.classList.contains('case-decoration') && depth(item)[0] <= 2 && event.target.closest('.case-board')) return false;
           const notebook = item.closest('.notebook');
-          if (notebook && notebook.dataset.notebookState !== (item.classList.contains('notebook-skill') ? 'open' : 'closed')) return false;
+          if (notebook && notebook.dataset.notebookState !== notebookStateFor(item)) return false;
         if (item.classList.contains('project-stationery') && depth(item)[0] <= 2) {
           const notebook = item.closest('.projects').querySelector('.notebook');
             const book = notebook.querySelector(notebook.dataset.notebookState === 'closed' ? '.notebook__closed' : '.notebook__open').getBoundingClientRect();

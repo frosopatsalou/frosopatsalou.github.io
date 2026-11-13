@@ -44,6 +44,14 @@
   openingLeaf.append(openingBack);
   function printedInterests() {
     const copy = interestsLeft.cloneNode(true);
+    const stickers = interestsLeft.querySelectorAll('.interest-sticker');
+    copy.querySelectorAll('.interest-sticker').forEach((sticker, index) => {
+      sticker.querySelectorAll('.peel-art').forEach(art => art.remove());
+      sticker.querySelector('img').classList.remove('peel-source');
+      sticker.style.translate = getComputedStyle(stickers[index]).translate;
+      sticker.classList.remove('is-draggable', 'is-held');
+      ['data-movable', 'tabindex', 'role', 'aria-pressed', 'aria-describedby'].forEach(attribute => sticker.removeAttribute(attribute));
+    });
     copy.removeAttribute('aria-labelledby');
     copy.querySelectorAll('[id]').forEach(node => node.removeAttribute('id'));
     return copy;

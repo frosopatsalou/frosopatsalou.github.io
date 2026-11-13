@@ -217,3 +217,6 @@ The sewing, boats and waterfall Polaroids use the original video clips, converte
 
 
 Notebook clips now preload on About entry and seek to their own first decoded frame, replacing the mismatched poster before they are revealed. On a photo cycle, the incoming clip restarts at zero and produces a video frame before its Polaroid is promoted to the top; it keeps playing during the return flick. Outgoing clips pause and reset for the next visit. Browser QA confirmed all three clips were ready and already playing at the exact stack reorder.
+
+
+Interests tapes and both Froso cutouts now reuse the shared alpha-aware peel/drag interaction. Two independent contained areas follow the left and right paper bounds, so stickers cannot cross the centre crease or leave their page. The photo assets have white silhouette borders; the seated crop keeps gently rounded lower corners. Mouse, touch and keyboard movement share the existing controls, retained positions survive notebook flips/reopening, and the notebook Tidy up resets all four. Turning-leaf copies flatten the live stickers to avoid duplicate peel definitions. The two doodles use separate wiggle/bounce loops while Interests is open and visible, pause off-screen/on other spreads and stop for reduced motion.

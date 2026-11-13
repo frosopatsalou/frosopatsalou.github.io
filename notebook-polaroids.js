@@ -20,6 +20,8 @@
   }));
   let inView = false;
   function syncPlayback() {
+    book.classList.toggle('is-interests-visible', inView && !document.hidden &&
+      book.dataset.notebookState === 'open' && book.dataset.activeSpread === 'interests' && !book.dataset.spreadTurn);
     videos.forEach(video => {
       const play = inView && !document.hidden && !reduceMotion.matches &&
         book.dataset.notebookState === 'open' && book.dataset.activeSpread === 'interests' &&
