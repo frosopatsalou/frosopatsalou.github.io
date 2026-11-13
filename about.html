@@ -16,9 +16,10 @@
   <link rel="stylesheet" href="./styles/drag.css?v=5">
   <link rel="stylesheet" href="./styles/value-prop.css?v=8">
   <link rel="stylesheet" href="./styles/projects.css?v=15">
-  <link rel="stylesheet" href="./styles/notebook-content.css?v=8">
+  <link rel="stylesheet" href="./styles/notebook-content.css?v=9">
+  <link rel="stylesheet" href="./styles/notebook-interests.css?v=1">
   <link rel="stylesheet" href="./styles/about.css?v=11">
-  <script src="./notebook.js?v=10" defer></script>
+  <script src="./notebook.js?v=11" defer></script>
   <script src="./navigation.js?v=2" defer></script>
   <script src="./drag.js?v=22" defer></script>
   <script src="./hero.js?v=8" defer></script>
@@ -115,9 +116,39 @@
             </section>
             <button class="notebook-bookmark" type="button" data-notebook-page="interests" aria-controls="notebook-interests" aria-label="Flip to the Interests pages">Interests</button>
           </div>
-          <div class="notebook-spread" id="notebook-interests" data-spread="interests" aria-label="Interests — blank notebook pages" hidden inert aria-hidden="true">
-            <h3 class="sr-only">Interests</h3>
-            <button class="notebook-bookmark notebook-bookmark--education" type="button" data-notebook-page="education" aria-controls="notebook-education" aria-label="Flip back to Education and Skills">Education</button>
+          <div class="notebook-spread" id="notebook-interests" data-spread="interests" aria-label="Interests: games, creativity and travel" hidden inert aria-hidden="true">
+            <section class="notebook-interests__left interests-page" aria-labelledby="interests-heading">
+              <h3 class="interests-heading" id="interests-heading"><span>When I’m Clocked off</span></h3>
+              <div class="interest-stack" aria-label="Games and creative hobbies">
+                <div class="interest-polaroid" style="--x:346.0235;--y:333.8305;--w:245.367;--h:289.881;--angle:0deg"><div class="interest-polaroid__photo" style="left:5.31041%;top:5.79548%;width:88.93820%;height:73.18831%"><img src="./assets/notebook/interests/photo-0.webp" alt="Playing video games" style="height:132.67%;left:0.44%;top:-32.46%" draggable="false" decoding="async"></div></div>
+                <div class="interest-polaroid" style="--x:330.01;--y:332.7555;--w:245.367;--h:289.881;--angle:-5.96deg"><div class="interest-polaroid__photo" style="left:5.31041%;top:5.79548%;width:88.93820%;height:73.18831%"><img src="./assets/notebook/interests/photo-1.webp" alt="A colourful LEGO creation" style="height:132.67%;left:-0.18%;top:-25.85%" draggable="false" decoding="async"></div></div>
+                <div class="interest-polaroid" style="--x:322.6575;--y:326.33299999999997;--w:245.367;--h:289.881;--angle:3.74deg"><div class="interest-polaroid__photo" style="left:5.31041%;top:5.79548%;width:88.93820%;height:73.18831%"><img src="./assets/notebook/interests/photo-2.webp" alt="Colouring and drawing" style="height:132.67%;left:0.36%;top:-4.93%" draggable="false" decoding="async"></div></div>
+                <div class="interest-polaroid" style="--x:330.189;--y:327.06;--w:245.367;--h:289.881;--angle:-6.99deg"></div>
+                <div class="interest-polaroid" style="--x:326.8065;--y:332.159;--w:245.367;--h:289.881;--angle:9.91deg"><div class="interest-polaroid__photo" style="left:5.31041%;top:5.79548%;width:88.93820%;height:73.18831%"><img src="./assets/notebook/interests/photo-3.webp" alt="Working on a puzzle" style="height:132.67%;left:0.22%;top:-14.32%" draggable="false" decoding="async"></div></div>
+                <div class="interest-polaroid" style="--x:320.2695;--y:323.679;--w:245.367;--h:289.881;--angle:-6.93deg"><div class="interest-polaroid__photo" style="left:5.31041%;top:5.79548%;width:88.93820%;height:73.18831%"><img src="./assets/notebook/interests/photo-4.webp" alt="Nintendo Switch games" style="height:132.67%;left:0.44%;top:-28.44%" draggable="false" decoding="async"></div></div>
+                <div class="interest-polaroid" style="--x:327.57349999999997;--y:324.0505;--w:245.367;--h:289.881;--angle:0deg"><div class="interest-polaroid__photo" style="left:5.31041%;top:5.79548%;width:88.93820%;height:73.18831%"><img src="./assets/notebook/interests/photo-5.webp" alt="Painting with friends" style="height:132.67%;left:-0.18%;top:-25.85%" draggable="false" decoding="async"></div></div>
+              </div>
+              <div class="interests-tape interests-tape--pink"><img src="./assets/notebook/interests/tape-pink.webp" alt="" draggable="false"></div>
+              <div class="interests-seated"><img src="./assets/notebook/interests/seated.webp" alt="Froso smiling with her eyes closed" draggable="false"></div>
+              <img class="interests-doodle interests-doodle--games" src="./assets/notebook/interests/doodle-games.svg" alt="" draggable="false">
+              <p class="interests-caption interests-caption--games">When it comes to board games, video games or getting creative, count me in!!</p>
+            </section>
+            <section class="notebook-interests__right interests-page" aria-label="Travel and adventure">
+              <div class="interest-stack" aria-label="Travel memories">
+                <div class="interest-polaroid" style="--x:774.3755;--y:254.412;--w:193.711;--h:319.624;--angle:0deg"></div>
+                <div class="interest-polaroid" style="--x:774.776;--y:253.388;--w:193.711;--h:319.624;--angle:4.09deg"><div class="interest-polaroid__photo" style="left:5.31720%;top:5.95387%;width:89.03676%;height:75.15956%"><img src="./assets/notebook/interests/photo-6.webp" alt="A sunset while travelling" style="height:100%;left:0%;top:0%" draggable="false" decoding="async"></div></div>
+                <div class="interest-polaroid" style="--x:781.922;--y:254.03;--w:193.711;--h:319.624;--angle:-6.83deg"><div class="interest-polaroid__photo" style="left:5.31720%;top:5.95387%;width:89.03676%;height:75.15956%"><img src="./assets/notebook/interests/photo-7.webp" alt="Exploring Paxoi" style="height:100%;left:0%;top:0%" draggable="false" decoding="async"></div></div>
+                <div class="interest-polaroid" style="--x:779.0830000000001;--y:250.156;--w:193.711;--h:319.624;--angle:4.09deg"><div class="interest-polaroid__photo" style="left:5.31720%;top:5.95387%;width:89.03676%;height:75.15956%"><img src="./assets/notebook/interests/photo-8.webp" alt="Big Ben in London" style="height:100%;left:0%;top:0%" draggable="false" decoding="async"></div></div>
+                <div class="interest-polaroid" style="--x:782.2815;--y:247.687;--w:193.711;--h:319.624;--angle:-11.3deg"><div class="interest-polaroid__photo" style="left:5.31720%;top:5.95387%;width:89.03676%;height:75.15956%"><img src="./assets/notebook/interests/photo-9.webp" alt="A coastal village" style="height:127.7%;left:0.26%;top:-21.19%" draggable="false" decoding="async"></div></div>
+                <div class="interest-polaroid" style="--x:774.3295;--y:246.99349999999998;--w:193.711;--h:319.624;--angle:2.72deg"></div>
+                <div class="interest-polaroid" style="--x:782.9855;--y:246.882;--w:193.711;--h:319.624;--angle:0deg"><div class="interest-polaroid__photo" style="left:5.31720%;top:5.95387%;width:89.03676%;height:75.15956%"><img src="./assets/notebook/interests/photo-10.webp" alt="The mountains and coast of Madeira" style="height:127.7%;left:0.26%;top:-21.19%" draggable="false" decoding="async"></div></div>
+              </div>
+              <div class="interests-tape interests-tape--purple"><img src="./assets/notebook/interests/tape-purple.webp" alt="" draggable="false"></div>
+              <img class="interests-standing" src="./assets/notebook/interests/standing.webp" alt="Froso travelling" draggable="false">
+              <img class="interests-doodle interests-doodle--travel" src="./assets/notebook/interests/doodle-travel.svg" alt="" draggable="false">
+              <p class="interests-caption interests-caption--travel">A little bit of everywhere, with a lot more to explore:) I’m always down for an adventure.</p>
+            </section>
+            <button class="notebook-bookmark notebook-bookmark--education notebook-bookmark--general" type="button" data-notebook-page="education" aria-controls="notebook-education" aria-label="Flip back to Education and Skills">General</button>
           </div>
         </div>
         <div class="notebook__pages" aria-hidden="true"><i></i><i></i><i></i><b class="notebook__page-underlay"></b></div>

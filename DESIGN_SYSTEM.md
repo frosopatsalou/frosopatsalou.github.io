@@ -199,3 +199,6 @@ Cloud motion is deliberately soft and buoyant rather than snappy: a 6.2-second s
 
 
 The smooth cloud pace is now 3.6s for drift and 2.9s for puffing. Clicking the painted curved lettering spins that label independently around its circle centre and returns it to its original pose. Clicking the circle still spins the illustration; keyboard activation retains that behaviour. Repeated clicks resume from the current angle and finish on a complete revolution, preserving the original resting position.
+
+
+The Interests spread now has a static scrapbook composition matching Work 3: layered creative and travel Polaroids, pink plaid and purple paper tapes, seated and standing cutouts, handwritten captions and black doodles. Photo crops, tape masks and positions use the shared 1181 by 840 notebook coordinate space and scale together. New collage pieces have no drag or peel behaviour yet. The pink General tab returns to Education/Skills. Bookmark turns and reopening retain the selected spread; the final turning leaf carries the left Interests artwork while the right spread remains beneath it. Original user assets remain unchanged; web copies use optimized WebP.

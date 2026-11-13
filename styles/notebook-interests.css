@@ -1,0 +1,32 @@
+/* Static scrapbook composition in the existing 1181 × 840 notebook coordinate space. */
+.interests-page { position: absolute; inset: 0; font-style: normal; }
+.interests-heading { position: absolute; left: calc(116 / 1181 * 100%); top: calc(47 / 840 * 100%); width: calc(430 / 1181 * 100%); margin: 0; rotate: -3.75deg; font: 700 calc(36 / 1181 * 100cqw)/1.15 var(--font-heading); letter-spacing: 0; white-space: nowrap; color: var(--color-white); }
+.interests-heading span { -webkit-text-stroke: calc(16 / 1181 * 100cqw) var(--color-purple); paint-order: stroke fill; }
+.interest-stack { position: absolute; inset: 0; pointer-events: none; }
+.interest-polaroid { position: absolute; left: calc(var(--x) / 1181 * 100%); top: calc(var(--y) / 840 * 100%); width: calc(var(--w) / 1181 * 100%); height: calc(var(--h) / 840 * 100%); transform: translate(-50%, -50%) rotate(var(--angle)); background: var(--color-white); box-shadow: 0 0 calc(13 / 1181 * 100cqw) rgb(0 0 0 / .1); }
+.interest-polaroid__photo { position: absolute; overflow: hidden; }
+.interest-polaroid__photo img { position: absolute; width: 100%; max-width: none; object-fit: fill; user-select: none; pointer-events: none; }
+.interests-tape { position: absolute; pointer-events: none; mask-composite: intersect; mask-repeat: no-repeat; mask-size: 100% 100%; }
+.interests-tape img { display: block; width: 100%; height: 100%; max-width: none; object-fit: fill; }
+.interests-tape--pink { left: calc(127.9 / 1181 * 100%); top: calc(161 / 840 * 100%); width: calc(166.784 / 1181 * 100%); height: calc(47.5365 / 840 * 100%); rotate: -21.58deg; mask-mode: luminance, alpha; mask-image: url('../assets/notebook/interests/mask-pink-a.svg'), url('../assets/notebook/interests/mask-pink-b.svg'); }
+.interests-tape--purple { left: calc(732.7 / 1181 * 100%); top: calc(49.35 / 840 * 100%); width: calc(230.297 / 1181 * 100%); height: calc(85.1427 / 840 * 100%); rotate: 13.3deg; mask-mode: alpha, luminance; mask-image: url('../assets/notebook/interests/mask-purple-a.svg'), url('../assets/notebook/interests/mask-purple-b.svg'); }
+.interests-seated { position: absolute; left: calc(326 / 1181 * 100%); top: calc(509 / 840 * 100%); width: calc(246 / 1181 * 100%); height: calc(288 / 840 * 100%); overflow: hidden; border-bottom-right-radius: calc(5 / 1181 * 100cqw); pointer-events: none; }
+.interests-seated img { display: block; width: 113.82%; height: auto; max-width: none; }
+.interests-standing { position: absolute; left: calc(935 / 1181 * 100%); top: calc(287 / 840 * 100%); width: calc(177.264 / 1181 * 100%); height: calc(414.287 / 840 * 100%); object-fit: cover; pointer-events: none; }
+.interests-caption { position: absolute; margin: 0; font: 400 calc(24 / 1181 * 100cqw)/normal var(--font-display); letter-spacing: 0; color: var(--color-text); }
+.interests-caption--games { left: calc(142 / 1181 * 100%); top: calc(611 / 840 * 100%); width: calc(227 / 1181 * 100%); }
+.interests-caption--travel { left: calc(646 / 1181 * 100%); top: calc(496 / 840 * 100%); width: calc(263 / 1181 * 100%); }
+.interests-doodle { position: absolute; height: auto; pointer-events: none; }
+.interests-doodle--games { left: calc(383.1 / 1181 * 100%); top: calc(587.85 / 840 * 100%); width: calc(34.5 / 1181 * 100%); }
+.interests-doodle--travel { left: calc(879.35 / 1181 * 100%); top: calc(441.8 / 840 * 100%); width: calc(49.1 / 1181 * 100%); }
+.notebook-bookmark--general { left: 0; top: calc(40 / 840 * 100%); background: var(--color-rose); border-radius: calc(20 / 1181 * 100cqw) 0 0 calc(20 / 1181 * 100cqw); writing-mode: vertical-rl; rotate: 180deg; }
+.notebook-interests__left { transform-origin: 50% 50%; transform: rotateY(180deg); backface-visibility: hidden; transition: transform var(--notebook-hinge-duration, 480ms) var(--notebook-hinge-ease, cubic-bezier(.3,0,.2,1)); }
+.notebook[data-expanded="true"] .notebook-interests__left { transform: rotateY(0); }
+.notebook__page-print .notebook-interests__left { transform: none; transition: none; }
+.notebook[data-notebook-state="opening"] .notebook-spread > .notebook-interests__left { animation: reveal-landed-education 1150ms step-end forwards; }
+.notebook[data-active-spread="interests"] .notebook__printed-back { display: block; }
+.notebook[data-spread-turn] .notebook-spread[data-spread="interests"] > .notebook-interests__left { visibility: hidden; }
+.notebook__turn-back { overflow: clip; }
+.notebook__turn-back-print { position: absolute; left: 0; top: 0; width: 200%; height: 100%; container-type: size; }
+.notebook__turn-back-print .notebook-interests__left { transform: none; transition: none; visibility: visible; }
+@media (prefers-reduced-motion: reduce) { .notebook-interests__left { transition: none; } }

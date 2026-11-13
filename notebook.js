@@ -6,6 +6,8 @@
   const spreads = [...book.querySelectorAll('.notebook__open > .notebook-spread')];
   const educationSpread = spreads.find(spread => spread.dataset.spread === 'education');
   const education = educationSpread.querySelector('.notebook-spread__left');
+  const interestsSpread = spreads.find(spread => spread.dataset.spread === 'interests');
+  const interestsLeft = interestsSpread.querySelector('.notebook-interests__left');
   const bookmarks = [...book.querySelectorAll('[data-notebook-page]')];
   const status = book.querySelector('.notebook__status');
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -40,6 +42,12 @@
   openingPrint.append(educationCopy);
   openingBack.append(openingPrint);
   openingLeaf.append(openingBack);
+  function printedInterests() {
+    const copy = interestsLeft.cloneNode(true);
+    copy.removeAttribute('aria-labelledby');
+    copy.querySelectorAll('[id]').forEach(node => node.removeAttribute('id'));
+    return copy;
+  }
   showSpread(currentSpread);
 
   function finish() {
@@ -59,6 +67,7 @@
     const state = book.dataset.notebookState;
     if (turning || !['closed', 'open'].includes(state) || book.querySelector('.is-held')) return;
     targetOpen = state === 'closed';
+    if (targetOpen) openingPrint.replaceChildren(currentSpread === 'interests' ? printedInterests() : educationCopy.cloneNode(true));
     book.dataset.notebookState = targetOpen ? 'opening' : 'closing';
     book.dataset.expanded = String(targetOpen);
     closed.inert = true;
@@ -95,7 +104,7 @@
     if (motion.matches) {
       showSpread(name);
       destination.querySelector('[data-notebook-page]').focus({preventScroll: true});
-      status.textContent = name === 'interests' ? 'Interests pages. Currently blank.' : 'Education and Skills pages.';
+      status.textContent = name === 'interests' ? 'Interests: games, creativity and travel.' : 'Education and Skills pages.';
       return;
     }
     const leaf = document.createElement('div');
@@ -111,11 +120,15 @@
     front.append(print);
     const back = document.createElement('div');
     back.className = 'notebook__turn-back';
+    const backPrint = document.createElement('div');
+    backPrint.className = 'notebook__turn-back-print';
+    backPrint.append(printedInterests());
+    back.append(backPrint);
     leaf.append(front, back);
     book.querySelector('.notebook__scene').append(leaf);
     turning = true;
     book.dataset.spreadTurn = forward ? 'forward' : 'backward';
-    spreads.find(spread => spread.dataset.spread === 'interests').hidden = true;
+    interestsSpread.hidden = false;
     syncAccess();
     button.setAttribute('aria-disabled', 'true');
     finishTurn = () => {
@@ -129,7 +142,7 @@
       finishTurn = null;
       button.setAttribute('aria-disabled', 'false');
       destination.querySelector('[data-notebook-page]').focus({preventScroll: true});
-      status.textContent = name === 'interests' ? 'Interests pages. Currently blank.' : 'Education and Skills pages.';
+      status.textContent = name === 'interests' ? 'Interests: games, creativity and travel.' : 'Education and Skills pages.';
     };
     turnAnimation = leaf.animate([
       {transform: `rotateY(${forward ? 0 : -180}deg)`},
