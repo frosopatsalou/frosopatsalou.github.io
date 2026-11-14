@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#FF91DC">
   <script src="./page-transition.js?v=2"></script>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="./styles/tokens.css?v=3">
+  <link rel="stylesheet" href="./styles/tokens.css?v=7">
   <link rel="stylesheet" href="./styles/base.css?v=6">
   <link rel="stylesheet" href="./styles/components.css?v=1">
   <link rel="stylesheet" href="./styles.css?v=5">
@@ -19,6 +19,8 @@
   <script src="./navigation.js?v=3" defer></script>
   <script src="./hero.js?v=8" defer></script>
   <link rel="stylesheet" href="./styles/pages.css?v=3">
+  <link rel="stylesheet" href="./styles/work.css?v=1">
+  <script src="./work.js?v=1" defer></script>
   <script src="./page-ready.js?v=4" defer></script>
 </head>
 <body class="interior-page" data-page="work">
@@ -33,4 +35,51 @@
             <a href="./contact.html">Contact</a>
           </nav>
         </div>
-      </header><section class="empty-page"><h1>Work</h1></section></main></body></html>
+
+      </header>
+      <div class="work-layout">
+        <aside class="case-progress" aria-label="Case study navigation">
+          <p class="work-eyebrow">The project story</p>
+          <nav aria-label="Case study sections"><div class="chapter-meter" role="progressbar" aria-label="Case study reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div><ol><li><a href="#project" data-no-transition data-chapter="project" aria-current="location"><span class="chapter-dot" aria-hidden="true">01</span><span>Introduction</span></a></li><li><a href="#overview" data-no-transition data-chapter="overview"><span class="chapter-dot" aria-hidden="true">02</span><span>Overview</span></a></li><li><a href="#research" data-no-transition data-chapter="research"><span class="chapter-dot" aria-hidden="true">03</span><span>Research</span></a></li><li><a href="#design" data-no-transition data-chapter="design"><span class="chapter-dot" aria-hidden="true">04</span><span>Design</span></a></li><li><a href="#testing" data-no-transition data-chapter="testing"><span class="chapter-dot" aria-hidden="true">05</span><span>Testing</span></a></li><li><a href="#reflection" data-no-transition data-chapter="reflection"><span class="chapter-dot" aria-hidden="true">06</span><span>Reflection</span></a></li></ol></nav>
+        </aside>
+        <div class="work-content">
+          <section class="work-intro" id="project" data-work-section aria-labelledby="project-title">
+            <div class="work-intro__top"><div class="work-intro__copy"><span class="work-sticker-label">Case study</span><p class="work-eyebrow">Project category</p><h1 id="project-title">Project title</h1><div class="project-description"><h2>About the project</h2><p class="placeholder-copy">Short app or project description goes here.</p></div><div class="work-actions"><a class="button" href="#overview" data-no-transition>Project overview <span aria-hidden="true">↓</span></a><button class="button button--outline" type="button" disabled>Prototype ↗</button></div></div><div class="work-placeholder work-placeholder--square" role="img" aria-label="Project mockup placeholder"><span class="placeholder-mark" aria-hidden="true">✳</span><span>Project mockup</span></div></div>
+            <div class="work-activity-grid"><article class="work-note"><h3>Research</h3><p class="placeholder-copy">Research activities go here.</p></article><article class="work-note"><h3>Design</h3><p class="placeholder-copy">Design activities go here.</p></article></div>
+            <dl class="project-facts"><div><dt>Role</dt><dd>Your role</dd></div><div><dt>Timeline</dt><dd>Project duration</dd></div><div><dt>Platform</dt><dd>Project platform</dd></div><div><dt>Tools</dt><dd>Tools used</dd></div></dl>
+          </section>
+          <section class="work-overview" id="overview" data-work-section aria-labelledby="overview-title">
+            <div class="overview-stage">
+              <div class="overview-intro"><span class="work-eyebrow">01 / At a glance</span><h2 class="work-heading" id="overview-title">Project overview</h2><p class="placeholder-copy">A quick introduction to the project.</p><div class="overview-controls"><button class="work-arrow" type="button" data-overview-prev aria-label="Previous overview card">←</button><span class="overview-count" aria-live="polite">01 / 05</span><button class="work-arrow" type="button" data-overview-next aria-label="Next overview card">→</button></div><span class="overview-scroll-hint">Scroll to explore <span aria-hidden="true">↗</span></span></div>
+              <div class="overview-window" tabindex="0" role="region" aria-label="Project overview cards"><div class="overview-track"><article class="overview-card" aria-label="1 of 5: The objective" style="--overview-color:var(--color-pink-200)"><span class="overview-card__number">01</span><h3>The objective</h3><p class="placeholder-copy">The main goal of the project.</p><div class="overview-card__art" aria-hidden="true"><span></span><span></span><span></span></div></article><article class="overview-card" aria-label="2 of 5: The challenge" style="--overview-color:var(--color-yellow-200)"><span class="overview-card__number">02</span><h3>The challenge</h3><p class="placeholder-copy">The problem this project addresses.</p><div class="overview-card__art" aria-hidden="true"><span></span><span></span><span></span></div></article><article class="overview-card" aria-label="3 of 5: The audience" style="--overview-color:var(--color-sky-200)"><span class="overview-card__number">03</span><h3>The audience</h3><p class="placeholder-copy">Who the experience is designed for.</p><div class="overview-card__art" aria-hidden="true"><span></span><span></span><span></span></div></article><article class="overview-card" aria-label="4 of 5: The approach" style="--overview-color:var(--color-lime-200)"><span class="overview-card__number">04</span><h3>The approach</h3><p class="placeholder-copy">A brief overview of the design approach.</p><div class="overview-card__art" aria-hidden="true"><span></span><span></span><span></span></div></article><article class="overview-card" aria-label="5 of 5: The deliverables" style="--overview-color:var(--color-purple-100)"><span class="overview-card__number">05</span><h3>The deliverables</h3><p class="placeholder-copy">The work and outcomes to be shown.</p><div class="overview-card__art" aria-hidden="true"><span></span><span></span><span></span></div></article></div></div>
+            </div>
+          </section>
+          <section class="work-sheet" id="research" data-work-section aria-labelledby="research-title">
+            <header class="work-section-heading"><span class="work-eyebrow">02 / Understanding the problem</span><h2 class="work-heading" id="research-title">Research & discovery</h2></header>
+            <div class="work-two-col"><article class="work-note"><h3>The problem</h3><p class="placeholder-copy">Problem statement goes here.</p></article><article class="work-note"><h3>The people</h3><p class="placeholder-copy">Audience and research context go here.</p></article></div>
+            <div class="work-placeholder work-placeholder--wide" role="img" aria-label="Research visual / affinity map placeholder"><span class="placeholder-mark" aria-hidden="true">✳</span><span>Research visual / affinity map</span></div>
+            <div class="work-three-col"><article class="work-note"><h3>Insight 01</h3><p class="placeholder-copy">Key research finding.</p></article><article class="work-note"><h3>Insight 02</h3><p class="placeholder-copy">Key research finding.</p></article><article class="work-note"><h3>Insight 03</h3><p class="placeholder-copy">Key research finding.</p></article></div>
+          </section>
+          <section class="work-sheet work-sheet--pink" id="design" data-work-section aria-labelledby="design-title">
+            <header class="work-section-heading"><span class="work-eyebrow">03 / Design process</span><h2 class="work-heading" id="design-title">From idea to interface</h2></header>
+            <div class="work-three-col"><div class="work-placeholder work-placeholder--small" role="img" aria-label="User flow placeholder"><span class="placeholder-mark" aria-hidden="true">✳</span><span>User flow</span></div><div class="work-placeholder work-placeholder--small" role="img" aria-label="Wireframes placeholder"><span class="placeholder-mark" aria-hidden="true">✳</span><span>Wireframes</span></div><div class="work-placeholder work-placeholder--small" role="img" aria-label="Visual direction placeholder"><span class="placeholder-mark" aria-hidden="true">✳</span><span>Visual direction</span></div></div>
+            <article class="work-note"><h3>Design decisions</h3><p class="placeholder-copy">The reasoning behind key design choices goes here.</p></article>
+            <div class="interface-placeholder"><span class="work-eyebrow">Final interface placeholder</span><div class="placeholder-screens" aria-hidden="true"><div class="placeholder-phone"><span></span><i></i><i></i><i></i></div><div class="placeholder-phone"><span></span><i></i><i></i><i></i></div><div class="placeholder-phone"><span></span><i></i><i></i><i></i></div></div></div>
+          </section>
+          <section class="work-sheet" id="testing" data-work-section aria-labelledby="testing-title">
+            <header class="work-section-heading"><span class="work-eyebrow">04 / Iteration</span><h2 class="work-heading" id="testing-title">Test, learn, refine</h2></header>
+            <article class="work-note"><h3>Testing approach</h3><p class="placeholder-copy">What was tested and how the feedback was collected.</p></article>
+            <div class="work-two-col"><div class="work-placeholder work-placeholder--small" role="img" aria-label="Before iteration placeholder"><span class="placeholder-mark" aria-hidden="true">✳</span><span>Before iteration</span></div><div class="work-placeholder work-placeholder--small" role="img" aria-label="After iteration placeholder"><span class="placeholder-mark" aria-hidden="true">✳</span><span>After iteration</span></div></div>
+            <div class="work-table-wrap"><table class="work-table"><caption>Feedback & changes</caption><thead><tr><th>What we tested</th><th>What we learned</th><th>What changed</th></tr></thead><tbody><tr><td>Feature or task</td><td>Finding placeholder</td><td>Design change placeholder</td></tr><tr><td>Feature or task</td><td>Finding placeholder</td><td>Design change placeholder</td></tr></tbody></table></div>
+          </section>
+          <section class="work-sheet work-sheet--yellow" id="reflection" data-work-section aria-labelledby="reflection-title">
+            <header class="work-section-heading"><span class="work-eyebrow">05 / Outcome & reflection</span><h2 class="work-heading" id="reflection-title">Looking back, looking ahead</h2></header>
+            <div class="work-three-col"><article class="work-note"><h3>The outcome</h3><p class="placeholder-copy">Project outcomes go here.</p></article><article class="work-note"><h3>What I learned</h3><p class="placeholder-copy">Personal reflection goes here.</p></article><article class="work-note"><h3>Next steps</h3><p class="placeholder-copy">What could happen next.</p></article></div>
+            <div class="work-placeholder work-placeholder--wide" role="img" aria-label="Final project visual placeholder"><span class="placeholder-mark" aria-hidden="true">✳</span><span>Final project visual</span></div>
+            <div class="work-end"><a href="#project" class="button" data-no-transition>Back to the top ↑</a><button class="button button--outline" type="button" disabled>Next project ↗</button></div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
