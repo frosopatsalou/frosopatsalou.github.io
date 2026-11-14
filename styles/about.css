@@ -36,7 +36,7 @@
 .about__intro { position: absolute; left: 39%; top: 22.5%; width: 52%; padding: 0; z-index: auto; }
 .about__identity { position: relative; display: block; height: 18.6cqh; margin-bottom: 2cqh; }
 .about__face { left: 0; top: 4%; width: 26%; margin: 0; z-index: 3; }
-.about__crown { left: -1%; top: -3.5cqh; bottom: auto; width: 13%; transform: rotate(-12deg); z-index: 4; }
+.about__crown { left: -3%; top: -3.5cqh; bottom: auto; width: 13%; transform: rotate(-12deg); z-index: 4; }
 .about__name-tag { left: 18%; top: 0; width: 82%; z-index: 2; }
 .about__lines { width: 115px; left: calc(100% + 5px); top: calc(100% + 20px); }
 .about__flower { right: 2%; top: 3%; width: 13.5%; z-index: 2; }

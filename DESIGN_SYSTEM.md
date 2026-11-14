@@ -223,3 +223,8 @@ Interests tapes and both Froso cutouts now reuse the shared alpha-aware peel/dra
 
 
 The Clocked off, Education, Extracurricular and Skills headings now have white silhouette borders and shared alpha-aware peel/drag behaviour. Heading stickers are constrained to their own paper half and reset with the notebook Tidy up control. A shared printed-copy helper flattens all live stickers for opening and bookmark leaves, preserving moved poses without duplicate peel renderers. The standing cutout shifts 12 design pixels right. General bookmark radii account for its 180-degree rotation so the visible left corners are rounded.
+
+
+The pink plaid and purple Interests tapes are fixed decorative artwork in their original positions. They have no movable attributes, peel renderer or keyboard drag controls. Photo cutouts and title stickers retain their page-contained interactions.
+
+The blue About crown starts two percentage points further left within the identity composition; its height, size and drag behaviour stay the same.
