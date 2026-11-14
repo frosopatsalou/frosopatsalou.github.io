@@ -8,7 +8,8 @@
   const portfolio = document.getElementById('portfolio');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const preview = new URLSearchParams(location.search).get('preview') === 'loading';
-  const minimumDuration = reducedMotion ? 400 : 2800;
+  const arriving = window.portfolioPageTransition?.incoming;
+  const minimumDuration = arriving ? 0 : reducedMotion ? 400 : 2800;
   const start = performance.now();
   const expressions = ['smiling', 'surprised', 'happy', 'kissy', 'determined'];
   const decoded = new Map();
@@ -65,6 +66,16 @@
   function finish() {
     draw(100);
     status.textContent = 'Portfolio loaded';
+    if (arriving) {
+      portfolio.inert = false;
+      portfolio.removeAttribute('aria-hidden');
+      document.body.classList.remove('is-loading');
+      loader.remove();
+      window.portfolioPageTransition.reveal().then(() => {
+        document.dispatchEvent(new Event('portfolio:ready'));
+      });
+      return;
+    }
     setTimeout(() => {
       portfolio.inert = false;
       portfolio.removeAttribute('aria-hidden');
@@ -80,7 +91,7 @@
     const elapsed = now - start;
     if (!reducedMotion) showExpression(elapsed);
     // Progress covers actual resource readiness and the brief introduction together.
-    const introProgress = Math.min(elapsed / minimumDuration, 1);
+    const introProgress = minimumDuration ? Math.min(elapsed / minimumDuration, 1) : 1;
     const target = preview ? (elapsed % 4000) / 4000 * 100 : Math.min((completed / totalTasks * .2 + introProgress * .8) * 100, 98);
     displayed = preview ? target : Math.max(displayed, displayed + (target - displayed) * .09);
     draw(displayed);

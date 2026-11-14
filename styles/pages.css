@@ -1,7 +1,10 @@
+:root { --duration-page-cover: 460ms; --duration-page-reveal: 360ms; }
 .interior-page { background: var(--color-yellow); }
 .empty-page { min-height: 100svh; display: grid; place-content: center; padding: 140px 20px 60px; background: var(--color-yellow); }
 .empty-page h1 { font: 400 clamp(60px,12vw,150px)/1 var(--font-display); color: var(--color-purple); }
 .nav-pill a { transition: background 160ms, color 160ms, scale 160ms; }
 .nav-pill a:active { scale: .92; }
-body.is-page-leaving #portfolio { pointer-events: none; }
 @media (prefers-reduced-motion: reduce) { .nav-pill a { transition: none; } }
+
+html.is-navigation-busy { cursor: progress; }
+.page-transition { isolation: isolate; }
