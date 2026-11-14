@@ -1,4 +1,4 @@
-:root { --duration-page-cover: 460ms; --duration-page-reveal: 360ms; }
+:root { --duration-page-pop: 300ms; --duration-page-cover: 700ms; --duration-page-reveal: 700ms; --delay-page-reveal: 150ms; --size-page-bubble: 70px; }
 .interior-page { background: var(--color-yellow); }
 .empty-page { min-height: 100svh; display: grid; place-content: center; padding: 140px 20px 60px; background: var(--color-yellow); }
 .empty-page h1 { font: 400 clamp(60px,12vw,150px)/1 var(--font-display); color: var(--color-purple); }

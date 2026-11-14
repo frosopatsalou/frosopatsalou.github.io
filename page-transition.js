@@ -1,6 +1,7 @@
 (() => {
   'use strict';
   const key = 'portfolio-circle-navigation';
+  const colorKey = 'portfolio-circle-last-color';
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const prefetches = new Map();
   let overlay, animation, navigating = false, revealPromise, safetyTimer;
@@ -14,7 +15,7 @@
   } catch (_) { /* Navigation still works when browser storage is unavailable. */ }
 
   function radius() {
-    return Math.hypot(Math.max(point.x, innerWidth - point.x), Math.max(point.y, innerHeight - point.y)) + 8;
+    return Math.hypot(Math.max(point.x, innerWidth - point.x), Math.max(point.y, innerHeight - point.y)) + 2;
   }
   const circle = size => `circle(${size}px at ${point.x}px ${point.y}px)`;
   function makeOverlay(color, covered = false) {
@@ -35,16 +36,47 @@
   function duration(name, fallback) {
     return parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name)) || fallback;
   }
+  const backOut = t => 1 + (t - 1) ** 2 * (4 * (t - 1) + 3);
+  const backIn = t => t * t * (4 * t - 3);
+  function animateCircle(stages) {
+    const total = stages.reduce((sum, stage) => sum + stage.ms, 0);
+    let elapsed = 0;
+    const frames = [];
+    stages.forEach((stage, index) => {
+      const samples = Math.max(2, Math.ceil(stage.ms / 8));
+      for (let i = index ? 1 : 0; i <= samples; i++) {
+        const t = i / samples;
+        const size = Math.max(0, stage.from + (stage.to - stage.from) * stage.ease(t));
+        frames.push({ clipPath: circle(size), offset: (elapsed + stage.ms * t) / total });
+      }
+      elapsed += stage.ms;
+    });
+    animation = overlay.animate(frames, { duration: motion.matches ? 0 : total, easing: 'linear', fill: 'forwards' });
+    return animation.finished.catch(() => {});
+  }
+  function randomColor() {
+    const styles = getComputedStyle(document.documentElement);
+    const colors = ['fuchsia', 'rose', 'magenta', 'purple', 'pink', 'blue', 'sky', 'yellow', 'lime']
+      .map(name => styles.getPropertyValue(`--color-${name}`).trim()).filter(color => /^#[0-9a-f]{6}$/i.test(color));
+    let previous = arrival?.color;
+    try { previous = sessionStorage.getItem(colorKey) || previous; } catch (_) {}
+    const pool = colors.filter(color => color.toLowerCase() !== previous?.toLowerCase());
+    const color = pool[Math.floor(Math.random() * pool.length)] || '#7300ED';
+    try { sessionStorage.setItem(colorKey, color); } catch (_) {}
+    return color;
+  }
   async function uncover() {
     clearTimeout(safetyTimer);
     if (!overlay) return;
     overlay.dataset.phase = 'revealing';
     animation?.cancel();
     if (!motion.matches) {
-      animation = overlay.animate([
-        { clipPath: circle(radius()) }, { clipPath: circle(0) }
-      ], { duration: duration('--duration-page-reveal', 360), easing: 'cubic-bezier(.65,0,.2,1)', fill: 'forwards' });
-      await animation.finished.catch(() => {});
+      const full = radius(), bubble = duration('--size-page-bubble', 70);
+      await animateCircle([
+        { from: full, to: full, ms: duration('--delay-page-reveal', 150), ease: t => t },
+        { from: full, to: bubble, ms: duration('--duration-page-reveal', 700), ease: t => t ** 4 },
+        { from: bubble, to: 0, ms: duration('--duration-page-pop', 300), ease: backIn }
+      ]);
     }
     overlay?.remove();
     overlay = null;
@@ -76,18 +108,17 @@
     navigating = true;
     prefetch(url);
     point = origin;
-    const rgb = getComputedStyle(document.documentElement).getPropertyValue('--color-purple').trim();
-    const color = /^#[0-9a-f]{6}$/i.test(rgb) ? rgb : '#7300ED';
+    const color = randomColor();
     makeOverlay(color);
     overlay.dataset.phase = 'covering';
     document.body.setAttribute('aria-busy', 'true');
     const main = document.getElementById('portfolio');
     if (main) main.inert = true;
-    animation = overlay.animate([{ clipPath: circle(0) }, { clipPath: circle(radius()) }], {
-      duration: motion.matches ? 0 : duration('--duration-page-cover', 460),
-      easing: 'cubic-bezier(.7,0,.2,1)', fill: 'forwards'
-    });
-    await animation.finished.catch(() => {});
+    const bubble = duration('--size-page-bubble', 70);
+    await animateCircle([
+      { from: 0, to: bubble, ms: duration('--duration-page-pop', 300), ease: backOut },
+      { from: bubble, to: radius(), ms: duration('--duration-page-cover', 700), ease: t => t ** 5 }
+    ]);
     overlay.dataset.phase = 'covered';
     if (url.pathname === location.pathname && url.search === location.search) {
       if (url.hash) {
