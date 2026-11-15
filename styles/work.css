@@ -293,7 +293,8 @@ body[data-case="lush"] .work-table th { background: var(--color-case-lush); }
 .lush-device.lush-user-device, .lush-journey-feature figure > a.lush-user-device { border: 0; background: transparent; overflow: visible; }
 .lush-user-device::after { display: none; }
 .lush-device.lush-user-device > img, .lush-journey-feature .lush-user-device > img { position: static; display: block; width: 100%; height: auto; max-width: none; }
-.lush-hero-art--composition { padding: var(--space-16); }
-.lush-hero-art--composition > img { display: block; width: 100%; max-width: none; height: auto; }
+.lush-hero-art--composition { position: relative; padding: 0; aspect-ratio: 4 / 3; overflow: hidden; }
+.lush-hero-art--composition > .lush-hero-composition { display: block; width: 100%; max-width: none; height: 100%; object-fit: cover; }
+.lush-hero-art--composition > .lush-hero-mascot { position: absolute; right: 3%; bottom: 3%; display: block; width: 18%; max-width: 95px; height: auto; margin: 0; rotate: 8deg; filter: drop-shadow(2px 0 0 white) drop-shadow(-2px 0 0 white) drop-shadow(0 2px 0 white) drop-shadow(0 -2px 0 white) drop-shadow(2px 3px 2px rgb(0 49 99 / .18)); }
 .crew-member, .is-dragging .crew-member { cursor: pointer; }
 .crew-member:not([data-position="hidden"]) { pointer-events: auto; }
