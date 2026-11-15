@@ -14,11 +14,52 @@
 
   const mascot = document.querySelector('.lush-hero-mascot');
   if (mascot) {
-    const art = mascot.querySelector('img');
+    const art = mascot.querySelector('.lush-mascot-art');
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    const eyes = [...art.querySelectorAll('[data-mascot-pupil]')].map(node => ({
+      node, x: 0, y: 0, targetX: 0, targetY: 0,
+      baseX: Number(node.dataset.baseX), baseY: Number(node.dataset.baseY)
+    }));
+    let eyeFrame = 0;
+    const animateEyes = () => {
+      eyeFrame = 0;
+      let moving = false;
+      eyes.forEach(eye => {
+        eye.x += (eye.targetX - eye.x) * .22;
+        eye.y += (eye.targetY - eye.y) * .22;
+        if (Math.hypot(eye.targetX - eye.x, eye.targetY - eye.y) > .025) moving = true;
+        eye.node.setAttribute('transform', `translate(${eye.baseX + eye.x} ${eye.baseY + eye.y})`);
+      });
+      if (moving) eyeFrame = requestAnimationFrame(animateEyes);
+    };
+    const scheduleEyes = () => { if (!eyeFrame) eyeFrame = requestAnimationFrame(animateEyes); };
+    const restEyes = () => {
+      eyes.forEach(eye => { eye.targetX = 0; eye.targetY = 0; });
+      scheduleEyes();
+    };
+    window.addEventListener('pointermove', event => {
+      if (event.pointerType === 'touch' || reducedMotion.matches || !mascot.classList.contains('is-awake')) return;
+      const matrix = art.getScreenCTM();
+      if (!matrix) return;
+      const cursor = new DOMPoint(event.clientX, event.clientY).matrixTransform(matrix.inverse());
+      eyes.forEach(eye => {
+        const dx = cursor.x - Number(eye.node.dataset.eyeX);
+        const dy = cursor.y - Number(eye.node.dataset.eyeY);
+        const distance = Math.hypot(dx, dy);
+        const strength = 12 * Math.min(distance / 160, 1);
+        eye.targetX = distance ? dx / distance * strength : 0;
+        eye.targetY = distance ? dy / distance * strength : 0;
+      });
+      scheduleEyes();
+    }, { passive: true });
+    document.documentElement.addEventListener('pointerleave', restEyes);
+    window.addEventListener('blur', restEyes);
     let hop;
     new IntersectionObserver(entries => {
-      entries.forEach(entry => mascot.classList.toggle('is-awake', entry.isIntersecting));
+      entries.forEach(entry => {
+        mascot.classList.toggle('is-awake', entry.isIntersecting);
+        if (!entry.isIntersecting) restEyes();
+      });
     }, { threshold: .1 }).observe(mascot);
     mascot.addEventListener('click', () => {
       if (reducedMotion.matches || hop?.playState === 'running') return;
@@ -33,7 +74,9 @@
       ], { duration: 640, easing: 'cubic-bezier(.25,.6,.3,1)' });
       hop.finished.then(() => mascot.classList.remove('is-hopping')).catch(() => mascot.classList.remove('is-hopping'));
     });
-    reducedMotion.addEventListener('change', () => { if (reducedMotion.matches) hop?.cancel(); });
+    reducedMotion.addEventListener('change', () => {
+      if (reducedMotion.matches) { hop?.cancel(); restEyes(); }
+    });
   }
 
   const carousel = document.querySelector('.crew-carousel');

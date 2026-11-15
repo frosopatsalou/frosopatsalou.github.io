@@ -300,8 +300,8 @@ body[data-case="lush"] .work-table th { background: var(--color-case-lush); }
 .crew-member:not([data-position="hidden"]) { pointer-events: auto; }
 
 .lush-hero-art--composition > button.lush-hero-mascot { padding: 0; border: 0; background: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-.lush-hero-mascot > img { display: block; width: 100%; height: auto; transform-origin: 50% 100%; user-select: none; }
-.lush-hero-mascot.is-awake:not(.is-hopping) > img { animation: scrubby-idle 3.6s cubic-bezier(.3,0,.2,1) infinite; }
+.lush-hero-mascot > .lush-mascot-art { display: block; width: 100%; height: auto; transform-origin: 50% 100%; user-select: none; pointer-events: none; }
+.lush-hero-mascot.is-awake:not(.is-hopping) > .lush-mascot-art { animation: scrubby-idle 3.6s cubic-bezier(.3,0,.2,1) infinite; }
 .lush-hero-mascot:focus-visible { outline: 3px solid var(--color-lush-blue); outline-offset: 4px; border-radius: var(--radius-sm); }
 @keyframes scrubby-idle {
   0%,60%,100% { transform: translateY(0) rotate(0) scale(1); }
@@ -311,4 +311,4 @@ body[data-case="lush"] .work-table th { background: var(--color-case-lush); }
   86% { transform: translateY(-3px) rotate(2deg) scale(1); }
   92% { transform: translateY(0) rotate(0) scale(1); }
 }
-@media (prefers-reduced-motion: reduce) { .lush-hero-mascot.is-awake:not(.is-hopping) > img { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .lush-hero-mascot.is-awake:not(.is-hopping) > .lush-mascot-art { animation: none; } }
