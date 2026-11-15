@@ -240,3 +240,6 @@ Work now contains a placeholder-only reusable case-study scaffold. Introduction 
 
 
 Work background now follows the supplied checked/star reference: pale yellow paper, broad translucent sky-blue checks and a repeating hand-drawn pink star mask, all using existing palette tokens. Both background layers stay fixed together. On desktop, the progress rail shifts closer to the left edge independently of the case-study content; wide-screen centring no longer pulls it far inward. Mobile chapter-bar placement is retained.
+
+
+Work background is softened to the sky-200 tint with translucent purple-100 checks and palette-yellow stars. The overview heading uses plain purple text without a white stroke, and overview cards use a subtle palette frame instead of a white border. The chapter rail and overview introduction now have solid white surfaces so pattern details cannot interfere with reading.
