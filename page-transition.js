@@ -121,9 +121,9 @@
     ]);
     overlay.dataset.phase = 'covered';
     if (url.pathname === location.pathname && url.search === location.search) {
+      history.pushState(null, '', url);
       if (url.hash) {
-        history.pushState(null, '', url);
-        try { document.getElementById(decodeURIComponent(url.hash.slice(1)))?.scrollIntoView(); } catch (_) {}
+        try { document.getElementById(decodeURIComponent(url.hash.slice(1)))?.scrollIntoView({ block: 'start', behavior: 'instant' }); } catch (_) {}
       } else scrollTo({ top: 0, behavior: 'instant' });
       await uncover();
       if (main) main.inert = false;

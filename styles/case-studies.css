@@ -10,6 +10,7 @@
   background-size: 48px 48px;
 }
 .case-board {
+  scroll-margin-top: 130px;
   width: min(1184px, 100%);
   margin-inline: auto;
   padding: clamp(24px, 3.4vw, 48px) clamp(20px, 2vw, 30px) 32px;
