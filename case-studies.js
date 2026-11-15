@@ -41,6 +41,7 @@
 
   board.querySelectorAll('.case-card').forEach((card, index) => {
     const title = card.querySelector('h3').textContent;
+    const linked = card.matches('a[href]');
     const slot = document.createElement('div');
     slot.className = 'case-slot';
     slot.style.setProperty('--card-tilt', `${index % 2 ? 3 : -3}deg`);
@@ -55,14 +56,28 @@
     restore.setAttribute('aria-label', `Bring back ${title}`);
     restore.hidden = true;
     slot.append(restore);
-    card.setAttribute('role', 'button');
+    if (!linked) card.setAttribute('role', 'button');
     card.setAttribute('tabindex', '0');
-    card.setAttribute('aria-label', `Pull down ${title} card`);
-    card.setAttribute('aria-describedby', instructions.id);
+    card.setAttribute('aria-label', linked ? `Read the ${title} case study` : `Pull down ${title} card`);
+    if (linked) {
+      const linkInstructions = document.createElement('p');
+      linkInstructions.id = `case-card-link-instructions-${index}`;
+      linkInstructions.className = 'sr-only';
+      linkInstructions.textContent = 'Activate to read the case study. Pull down to unpin the card, or press Space or Arrow Down. Use Bring back to pin it up again.';
+      board.before(linkInstructions);
+      card.setAttribute('aria-describedby', linkInstructions.id);
+    } else card.setAttribute('aria-describedby', instructions.id);
     card.querySelectorAll('img').forEach(image => { image.draggable = false; });
     let state = 'pinned';
     let pull = null;
     let activeAnimation = null;
+    let dragged = false;
+    card.addEventListener('click', event => {
+      if (linked && (dragged || state !== 'pinned')) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    });
 
     const releaseCapture = () => {
       if (!pull) return;
@@ -112,12 +127,14 @@
     card.addEventListener('pointerdown', event => {
       if (state !== 'pinned' || !event.isPrimary || event.button !== 0) return;
       state = 'pulling';
+      dragged = false;
       pull = {id: event.pointerId, x: event.clientX, y: event.clientY};
       slot.classList.add('is-pulling');
       card.setPointerCapture(event.pointerId);
     });
     card.addEventListener('pointermove', event => {
       if (state !== 'pulling' || event.pointerId !== pull?.id) return;
+      if (Math.hypot(event.clientX - pull.x, event.clientY - pull.y) > 8) dragged = true;
       const dy = Math.max(0, event.clientY - pull.y);
       const dx = Math.max(-35, Math.min(35, (event.clientX - pull.x) * .3));
       const angle = dx * .16;
@@ -130,6 +147,7 @@
     card.addEventListener('dragstart', event => event.preventDefault());
     card.addEventListener('keydown', event => {
       if (event.key === 'Escape') { settle(); return; }
+      if (linked && event.key === 'Enter') { dragged = false; return; }
       if (state !== 'pinned' || !['Enter', ' ', 'ArrowDown'].includes(event.key)) return;
       event.preventDefault();
       fall();

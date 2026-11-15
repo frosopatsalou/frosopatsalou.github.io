@@ -22,6 +22,7 @@
 .case-board h2 img { display: block; width: min(328px, 100%); height: auto; margin-inline: auto; }
 .case-board__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 36px; }
 .case-card { position: relative; min-width: 0; background: var(--color-white); border-radius: 4px; box-shadow: 0 7px 12px rgb(75 46 27 / .28); }
+a.case-card { display: block; color: inherit; text-decoration: none; }
 .case-card__pin { position: absolute; z-index: 1; width: 15.3%; height: auto; top: -13%; left: 48%; pointer-events: none; }
 .case-card__image { position: relative; aspect-ratio: 320 / 176; overflow: hidden; border-radius: 4px 4px 0 0; background: var(--case-image-background); }
 .case-card--lush { --case-image-background: var(--color-case-lush); }
