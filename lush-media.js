@@ -12,6 +12,30 @@
   document.addEventListener('visibilitychange', () => { if (!document.hidden) playTiles(); });
   document.addEventListener('pointerdown', playTiles, { once: true });
 
+  const mascot = document.querySelector('.lush-hero-mascot');
+  if (mascot) {
+    const art = mascot.querySelector('img');
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    let hop;
+    new IntersectionObserver(entries => {
+      entries.forEach(entry => mascot.classList.toggle('is-awake', entry.isIntersecting));
+    }, { threshold: .1 }).observe(mascot);
+    mascot.addEventListener('click', () => {
+      if (reducedMotion.matches || hop?.playState === 'running') return;
+      mascot.classList.add('is-hopping');
+      hop = art.animate([
+        { transform: 'translateY(0) rotate(0) scale(1)', offset: 0 },
+        { transform: 'translateY(0) rotate(0) scale(1.12,.87)', offset: .14 },
+        { transform: 'translateY(-23px) rotate(-8deg) scale(.96,1.05)', offset: .4 },
+        { transform: 'translateY(-11px) rotate(6deg) scale(1)', offset: .63 },
+        { transform: 'translateY(0) rotate(-2deg) scale(1.1,.9)', offset: .8 },
+        { transform: 'translateY(0) rotate(0) scale(1)', offset: 1 }
+      ], { duration: 640, easing: 'cubic-bezier(.25,.6,.3,1)' });
+      hop.finished.then(() => mascot.classList.remove('is-hopping')).catch(() => mascot.classList.remove('is-hopping'));
+    });
+    reducedMotion.addEventListener('change', () => { if (reducedMotion.matches) hop?.cancel(); });
+  }
+
   const carousel = document.querySelector('.crew-carousel');
   if (!carousel) return;
   const stage = carousel.querySelector('.crew-stage');
