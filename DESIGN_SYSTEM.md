@@ -243,3 +243,6 @@ Work background now follows the supplied checked/star reference: pale yellow pap
 
 
 Work background is softened to the sky-200 tint with translucent purple-100 checks and palette-yellow stars. The overview heading uses plain purple text without a white stroke, and overview cards use a subtle palette frame instead of a white border. The chapter rail and overview introduction now have solid white surfaces so pattern details cannot interfere with reading.
+
+
+Work background now uses the Lush case-study pale blue token with translucent sky-blue checks; purple is removed from the background pattern. Yellow stars remain. Desktop chapter panels size to their contents with a minimum column width and 12px side padding, keeping the full Introduction highlight inside the border without moving the case-study content.
