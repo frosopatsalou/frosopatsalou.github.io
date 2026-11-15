@@ -31,7 +31,7 @@
     });
     count.textContent = `${selected + 1} / ${members.length}`;
   }
-  members.forEach((member, i) => member.addEventListener('click', () => { if (!suppressClick) select(i); }));
+  members.forEach((member, i) => member.addEventListener('click', () => { if (!suppressClick) select(i === selected ? selected + 1 : i); }));
   stage.addEventListener('pointerdown', event => {
     if (event.button !== 0 || !event.isPrimary) return;
     drag = { id: event.pointerId, x: event.clientX, delta: 0 };

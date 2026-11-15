@@ -273,7 +273,7 @@ body[data-case="lush"] .work-table th { background: var(--color-case-lush); }
 .crew-hint { font: 400 26px/1.25 var(--font-display); color: var(--color-blue-800); text-align: center; }
 .crew-stage { --crew-drag: 0px; position: relative; width: min(100%,760px); height: clamp(240px,28vw,360px); margin: var(--space-24) auto; overflow: hidden; perspective: 900px; cursor: grab; touch-action: pan-y; user-select: none; }
 .crew-stage:focus-visible { outline: 3px solid var(--color-lush-blue); outline-offset: 6px; border-radius: var(--radius-sm); }
-.crew-track { position: absolute; inset: 0; transform-style: preserve-3d; }
+.crew-track { position: absolute; inset: 0; transform-style: preserve-3d; pointer-events: none; }
 .crew-member { --crew-offset: 0; position: absolute; left: 50%; top: 50%; display: block; box-sizing: border-box; width: 30%; height: 90%; margin: 0; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; cursor: grab; transform: translate(-50%,-50%) translateX(calc(var(--crew-offset) * 112% + var(--crew-drag))) translateZ(-110px) rotateY(calc(var(--crew-offset) * -17deg)) scale(.72); opacity: .65; transition: transform 420ms cubic-bezier(.2,.8,.2,1),opacity 280ms ease; }
 .crew-member img { display: block; width: 100%; height: 100%; object-fit: contain; pointer-events: none; filter: drop-shadow(0 3px 2px rgb(0 49 99 / .16)); }
 .crew-member[data-position="front"] { transform: translate(-50%,-50%) translateX(var(--crew-drag)) translateZ(0) rotateY(0) scale(1); opacity: 1; z-index: 2; }
@@ -285,3 +285,15 @@ body[data-case="lush"] .work-table th { background: var(--color-case-lush); }
 .crew-count { color: var(--color-blue-800); font: 400 24px/1 var(--font-display); }
 @media (max-width: 560px) { .crew-carousel { padding: var(--space-16) var(--space-12); } .crew-hint { font-size: 23px; } .crew-stage { margin-block: var(--space-16); height: 240px; } .crew-member { width: 38%; transform: translate(-50%,-50%) translateX(calc(var(--crew-offset) * 91% + var(--crew-drag))) translateZ(-75px) rotateY(calc(var(--crew-offset) * -17deg)) scale(.7); } .crew-member[data-position="front"] { transform: translate(-50%,-50%) translateX(var(--crew-drag)) translateZ(0) scale(1); } }
 @media (prefers-reduced-motion: reduce) { .crew-member { transition: none; } }
+
+/* Reuse the user's original iPhone hardware and finished compositions. */
+.lush-device, .lush-journey-feature figure > a { aspect-ratio: 421 / 850; }
+.lush-device::after { background-image: url('../assets/lush/mockups/iphone-frame.png'); }
+.lush-device .iphone-screen { left: 5.236%; top: 2.12%; width: 89.245%; height: 95.638%; border-radius: 11% / 5%; }
+.lush-device.lush-user-device, .lush-journey-feature figure > a.lush-user-device { border: 0; background: transparent; overflow: visible; }
+.lush-user-device::after { display: none; }
+.lush-device.lush-user-device > img, .lush-journey-feature .lush-user-device > img { position: static; display: block; width: 100%; height: auto; max-width: none; }
+.lush-hero-art--composition { padding: var(--space-16); }
+.lush-hero-art--composition > img { display: block; width: 100%; max-width: none; height: auto; }
+.crew-member, .is-dragging .crew-member { cursor: pointer; }
+.crew-member:not([data-position="hidden"]) { pointer-events: auto; }
