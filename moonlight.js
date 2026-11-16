@@ -7,9 +7,12 @@
   let frame = 0, active = -1;
   function update() {
     frame = 0;
-    const marker = 190;
+    const marker = 210;
+    const end = Math.max(0, document.documentElement.scrollHeight - innerHeight);
     let current = 0;
     sections.forEach((section, i) => { if (section.getBoundingClientRect().top <= marker) current = i; });
+    // The final section may be too short to reach the top marker.
+    if (scrollY >= end - 3) current = sections.length - 1;
     if (current !== active) {
       active = current;
       links.forEach((link, i) => {
@@ -19,7 +22,6 @@
       });
     }
     const start = sections[0].getBoundingClientRect().top + scrollY;
-    const end = document.documentElement.scrollHeight - innerHeight;
     const progress = Math.max(0, Math.min(1, (scrollY - start + 180) / Math.max(1, end - start + 180)));
     index.style.setProperty('--moon-progress', String(progress));
     index.querySelector('[role=progressbar]').setAttribute('aria-valuenow', String(Math.round(progress * 100)));

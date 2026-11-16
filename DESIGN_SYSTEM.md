@@ -281,3 +281,6 @@ Moonlight uses the exact supplied vector logo and a single vector speech bubble 
 
 
 Both case studies now include local full export previews for the user map, user journey, information architecture and UI overview. Lush retains its user story map. A shared native dialog provides enlargement, zoom controls, fit, scrolling, Escape dismissal and focus restoration, while direct image links remain the fallback. Moonlight’s rail moves closer to the viewport left edge on desktop. Structure animation uses a gentler 460ms expansion and 360ms collapse; the accordion reserves its tallest content height at each width so the navy section remains fixed during interaction. Home and anonymous comment phone exports use elliptical corner clipping to hide artwork protruding behind their hardware.
+
+
+Moonlight phone corner clipping is increased to 18% horizontal and 9% vertical radii for Home and anonymous comments. The desktop rail is nudged six pixels right from its previous edge position. The chapter tracker explicitly activates Reflection at the bottom scroll limit, allowing short final sections to finish the navigation and reading meter.
