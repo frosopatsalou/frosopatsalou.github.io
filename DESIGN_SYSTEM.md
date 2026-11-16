@@ -284,3 +284,6 @@ Both case studies now include local full export previews for the user map, user 
 
 
 Moonlight phone corner clipping is increased to 18% horizontal and 9% vertical radii for Home and anonymous comments. The desktop rail is nudged six pixels right from its previous edge position. The chapter tracker explicitly activates Reflection at the bottom scroll limit, allowing short final sections to finish the navigation and reading meter.
+
+
+The expanded Moonlight chapter rail now shares the exact horizontal centre of the header logo. Alignment is measured from the rendered logo and responds to viewport and logo resizing; compact mobile navigation retains its narrow left column.
