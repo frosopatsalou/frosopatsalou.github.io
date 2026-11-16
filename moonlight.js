@@ -5,18 +5,6 @@
   const sections = [...document.querySelectorAll('[data-moon-chapter]')];
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   let frame = 0, active = -1;
-  const logo = document.querySelector('.site-logo');
-  function alignTracker() {
-    if (innerWidth <= 900) { index.style.removeProperty('translate'); return; }
-    const logoRect = logo.getBoundingClientRect();
-    const railRect = index.getBoundingClientRect();
-    const currentOffset = parseFloat(getComputedStyle(index).translate) || 0;
-    const offset = logoRect.left + logoRect.width / 2 - railRect.left - railRect.width / 2 + currentOffset;
-    index.style.translate = `${offset}px 0`;
-  }
-  new ResizeObserver(alignTracker).observe(logo);
-  addEventListener('resize', alignTracker, { passive: true });
-  alignTracker();
   function update() {
     frame = 0;
     const marker = 210;

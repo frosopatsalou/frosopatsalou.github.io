@@ -287,3 +287,6 @@ Moonlight phone corner clipping is increased to 18% horizontal and 9% vertical r
 
 
 The expanded Moonlight chapter rail now shares the exact horizontal centre of the header logo. Alignment is measured from the rendered logo and responds to viewport and logo resizing; compact mobile navigation retains its narrow left column.
+
+
+Lush and Moonlight now share a desktop rail alignment helper that places each tracker centre beneath the header logo, with compact navigation keeping its existing responsive layout. Both case study introductions use the same All case studies pill button with a circular left arrow and shared navigation transition back to the Home board.
