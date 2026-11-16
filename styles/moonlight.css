@@ -138,3 +138,56 @@
 .moon-build-note h3 { font-size: 28px; line-height: 1.2; margin: 14px 0; }
 .moon-build-note p { max-width: 80ch; font-size: 15px; }
 @media (max-width: 760px) { .moon-build-note { padding: 24px; } }
+
+/* Original Moonlight mockups and screen exports retain their hardware frames. */
+.moon-hero__visual { aspect-ratio: 1.05; }
+.moon-hero__visual figure { width: 123%; rotate: 0deg; }
+.moon-business { grid-column: 1 / -1; padding: 32px; background: var(--color-sky-200); border-radius: 24px 8px 24px 8px; }
+.moon-business h3 { font-size: 28px; margin: 14px 0; }
+.moon-business p { max-width: 90ch; font-size: 15px; }
+.moon-journey-map { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 0; padding: 0; list-style: none; }
+.moon-journey-map li { padding: 10px 14px; color: var(--moon-mint); border: 1px solid rgb(255 255 255 / .25); border-radius: 8px; font-size: 13px; }
+.moon-flow-panel--screens { grid-column: 1 / -1; padding: 40px; }
+.moon-showcase-title { max-width: 70ch; margin-bottom: 16px; }
+.moon-showcase-title h3 { font-size: 32px; line-height: 1.2; margin: 14px 0; }
+.moon-showcase-title p { font-size: 15px; }
+.moon-screen-gallery { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; align-items: start; }
+.moon-screen-gallery--three { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 40px; }
+.moon-phone { margin: 0; min-width: 0; }
+.moon-phone img { display: block; width: 100%; max-width: 290px; height: auto; margin: 0 auto; filter: drop-shadow(3px 10px 8px rgb(25 33 75 / .12)); }
+.moon-phone figcaption { display: grid; gap: 8px; max-width: 290px; margin: 22px auto 0; font-size: 13px; line-height: 1.6; }
+.moon-phone figcaption strong { font: 700 19px/1.3 var(--font-heading); }
+.moon-phone figcaption span { font-weight: 400; color: var(--color-sky-800); }
+.moon-design-grid { grid-template-columns: 1fr 1.5fr; }
+.moon-design-grid > .moon-detail-note { align-content: start; }
+.moon-swatch-row i { background: #50CB8C; }
+.moon-swatch-row i:nth-child(2) { background: #0C436C; }
+.moon-swatch-row i:nth-child(3) { background: #CBF000; }
+.moon-compose { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 32px; border-radius: 20px; background: var(--color-sky-200); align-items: center; }
+.moon-compose h3 { font-size: 28px; line-height: 1.2; margin: 14px 0; }
+.moon-compose p { font-size: 14px; }
+.moon-feature { display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: 56px; padding: 48px; margin-top: 32px; border-radius: 12px 32px 12px 32px; }
+.moon-feature--spaces { background: var(--color-sky-200); }
+.moon-feature--perspectives { background: var(--color-white); border: 1px solid var(--color-sky-400); }
+.moon-feature__copy h3 { font-size: 34px; line-height: 1.15; margin: 18px 0 24px; }
+.moon-feature__copy p { font-size: 15px; margin-top: 16px; }
+.moon-concept-card { display: grid; align-content: center; justify-items: center; text-align: center; gap: 18px; min-height: 240px; margin-block: 20px; padding: 28px; background: rgb(255 255 255 / .6); border-radius: 12px; }
+.moon-concept-card > span:first-child { font: 400 56px/1 var(--font-display); color: var(--color-blue); }
+.moon-concept-card strong { font: 700 24px/1.2 var(--font-heading); }
+.moon-concept-card > span:last-child { font-size: 14px; line-height: 1.5; }
+@media (max-width: 1100px) { .moon-design-grid { grid-template-columns: 1fr; } .moon-feature { padding: 32px; gap: 32px; } .moon-screen-gallery--three { gap: 24px; } }
+@media (max-width: 760px) {
+ .moon-hero__visual figure { width: 112%; }
+ .moon-business { padding: 24px; }
+ .moon-flow-panel--screens { padding: 28px 24px; }
+ .moon-screen-gallery--three { grid-template-columns: 1fr; gap: 38px; }
+ .moon-screen-gallery { gap: 16px; }
+ .moon-phone figcaption strong { font-size: 18px; }
+ .moon-phone figcaption { font-size: 13px; }
+ .moon-compose { padding: 28px 24px; gap: 28px; }
+ .moon-feature { grid-template-columns: 1fr; padding: 28px 24px; gap: 32px; }
+ .moon-feature .moon-screen-gallery { grid-template-columns: 1fr; gap: 38px; }
+ .moon-feature__copy h3 { font-size: 30px; }
+}
+@media (max-width: 480px) { .moon-compose { grid-template-columns: 1fr; } }
+.moon-design-grid > .moon-detail-note { align-self: start; }
