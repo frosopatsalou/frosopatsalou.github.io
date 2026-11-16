@@ -224,3 +224,10 @@
 @media (max-width: 760px) { .moon-hero__visual > .moon-hero-chat { width: 80px; right: 5%; } .moon-section { scroll-margin-top: 125px; } .moon-section-title h2, .moon-reflection h2 { font-size: clamp(28px,5vw,40px); } .moon-research-wall { padding-inline: 8px; } }
 @media (prefers-reduced-motion: reduce) { .moon-structure summary i { transition: none; } }
 @media (max-width: 900px) { .moonlight-page .moon-index > .moon-label { display: none; } }
+
+/* Keep the blue canvas steady while the inner accordion changes. */
+.moon-structure__steps { align-content: start; overflow-anchor: none; }
+.moon-structure summary i { transition: rotate 380ms cubic-bezier(.4,0,.2,1); }
+.moon-phone img[src$="home-screen.svg"], .moon-phone img[src$="post-comment.svg"] { border-radius: 14% / 7%; }
+@media (min-width: 901px) { .moon-index { translate: calc(-1 * max(12px, (100vw - 1480px) / 2 + 12px)) 0; } }
+@media (prefers-reduced-motion: reduce) { .moon-structure summary i { transition: none; } }

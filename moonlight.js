@@ -43,6 +43,28 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const animations = new WeakMap();
   let request = 0;
+  const steps = document.querySelector('.moon-structure__steps');
+  let reservedWidth = 0;
+  function reserveSpace() {
+    const width = steps.clientWidth;
+    if (width === reservedWidth) return;
+    reservedWidth = width;
+    const gap = parseFloat(getComputedStyle(steps).rowGap) || 0;
+    let headings = 0, largestBody = 0;
+    cards.forEach(card => {
+      const open = card.open;
+      card.open = true;
+      const heading = card.querySelector('summary').getBoundingClientRect().height + 2;
+      const body = card.querySelector('summary').nextElementSibling.getBoundingClientRect().height;
+      headings += heading;
+      largestBody = Math.max(largestBody, body);
+      card.open = open;
+    });
+    steps.style.minHeight = `${Math.ceil(headings + largestBody + gap * (cards.length - 1))}px`;
+  }
+  document.fonts.ready.then(() => { reservedWidth = 0; reserveSpace(); });
+  new ResizeObserver(reserveSpace).observe(steps);
+  reserveSpace();
   async function setExpanded(card, expanded) {
     const start = card.getBoundingClientRect().height;
     const previous = animations.get(card);
@@ -53,7 +75,7 @@
     card.querySelector('summary').setAttribute('aria-expanded', String(expanded));
     card.querySelector('summary').nextElementSibling.inert = !expanded;
     if (reduced.matches) { card.open = expanded; return; }
-    const animation = card.animate([{height: `${start}px`}, {height: `${end}px`}], {duration: expanded ? 280 : 200, easing: 'cubic-bezier(.2,.8,.2,1)'});
+    const animation = card.animate([{height: `${start}px`}, {height: `${end}px`}], {duration: expanded ? 460 : 360, easing: 'cubic-bezier(.4,0,.2,1)'});
     animations.set(card, animation);
     try { await animation.finished; } catch { return; }
     if (animations.get(card) !== animation) return;
