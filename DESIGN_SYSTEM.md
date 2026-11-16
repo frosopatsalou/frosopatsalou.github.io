@@ -290,3 +290,6 @@ The expanded Moonlight chapter rail now shares the exact horizontal centre of th
 
 
 Lush and Moonlight now share a desktop rail alignment helper that places each tracker centre beneath the header logo, with compact navigation keeping its existing responsive layout. Both case study introductions use the same All case studies pill button with a circular left arrow and shared navigation transition back to the Home board.
+
+
+SNCB Rebrand has its own page at sncb.html, framed explicitly as a redesign of the existing app. The layout uses a perforated ticket hero, overlapping paper cover placeholder, two role based flow panels, a navy heuristic evaluation section and side by side revision spaces. Its route tracker shares the logo centre and reaches Reflection at the bottom. Content is limited to the supplied moodboard, evaluation and high fidelity files: pastel/relaxing/soft style, tour guide ticket purchase for Brussels, tourist ticket viewing and lock screen widget, and documented evaluation recommendations. Role, timeline, final mockups, detailed revision explanations and reflections stay placeholders. Four local source exports open in the shared zoom viewer. The Home SNCB card is a native case study link with its existing unpin/restore behaviour retained.
