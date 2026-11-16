@@ -20,8 +20,8 @@
   <script src="./navigation.js?v=4" defer></script>
   <script src="./hero.js?v=8" defer></script>
   <link rel="stylesheet" href="./styles/pages.css?v=3">
-  <link rel="stylesheet" href="./styles/moonlight.css?v=3">
-  <script src="./moonlight.js?v=1" defer></script>
+  <link rel="stylesheet" href="./styles/moonlight.css?v=4">
+  <script src="./moonlight.js?v=2" defer></script>
   <script src="./page-ready.js?v=4" defer></script>
 </head>
 <body class="interior-page moonlight-page" data-page="work" data-case="moonlight">
@@ -44,14 +44,14 @@
       <div class="moon-hero__copy">
         <a class="moon-back" href="./#case-studies">← All case studies</a>
         <span class="moon-label">02 / A social app for the workplace</span>
-        <h1 id="moon-title">Moonlight<span class="moon-title-star" aria-hidden="true">✳</span></h1>
+        <h1 id="moon-title"><img src="./assets/moonlight/logo.svg" alt="Moonlight" width="1987" height="530"></h1>
         <h2>A little space<br>to connect.</h2>
         <p>An app concept for sharing everyday work moments, finding another perspective and feeling a little less alone at work.</p>
         <a class="button moon-button" href="#context" data-no-transition>Step into the story ↓</a>
       </div>
       <div class="moon-hero__visual">
         <span class="moon-orbit" aria-hidden="true"></span>
-        <span class="moon-message moon-message--one" aria-hidden="true"><i></i><i></i><i></i></span>
+        <img class="moon-hero-chat" src="./assets/moonlight/chat-bubble.svg" alt="" width="112" height="88" aria-hidden="true">
         <figure><img src="./assets/moonlight/mockup.png" alt="Moonlight home feed and SafeSpaces in two iPhone mockups" width="4096" height="3072" fetchpriority="high"></figure>
         <span class="moon-message moon-message--two" aria-hidden="true">a little more connected ✳</span>
         <span class="moon-spark moon-spark--one" aria-hidden="true">✳</span><span class="moon-spark moon-spark--two" aria-hidden="true">✦</span>
@@ -60,10 +60,8 @@
     <dl class="moon-facts"><div><dt>My role</dt><dd>Research, UX, visual design and front end development</dd></div><div><dt>Project</dt><dd>Individual student project<br>Digital Product 2<br>2024 to 2025, semester 2</dd></div><div><dt>Tools</dt><dd>Figma, FigJam, Adobe Illustrator, VS Code, HTML and Sass</dd></div><div><dt>Project focus</dt><dd>Workplace connection<br>Mobile app concept and front end demo</dd></div></dl>
   </section>
 
-  <nav class="moon-index" aria-label="Moonlight story chapters">
-    <a href="#context" data-no-transition aria-current="location"><span>01</span>Context</a><a href="#discover" data-no-transition><span>02</span>Research</a><a href="#shape" data-no-transition><span>03</span>Structure</a><a href="#experience" data-no-transition><span>04</span>Design</a><a href="#refine" data-no-transition><span>05</span>Evolution</a><a href="#learnings" data-no-transition><span>06</span>Reflection</a>
-    <span class="moon-reading" aria-hidden="true"></span>
-  </nav>
+  <div class="moon-layout">
+  <nav class="moon-index" aria-label="Moonlight story chapters"><p class="moon-label">The story</p><div class="moon-index__track"><a href="#context" data-no-transition aria-label="Context" aria-current="location"><span>01</span><span>Context</span></a><a href="#discover" data-no-transition aria-label="Research"><span>02</span><span>Research</span></a><a href="#shape" data-no-transition aria-label="Structure"><span>03</span><span>Structure</span></a><a href="#experience" data-no-transition aria-label="Design"><span>04</span><span>Design</span></a><a href="#refine" data-no-transition aria-label="Evolution"><span>05</span><span>Evolution</span></a><a href="#learnings" data-no-transition aria-label="Reflection"><span>06</span><span>Reflection</span></a><span class="moon-reading" role="progressbar" aria-label="Case study reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></span></div></nav>
 
   <div class="moon-story">
     <section class="moon-section moon-context" id="context" data-moon-chapter aria-labelledby="context-title">
@@ -74,8 +72,8 @@
 
     <section class="moon-section" id="discover" data-moon-chapter aria-labelledby="discover-title">
       <header class="moon-section-title moon-section-title--row"><div><span class="moon-label">02 / Listening first</span><h2 id="discover-title">Before the screens,<br>the people.</h2></div><p>I combined desk research, interviews with people close to me and professor feedback. These exploratory inputs helped me approach a sensitive topic and narrow the concept.</p></header>
-      <div class="moon-research-wall"><article class="moon-note moon-note--yellow"><span class="moon-note__pin" aria-hidden="true"></span><span class="moon-label">Ask</span><h3>Desk research</h3><p>I looked at how people share opinions on Reddit and workplace platforms such as Blind, then compared the idea with formal feedback and employee culture tools. The opportunity was a more casual space for everyday reflection.</p><div class="moon-rule-lines" aria-hidden="true"></div></article><article class="moon-note moon-note--white"><span class="moon-note__tape" aria-hidden="true"></span><span class="moon-label">Listen</span><h3>Employee perspectives</h3><p>I spoke with people I knew so they could discuss sensitive workplace topics more freely. Their advice helped me consider the app from an employee’s perspective and narrow its functionality. These were exploratory conversations, rather than a representative study.</p><div class="moon-rule-lines" aria-hidden="true"></div></article><article class="moon-note moon-note--mint"><span class="moon-note__pin" aria-hidden="true"></span><span class="moon-label">Understand</span><h3>Support needs structure</h3><p>Professor feedback pushed me to consider how the space could stay supportive rather than become another source of gossip. Moderation, reporting and clear choices about identity became part of the experience I mapped.</p><div class="moon-rule-lines" aria-hidden="true"></div></article></div>
-      <div class="moon-evidence-slot"><span class="moon-placeholder-tag">Research artifact</span><h3>Connecting the people and the product</h3><p>I mapped employees, managers and support roles across the user journey, story map and information architecture. The original UX board shows how those perspectives connect.</p><a class="moon-source-link" href="https://www.figma.com/board/NQS0IOCYHd6qfhWha5XhOE/Moonlight-UX-Froso-Patsalou?node-id=0-1" target="_blank" rel="noopener noreferrer">Explore the UX board ↗</a></div>
+      <div class="moon-research-wall"><article class="moon-note moon-note--yellow"><img class="moon-note__pin" src="./assets/case-studies/pin.svg" alt="" width="80" height="110"><span class="moon-label">Ask</span><h3>Desk research</h3><p>I looked at how people share opinions on Reddit and workplace platforms such as Blind, then compared the idea with formal feedback and employee culture tools. The opportunity was a more casual space for everyday reflection.</p><div class="moon-rule-lines" aria-hidden="true"></div></article><article class="moon-note moon-note--white"><img class="moon-note__pin" src="./assets/case-studies/pin-purple.svg" alt="" width="80" height="110"><span class="moon-label">Listen</span><h3>Employee perspectives</h3><p>I spoke with people I knew so they could discuss sensitive workplace topics more freely. Their advice helped me consider the app from an employee’s perspective and narrow its functionality. These were exploratory conversations, rather than a representative study.</p><div class="moon-rule-lines" aria-hidden="true"></div></article><article class="moon-note moon-note--mint"><img class="moon-note__pin" src="./assets/case-studies/pin-pink.svg" alt="" width="80" height="110"><span class="moon-label">Understand</span><h3>Support needs structure</h3><p>Professor feedback pushed me to consider how the space could stay supportive rather than become another source of gossip. Moderation, reporting and clear choices about identity became part of the experience I mapped.</p><div class="moon-rule-lines" aria-hidden="true"></div></article></div>
+      <div class="moon-evidence-slot"><span class="moon-placeholder-tag">Research artifact</span><h3>Connecting the people and the product</h3><p>I mapped employees, managers and support roles across the user journey, story map and information architecture. The original UX board shows how those perspectives connect.</p><a class="moon-ux-preview" href="./assets/moonlight/ux-user-map.png" target="_blank" rel="noopener noreferrer" aria-label="Open full size Moonlight UX user map"><img src="./assets/moonlight/ux-user-map.png" alt="Moonlight UX user map connecting employees, managers, the system and customer support" width="1024" height="547"></a><a class="moon-source-link" href="https://www.figma.com/board/NQS0IOCYHd6qfhWha5XhOE/Moonlight-UX-Froso-Patsalou?node-id=0-1" target="_blank" rel="noopener noreferrer">Explore the UX board ↗</a></div>
     </section>
 
     <section class="moon-section moon-structure" id="shape" data-moon-chapter aria-labelledby="shape-title">
@@ -111,6 +109,7 @@
     </section>
 
     <section class="moon-section moon-reflection" id="learnings" data-moon-chapter aria-labelledby="learnings-title"><div><span class="moon-label">06 / Taking a step back</span><h2 id="learnings-title">A conversation<br>to continue.</h2><p>I completed the project individually, bringing together the research, UX maps, visual identity, app designs, business plan and front end demo. The result is an exploration of workplace connection, rather than a launched service with measured impact.</p></div><div class="moon-reflection__notes"><article><h3>What I’m taking with me</h3><p>This project pushed me to think beyond the visible screens. Designing a supportive feed also means thinking about who can see a post, how a report is handled and how the experience feels to someone who only wants to read.</p></article><article><h3>Where it goes next</h3><p>I would broaden the research beyond people I know, test the core journeys with employees and managers, and evaluate the moderation and privacy model before taking the wider concept into development.</p></article></div><footer><a class="button moon-button" href="./#case-studies">Back to case studies ↗</a><a class="moon-previous" href="./work.html">← Explore Lush Scrubby</a></footer></section>
+  </div>
   </div>
 </main>
 </body>

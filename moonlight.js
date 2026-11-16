@@ -7,7 +7,7 @@
   let frame = 0, active = -1;
   function update() {
     frame = 0;
-    const marker = index.getBoundingClientRect().bottom + 50;
+    const marker = 190;
     let current = 0;
     sections.forEach((section, i) => { if (section.getBoundingClientRect().top <= marker) current = i; });
     if (current !== active) {
@@ -15,13 +15,14 @@
       links.forEach((link, i) => {
         if (i === current) link.setAttribute('aria-current', 'location');
         else link.removeAttribute('aria-current');
+        link.classList.toggle('is-read', i < current);
       });
-      if (index.scrollWidth > index.clientWidth) index.scrollTo({ left: links[current].offsetLeft - index.clientWidth / 2 + links[current].offsetWidth / 2, behavior: reducedMotion.matches ? 'instant' : 'smooth' });
     }
     const start = sections[0].getBoundingClientRect().top + scrollY;
     const end = document.documentElement.scrollHeight - innerHeight;
     const progress = Math.max(0, Math.min(1, (scrollY - start + 180) / Math.max(1, end - start + 180)));
     index.style.setProperty('--moon-progress', String(progress));
+    index.querySelector('[role=progressbar]').setAttribute('aria-valuenow', String(Math.round(progress * 100)));
   }
   const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
   links.forEach(link => link.addEventListener('click', event => {
@@ -34,4 +35,41 @@
   addEventListener('resize', schedule, { passive: true });
   document.fonts.ready.then(schedule);
   schedule();
+})();
+
+// Animate native details without duplicating or swapping their content.
+(() => {
+  const cards = [...document.querySelectorAll('.moon-structure details')];
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const animations = new WeakMap();
+  let request = 0;
+  async function setExpanded(card, expanded) {
+    const start = card.getBoundingClientRect().height;
+    const previous = animations.get(card);
+    previous?.cancel();
+    card.style.height = '';
+    card.open = true;
+    const end = expanded ? card.getBoundingClientRect().height : card.querySelector('summary').getBoundingClientRect().height + 2;
+    card.querySelector('summary').setAttribute('aria-expanded', String(expanded));
+    card.querySelector('summary').nextElementSibling.inert = !expanded;
+    if (reduced.matches) { card.open = expanded; return; }
+    const animation = card.animate([{height: `${start}px`}, {height: `${end}px`}], {duration: expanded ? 280 : 200, easing: 'cubic-bezier(.2,.8,.2,1)'});
+    animations.set(card, animation);
+    try { await animation.finished; } catch { return; }
+    if (animations.get(card) !== animation) return;
+    card.open = expanded;
+    animations.delete(card);
+  }
+  cards.forEach(card => {
+    const summary = card.querySelector('summary');
+    summary.setAttribute('aria-expanded', String(card.open));
+    summary.addEventListener('click', async event => {
+      event.preventDefault();
+      const token = ++request;
+      const expanded = summary.getAttribute('aria-expanded') !== 'true';
+      if (!expanded) { await setExpanded(card, false); return; }
+      await Promise.all(cards.filter(other => other !== card && other.open).map(other => setExpanded(other, false)));
+      if (token === request) await setExpanded(card, true);
+    });
+  });
 })();
