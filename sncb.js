@@ -33,3 +33,23 @@
   document.fonts.ready.then(schedule);
   schedule();
 })();
+
+(() => {
+  const video = document.querySelector('.sncb-motion-board video');
+  const button = document.querySelector('.sncb-motion-toggle');
+  if (!video || !button) return;
+  button.removeAttribute('aria-pressed');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  let manuallyPaused = reduced.matches;
+  let visible = false;
+  function sync() {
+    if (visible && !manuallyPaused && !document.hidden) video.play().catch(() => {});
+    else video.pause();
+    button.textContent = manuallyPaused ? 'Play motion' : 'Pause motion';
+  }
+  button.addEventListener('click', () => { manuallyPaused = !manuallyPaused; sync(); });
+  new IntersectionObserver(entries => { visible = entries[0].isIntersecting; sync(); }, { threshold: .1 }).observe(video);
+  document.addEventListener('visibilitychange', sync);
+  reduced.addEventListener('change', () => { manuallyPaused = reduced.matches; sync(); });
+  sync();
+})();
