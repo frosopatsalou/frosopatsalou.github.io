@@ -107,3 +107,30 @@
 @media (max-width: 1100px) { .sncb-observation-grid { grid-template-columns: 1fr; } }
 @media (max-width: 760px) { .sncb-research .case-artifact-grid { grid-template-columns: 1fr; } .sncb-motion-board video { border-width: 6px; } }
 .sncb-flow { display: flex; flex-direction: column; } .sncb-flow header { margin-bottom: 20px; } .sncb-flow .sncb-placeholder { margin-top: auto; }
+
+@font-face { font-family: 'Antebas'; src: url('../assets/fonts/antebas-bold.otf') format('opentype'); font-style: normal; font-weight: 700; font-display: swap; }
+.sncb-antebas { font-family: 'Antebas',sans-serif; font-weight: 700; }
+.sncb-phone { margin: 0; min-width: 0; }
+.sncb-phone > a { display: block; width: 100%; max-width: 280px; margin: auto; border-radius: 16%; cursor: zoom-in; }
+.sncb-phone img { display: block; width: 100%; height: auto; filter: drop-shadow(3px 9px 8px rgb(25 33 75 / .15)); }
+.sncb-phone figcaption { display: grid; gap: 8px; margin: 22px auto 0; max-width: 280px; font-size: 13px; font-weight: 400; line-height: 1.5; }
+.sncb-phone figcaption strong { font: 700 20px/1.25 var(--font-heading); }
+.sncb-phone-gallery { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 22px; }
+.sncb-flow-pair { grid-template-columns: 1fr; }
+.sncb-flow { display: grid; grid-template-columns: .7fr 2.3fr; align-items: start; gap: 28px; padding: 32px; }
+.sncb-flow header { min-height: 0; margin: 0; }
+.sncb-flow ol { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 12px 28px; margin: 0; padding-left: 22px; }
+.sncb-cover { padding: 42px; }
+.sncb-cover__phones { position: relative; display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 48px; padding: 30px 90px; background: var(--color-sky-200); border-radius: 8px; }
+.sncb-phone--cover { align-self: center; }
+.sncb-phone--cover:nth-child(1) { rotate: -7deg; }.sncb-phone--cover:nth-child(2) { translate: 0 -10px; }.sncb-phone--cover:nth-child(3) { rotate: 7deg; }
+.sncb-comparison .sncb-phone { padding: 24px; border-radius: 12px; background: var(--color-sky-200); }
+.sncb-comparison .sncb-phone > a { max-width: 250px; }
+@media (max-width: 1100px) { .sncb-flow { grid-template-columns: 1fr; } .sncb-cover__phones { padding: 24px; gap: 28px; } }
+@media (max-width: 640px) { .sncb-phone-gallery { grid-template-columns: 1fr; gap: 36px; }.sncb-flow { padding: 24px; }.sncb-cover { padding: 12px; }.sncb-cover__phones { padding: 24px 14px; gap: 12px; }.sncb-handnote { bottom: -10px; font-size: 19px; } }
+
+.sncb-confirmation-detail { display: grid; grid-template-columns: 1fr .7fr; align-items: center; gap: 40px; margin-top: 32px; padding: 32px; border-radius: 14px; background: var(--color-sky-200); }
+.sncb-confirmation-detail h3 { font-size: 32px; line-height: 1.2; margin-bottom: 20px; }
+.sncb-confirmation-detail p { font-size: 15px; }
+.sncb-confirmation-detail .sncb-phone > a { max-width: 240px; }
+@media (max-width: 640px) { .sncb-confirmation-detail { grid-template-columns: 1fr; padding: 24px; } }
