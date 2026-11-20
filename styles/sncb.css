@@ -140,14 +140,12 @@
 .sncb-ticket__main, .sncb-ticket__stub { background: var(--sncb-paper); filter: drop-shadow(4px 6px 0 rgb(25 33 75 / .13)); }
 .sncb-ticket__main { border-radius: 28px 0 0 28px; transform-origin: 95% 50%; }
 .sncb-ticket__stub { border-radius: 0 28px 28px 0; transform-origin: 5% 50%; }
-.sncb-ticket.is-tearing .sncb-ticket__main { clip-path: polygon(0 0,100% 0,99.4% 8%,100% 15%,99.3% 23%,100% 31%,99.5% 39%,100% 47%,99.2% 55%,100% 63%,99.4% 71%,100% 79%,99.3% 87%,100% 94%,99.5% 100%,0 100%); }
-.sncb-ticket.is-tearing .sncb-ticket__stub { clip-path: polygon(0 0,100% 0,100% 100%,0 100%,1.6% 94%,0 87%,2% 79%,0 71%,1.8% 63%,0 55%,2.2% 47%,0 39%,1.5% 31%,0 23%,2% 15%,0 8%); }
 .sncb-journey-marquee { overflow: hidden; border-radius: 12px; background: var(--color-sky-200); margin-block: 24px; }
-.sncb-journey-track { display: flex; width: max-content; animation: sncb-journey-run 24s linear infinite; }
+.sncb-journey-track { display: flex; width: max-content; animation: sncb-journey-run var(--journey-duration,24s) linear infinite; will-change: transform; }
+.sncb-journey-group { display: flex; flex: none; }
 .sncb-journey-stages { flex: none; flex-wrap: nowrap; gap: 30px; padding: 20px 15px; background: none; }
 .sncb-journey-stages li { white-space: nowrap; font-size: 16px; }
-.sncb-journey-marquee:hover .sncb-journey-track, .sncb-journey-marquee:focus-within .sncb-journey-track { animation-play-state: paused; }
-@keyframes sncb-journey-run { to { transform: translateX(-50%); } }
+@keyframes sncb-journey-run { to { transform: translateX(calc(-1 * var(--journey-distance,1000px))); } }
 .sncb-app-reference { margin-top: 40px; padding-top: 32px; border-top: 1px dashed var(--sncb-blue); }
 .sncb-app-reference h3 { font-size: 32px; line-height: 1.2; margin-bottom: 18px; }
 .sncb-app-reference p { font-size: 15px; }
@@ -156,14 +154,12 @@
 .sncb-app-reference__grid img { display: block; width: 100%; height: 320px; object-fit: contain; }
 .sncb-app-reference figcaption { display: grid; gap: 6px; margin-top: 18px; font-size: 13px; line-height: 1.5; }
 .sncb-app-reference figcaption strong { font: 700 19px/1.3 var(--font-heading); }
-.sncb-app-reference .sncb-reference-note { font-size: 12px; }
+
 @media (max-width: 1100px) { .sncb-app-reference__grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
 @media (max-width: 640px) {
  .sncb-ticket__main { border-radius: 28px 28px 0 0; }
  .sncb-ticket__stub { border-radius: 0 0 28px 28px; }
- .sncb-ticket.is-tearing .sncb-ticket__main { clip-path: polygon(0 0,100% 0,100% 100%,92% 99%,84% 100%,76% 99%,68% 100%,60% 99%,52% 100%,44% 99%,36% 100%,28% 99%,20% 100%,12% 99%,4% 100%,0 99%); }
- .sncb-ticket.is-tearing .sncb-ticket__stub { clip-path: polygon(0 0,4% 1%,12% 0,20% 1%,28% 0,36% 1%,44% 0,52% 1%,60% 0,68% 1%,76% 0,84% 1%,92% 0,100% 1%,100% 100%,0 100%); }
- .sncb-app-reference__grid { gap: 24px 14px; }
+   .sncb-app-reference__grid { gap: 24px 14px; }
  .sncb-app-reference__grid img { height: 240px; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -171,3 +167,18 @@
  .sncb-journey-stages { flex-wrap: wrap; gap: 12px 24px; }
  .sncb-journey-stages[aria-hidden] { display: none; }
 }
+
+.sncb-ticket__main, .sncb-ticket__stub { will-change: clip-path; }
+.sncb-ticket__stub { filter: drop-shadow(4px calc(6px + var(--paper-lift,0px)) 3px rgb(25 33 75 / .13)); }
+.sncb-paper-curl { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; border-radius: inherit; }
+/* Size the image box to the artwork so its visible corners are rounded. */
+.sncb-app-reference__grid figure { display: grid; grid-template-rows: 320px auto; }
+.sncb-app-reference__grid img { width: auto; height: auto; max-height: 320px; max-width: 100%; margin-inline: auto; align-self: center; border-radius: 18px; }
+.sncb-app-reference__grid figure:nth-child(n+3) img { border-radius: 14px; }
+@media (prefers-reduced-motion: reduce) {
+ .sncb-journey-group[aria-hidden], .sncb-journey-group > [aria-hidden] { display: none; }
+ .sncb-journey-group { width: 100%; }
+ .sncb-ticket__main, .sncb-ticket__stub, .sncb-journey-track { will-change: auto; }
+}
+
+@media (max-width: 640px) { .sncb-app-reference__grid figure { grid-template-rows: 240px auto; } .sncb-app-reference__grid img { max-height: 240px; } }
