@@ -151,6 +151,13 @@
     if (seekOnReady) { audio.currentTime = Math.min(2, Math.max(0, audio.duration - .1)); seekOnReady = false; }
   });
   ['play','playing','pause','ended'].forEach(type => audio.addEventListener(type, update));
+  const sleeve = document.querySelector('.spotify-art');
+  const stopVinyl = () => sleeve?.classList.remove('is-music-playing');
+  audio.addEventListener('playing', () => sleeve?.classList.add('is-music-playing'));
+  ['pause','ended','waiting','emptied','error'].forEach(type => audio.addEventListener(type, stopVinyl));
+  audio.addEventListener('seeked', () => {
+    sleeve?.classList.toggle('is-music-playing', !audio.paused && !audio.ended && audio.readyState >= 3);
+  });
   audio.addEventListener('error', () => { update(); status.textContent = 'Music could not load. Press play to try again.'; });
   play.addEventListener('click', () => { if (audio.paused) start(); else audio.pause(); });
   replay.addEventListener('click', () => start(true));

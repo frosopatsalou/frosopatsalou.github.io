@@ -68,7 +68,7 @@
 @keyframes spotify-star-idle { 0%,55%,100% { transform: translateY(0) rotate(0); } 64% { transform: translateY(-5px) rotate(-3deg); } 75% { transform: translateY(0) rotate(2deg); } 85% { transform: translateY(-2px) rotate(-1deg); } }
 .spotify-sleeve { background: #DBFAA5; }
 .spotify-vinyl { background: repeating-radial-gradient(circle,transparent 0 2px,rgb(255 255 255 / .07) 3px 4px,transparent 5px 7px),conic-gradient(from -30deg,#20202b 0deg,#505061 28deg,#232332 55deg,#191923 180deg,#454553 210deg,#232332 240deg,#191923 360deg); animation: spotify-record-spin 12s linear infinite; animation-play-state: paused; }
-.spotify-art.is-awake .spotify-vinyl { animation-play-state: running; }
+.spotify-art.is-awake.is-music-playing .spotify-vinyl { animation-play-state: running; }
 @keyframes spotify-record-spin { to { transform: rotate(360deg); } }
 .spotify-screens { background: var(--color-sky-100); color: var(--spotify-ink); }
 .spotify-screens h2 { color: var(--spotify-ink); }
