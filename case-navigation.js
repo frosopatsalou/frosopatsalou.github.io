@@ -1,6 +1,6 @@
 (() => {
   const logo = document.querySelector('.site-logo');
-  const tracker = document.querySelector('.moon-index, .case-progress, .sncb-index, .spotify-index');
+  const tracker = document.querySelector('.moon-index, .case-progress, .sncb-index, .spotify-index, .cart-index');
   if (!logo || !tracker) return;
   function alignTracker() {
     if (innerWidth <= 900) { tracker.style.removeProperty('translate'); return; }
