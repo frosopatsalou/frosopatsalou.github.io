@@ -33,3 +33,168 @@
   document.fonts.ready.then(schedule);
   schedule();
 })();
+
+(() => {
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const stars = [...document.querySelectorAll('.spotify-star')].map(button => ({
+    button, art: button.querySelector('svg'), visible: false, hop: null,
+    eyes: [...button.querySelectorAll('[data-star-pupil]')].map(node => ({ node, x: 0, y: 0, targetX: 0, targetY: 0 }))
+  }));
+  let frame = 0, last = 0;
+  function animateEyes(now) {
+    frame = 0;
+    const dt = last ? Math.min(64, now - last) : 16;
+    last = now;
+    const ease = 1 - Math.exp(-dt / 70);
+    let moving = false;
+    stars.forEach(star => star.eyes.forEach(eye => {
+      eye.x += (eye.targetX - eye.x) * ease;
+      eye.y += (eye.targetY - eye.y) * ease;
+      if (Math.hypot(eye.targetX - eye.x, eye.targetY - eye.y) > .015) moving = true;
+      else { eye.x = eye.targetX; eye.y = eye.targetY; }
+      eye.node.setAttribute('transform', `translate(${eye.x} ${eye.y})`);
+    }));
+    if (moving) frame = requestAnimationFrame(animateEyes);
+    else last = 0;
+  }
+  function schedule() { if (!frame) frame = requestAnimationFrame(animateEyes); }
+  function rest() {
+    stars.forEach(star => star.eyes.forEach(eye => { eye.targetX = 0; eye.targetY = 0; }));
+    schedule();
+  }
+  addEventListener('pointermove', event => {
+    if (event.pointerType === 'touch' || motion.matches) return;
+    stars.forEach(star => {
+      if (!star.visible) return;
+      const matrix = star.art.getScreenCTM();
+      if (!matrix) return;
+      const cursor = new DOMPoint(event.clientX, event.clientY).matrixTransform(matrix.inverse());
+      star.eyes.forEach(eye => {
+        const dx = cursor.x - Number(eye.node.dataset.eyeX);
+        const dy = cursor.y - Number(eye.node.dataset.eyeY);
+        const distance = Math.hypot(dx, dy);
+        const strength = 3.1 * Math.min(distance / 90, 1);
+        eye.targetX = distance ? dx / distance * strength : 0;
+        eye.targetY = distance ? dy / distance * strength * .7 : 0;
+      });
+    });
+    schedule();
+  }, { passive: true });
+  const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+    const star = stars.find(s => s.button === entry.target);
+    if (star) { star.visible = entry.isIntersecting; if (!star.visible) { star.eyes.forEach(eye => { eye.targetX = 0; eye.targetY = 0; }); schedule(); } }
+    entry.target.classList.toggle('is-awake', entry.isIntersecting && !document.hidden);
+  }), { threshold: .1 });
+  stars.forEach(star => {
+    observer.observe(star.button);
+    star.button.addEventListener('click', () => {
+      if (motion.matches || star.hop?.playState === 'running') return;
+      star.button.classList.add('is-hopping');
+      star.hop = star.art.animate([
+        { transform: 'translateY(0) rotate(0) scale(1)' },
+        { transform: 'translateY(0) rotate(-3deg) scale(1.05,.95)', offset: .16 },
+        { transform: 'translateY(-20px) rotate(10deg) scale(1)', offset: .42 },
+        { transform: 'translateY(-6px) rotate(-7deg) scale(1)', offset: .68 },
+        { transform: 'translateY(0) rotate(2deg) scale(1.04,.97)', offset: .86 },
+        { transform: 'translateY(0) rotate(0) scale(1)' }
+      ], { duration: 600, easing: 'cubic-bezier(.25,.6,.3,1)' });
+      star.hop.finished.catch(() => {}).finally(() => star.button.classList.remove('is-hopping'));
+    });
+  });
+  const sleeve = document.querySelector('.spotify-art');
+  if (sleeve) observer.observe(sleeve);
+  document.documentElement.addEventListener('pointerleave', rest);
+  addEventListener('blur', rest);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      document.querySelectorAll('.spotify-star, .spotify-art').forEach(node => node.classList.remove('is-awake'));
+      rest();
+    } else {
+      stars.forEach(star => star.button.classList.toggle('is-awake', star.visible));
+      if (sleeve) { const rect = sleeve.getBoundingClientRect(); sleeve.classList.toggle('is-awake', rect.bottom > 0 && rect.top < innerHeight); }
+    }
+  });
+  motion.addEventListener('change', () => { if (motion.matches) { stars.forEach(star => star.hop?.cancel()); rest(); } });
+})();
+
+(() => {
+  const root = document.querySelector('.spotify-music');
+  if (!root) return;
+  const launcher = root.querySelector('.spotify-music__launcher');
+  const panel = root.querySelector('.spotify-music__panel');
+  const close = root.querySelector('.spotify-music__close');
+  const play = root.querySelector('.spotify-music__play');
+  const replay = root.querySelector('.spotify-music__replay');
+  const status = root.querySelector('.spotify-music__status');
+  let player, loading, ready = false, playing = false, wantsPlay = false;
+  function state(isPlaying, message) {
+    playing = isPlaying;
+    root.classList.toggle('is-playing', isPlaying);
+    play.setAttribute('aria-label', isPlaying ? 'Pause Swing Lynn' : 'Play Swing Lynn');
+    play.querySelector('span').textContent = isPlaying ? 'Pause' : 'Play';
+    if (message) status.textContent = message;
+  }
+  function fail() { state(false, 'The video could not play here. Open it on YouTube.'); }
+  function load() {
+    if (loading) return loading;
+    loading = new Promise((resolve, reject) => {
+      function create() {
+        player = new YT.Player('spotify-youtube-player', {
+          width: '100%', height: '210', videoId: 'Xwx2JrspsC0',
+          host: 'https://www.youtube-nocookie.com',
+          playerVars: { playsinline: 1, controls: 1, rel: 0, origin: location.origin },
+          events: {
+            onReady: () => {
+              ready = true; play.disabled = false; replay.disabled = false;
+              const iframe = player.getIframe();
+              iframe.title = 'Harmless, Swing Lynn instrumental, selected by Froso';
+              iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; fullscreen');
+              iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+              player.setVolume(30);
+              state(false, 'Press play to listen.');
+              if (wantsPlay && !panel.hidden) player.playVideo();
+              resolve();
+            },
+            onStateChange: event => {
+              if (event.data === 1) {
+                if (panel.hidden || document.hidden) { player.pauseVideo(); return; }
+                state(true, 'Playing Swing Lynn, instrumental.');
+              } else if (event.data === 2) state(false, 'Paused.');
+              else if (event.data === 0) state(false, 'Finished. Press replay to listen again.');
+              else if (event.data === 3) status.textContent = 'Loading audio…';
+            },
+            onAutoplayBlocked: () => state(false, 'Press play in the video to start.'),
+            onError: fail
+          }
+        });
+      }
+      if (window.YT?.Player) { create(); return; }
+      const previous = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = () => { previous?.(); create(); };
+      const script = document.createElement('script');
+      script.src = 'https://www.youtube.com/iframe_api'; script.async = true;
+      script.onerror = () => { fail(); reject(new Error('YouTube player unavailable')); };
+      document.head.append(script);
+    });
+    return loading;
+  }
+  launcher.addEventListener('click', () => {
+    panel.hidden = false; launcher.hidden = true; launcher.setAttribute('aria-expanded', 'true');
+    wantsPlay = true;
+    load().then(() => { if (!panel.hidden && wantsPlay) player.playVideo(); }).catch(() => {});
+    close.focus({ preventScroll: true });
+  });
+  function hide() {
+    wantsPlay = false;
+    if (ready) player.pauseVideo();
+    state(false, 'Paused.');
+    panel.hidden = true; launcher.hidden = false; launcher.setAttribute('aria-expanded', 'false');
+    launcher.focus({ preventScroll: true });
+  }
+  close.addEventListener('click', hide);
+  root.addEventListener('keydown', event => { if (event.key === 'Escape' && !panel.hidden) { event.preventDefault(); hide(); } });
+  play.addEventListener('click', () => { if (ready) { wantsPlay = !playing; if (playing) player.pauseVideo(); else player.playVideo(); } });
+  replay.addEventListener('click', () => { if (ready) { wantsPlay = true; player.seekTo(0, true); player.playVideo(); } });
+  document.addEventListener('visibilitychange', () => { if (document.hidden && ready) { wantsPlay = false; player.pauseVideo(); } });
+  addEventListener('pagehide', () => { if (ready) player.pauseVideo(); });
+})();
