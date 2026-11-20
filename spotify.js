@@ -136,7 +136,53 @@
   const duration = root.querySelector('.spotify-music__duration');
   const status = root.querySelector('.spotify-music__status');
   const sleeve = document.querySelector('.spotify-art');
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const label = root.querySelector('.spotify-music__label');
+  const timeline = root.querySelector('.spotify-music__timeline');
+  const effects = new WeakMap();
   let index = 0, pendingSeek = tracks[0].start;
+  let feedbackUntil = 0, visibilityTimer = 0, scrollFrame = 0;
+  function syncVisibility() {
+    const hide = scrollY > 96 && (audio.paused || audio.ended) &&
+      performance.now() >= feedbackUntil && !root.querySelector(':focus-visible');
+    root.classList.toggle('is-hidden', hide);
+    root.inert = hide;
+    if (hide) root.setAttribute('aria-hidden', 'true');
+    else root.removeAttribute('aria-hidden');
+  }
+  function animate(node, frames, duration = 260) {
+    effects.get(node)?.cancel();
+    if (motion.matches) return;
+    const effect = node.animate(frames, { duration, easing: 'cubic-bezier(.2,.8,.2,1)' });
+    effects.set(node, effect);
+  }
+  function feedback(button, direction = 0) {
+    feedbackUntil = performance.now() + (motion.matches ? 0 : 360);
+    clearTimeout(visibilityTimer);
+    syncVisibility();
+    visibilityTimer = setTimeout(syncVisibility, motion.matches ? 0 : 380);
+    animate(button, [
+      { transform: 'translateX(0) rotate(0) scale(1)' },
+      { transform: `translateX(${direction * 4}px) rotate(${direction ? direction * 9 : -8}deg) scale(.84)`, offset: .3 },
+      { transform: `translateX(${-direction}px) rotate(2deg) scale(1.07)`, offset: .7 },
+      { transform: 'translateX(0) rotate(0) scale(1)' }
+    ], 300);
+  }
+  function scrollVisibility() {
+    if (scrollFrame) return;
+    scrollFrame = requestAnimationFrame(() => {
+      scrollFrame = 0;
+      if (scrollY > 24) root.classList.add('has-scrolled');
+      syncVisibility();
+    });
+  }
+  addEventListener('scroll', scrollVisibility, { passive: true });
+  root.addEventListener('focusin', syncVisibility);
+  root.addEventListener('focusout', () => setTimeout(syncVisibility, 0));
+  motion.addEventListener('change', () => {
+    [play, previous, next, label, timeline].forEach(node => effects.get(node)?.cancel());
+    feedbackUntil = 0; syncVisibility();
+  });
   audio.volume = .3;
   const format = seconds => {
     const value = Math.max(0, Math.floor(Number.isFinite(seconds) ? seconds : 0));
@@ -166,6 +212,7 @@
     next.setAttribute('aria-label', `Next song, ${tracks[(index + 1) % tracks.length].title}`);
     status.textContent = `${tracks[index].title} by ${tracks[index].artist}. ${playing ? 'Playing.' : 'Paused.'}`;
     updateProgress();
+    syncVisibility();
   }
   function applySeek() {
     if (pendingSeek === null || audio.readyState < 1) return;
@@ -205,16 +252,24 @@
   });
   audio.addEventListener('error', () => { update(); status.textContent = 'Music could not load. Press play to try again.'; });
   play.addEventListener('click', () => {
-    interacted();
+    interacted(); feedback(play);
     if (audio.paused) { if (audio.ended) pendingSeek = tracks[index].start; start(); }
     else audio.pause();
   });
-  next.addEventListener('click', () => { interacted(); selectTrack(index + 1, !audio.paused); });
+  next.addEventListener('click', () => {
+    interacted(); feedback(next, 1);
+    selectTrack(index + 1, !audio.paused);
+    animate(label, [{ opacity: 0, transform: 'translateX(12px)' }, { opacity: 1, transform: 'translateX(0)' }]);
+  });
   previous.addEventListener('click', () => {
-    interacted();
+    interacted(); feedback(previous, -1);
     if (audio.currentTime > tracks[index].start + 3) {
       pendingSeek = tracks[index].start; applySeek(); updateProgress();
-    } else selectTrack(index - 1, !audio.paused);
+      animate(timeline, [{ transform: 'translateX(0)' }, { transform: 'translateX(-4px)', offset: .35 }, { transform: 'translateX(1px)', offset: .7 }, { transform: 'translateX(0)' }]);
+    } else {
+      selectTrack(index - 1, !audio.paused);
+      animate(label, [{ opacity: 0, transform: 'translateX(-12px)' }, { opacity: 1, transform: 'translateX(0)' }]);
+    }
   });
   seek.addEventListener('input', () => {
     interacted(); pendingSeek = null;
@@ -222,5 +277,6 @@
     updateProgress();
   });
   addEventListener('pagehide', () => audio.pause());
+  scrollVisibility();
   update();
 })();
