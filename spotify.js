@@ -120,47 +120,107 @@
 (() => {
   const root = document.querySelector('.spotify-music');
   if (!root) return;
+  const tracks = [
+    { title: 'Swing Lynn', artist: 'Harmless', src: './assets/spotify/swing-lynn-instrumental.mp3', start: 3 },
+    { title: 'Saturn', artist: 'SZA', src: './assets/spotify/saturn-instrumental.mp3', start: 0 },
+    { title: 'Tokyo Reggie', artist: 'Masayoshi Takanaka', src: './assets/spotify/tokyo-reggie-instrumental.mp3', start: 0 }
+  ];
   const audio = root.querySelector('audio');
   const play = root.querySelector('.spotify-music__play');
-  const replay = root.querySelector('.spotify-music__replay');
+  const previous = root.querySelector('.spotify-music__previous');
+  const next = root.querySelector('.spotify-music__next');
+  const title = root.querySelector('.spotify-music__label strong');
+  const artist = root.querySelector('.spotify-music__label > span');
+  const seek = root.querySelector('.spotify-music__seek');
+  const elapsed = root.querySelector('.spotify-music__elapsed');
+  const duration = root.querySelector('.spotify-music__duration');
   const status = root.querySelector('.spotify-music__status');
-  let started = false, seekOnReady = false;
+  const sleeve = document.querySelector('.spotify-art');
+  let index = 0, pendingSeek = tracks[0].start;
   audio.volume = .3;
+  const format = seconds => {
+    const value = Math.max(0, Math.floor(Number.isFinite(seconds) ? seconds : 0));
+    return `${Math.floor(value / 60)}:${String(value % 60).padStart(2, '0')}`;
+  };
+  const interacted = () => root.classList.add('has-interacted');
+  const stopVinyl = () => sleeve?.classList.remove('is-music-playing');
+  function updateProgress() {
+    const length = Number.isFinite(audio.duration) ? audio.duration : 0;
+    const time = pendingSeek ?? audio.currentTime;
+    elapsed.textContent = format(time);
+    duration.textContent = format(length);
+    seek.disabled = length <= 0;
+    seek.max = String(length);
+    seek.value = String(Math.min(time, length));
+    seek.style.setProperty('--song-progress', `${length ? time / length * 100 : 0}%`);
+    seek.setAttribute('aria-valuetext', `${format(time)} of ${format(length)}`);
+    previous.setAttribute('aria-label', audio.currentTime > tracks[index].start + 3
+      ? `Restart ${tracks[index].title}`
+      : `Previous song, ${tracks[(index + tracks.length - 1) % tracks.length].title}`);
+  }
   function update() {
     const playing = !audio.paused && !audio.ended;
     root.classList.toggle('is-playing', playing);
-    play.setAttribute('aria-label', playing ? 'Pause Swing Lynn' : 'Play Swing Lynn');
+    play.setAttribute('aria-label', `${playing ? 'Pause' : 'Play'} ${tracks[index].title}`);
     play.setAttribute('aria-pressed', String(playing));
-    status.textContent = playing ? 'Playing Swing Lynn.' : 'Music is paused.';
+    next.setAttribute('aria-label', `Next song, ${tracks[(index + 1) % tracks.length].title}`);
+    status.textContent = `${tracks[index].title} by ${tracks[index].artist}. ${playing ? 'Playing.' : 'Paused.'}`;
+    updateProgress();
   }
-  function seekToStart() {
-    seekOnReady = audio.readyState < 1;
-    try { audio.currentTime = 2; } catch (_) { seekOnReady = true; }
+  function applySeek() {
+    if (pendingSeek === null || audio.readyState < 1) return;
+    audio.currentTime = Math.min(pendingSeek, Math.max(0, audio.duration - .1));
+    pendingSeek = null;
   }
-  function start(restart = false) {
-    if (restart || !started || audio.ended) seekToStart();
-    started = true;
-    // Call play directly from the button gesture, including on mobile Safari.
+  function start() {
+    applySeek();
     audio.play().catch(error => {
       if (error.name === 'AbortError') return;
-      update();
-      status.textContent = 'Music could not start. Press play to try again.';
+      update(); status.textContent = 'Music could not start. Press play to try again.';
     });
   }
-  audio.addEventListener('loadedmetadata', () => {
-    if (seekOnReady) { audio.currentTime = Math.min(2, Math.max(0, audio.duration - .1)); seekOnReady = false; }
-  });
-  ['play','playing','pause','ended'].forEach(type => audio.addEventListener(type, update));
-  const sleeve = document.querySelector('.spotify-art');
-  const stopVinyl = () => sleeve?.classList.remove('is-music-playing');
+  function selectTrack(value, autoplay) {
+    audio.pause();
+    index = (value + tracks.length) % tracks.length;
+    const track = tracks[index];
+    pendingSeek = track.start;
+    title.textContent = track.title; artist.textContent = track.artist;
+    audio.src = track.src; audio.load();
+    update();
+    if (autoplay) start();
+  }
+  audio.addEventListener('loadedmetadata', () => { applySeek(); update(); });
+  audio.addEventListener('durationchange', updateProgress);
+  audio.addEventListener('timeupdate', updateProgress);
+  ['play','playing','pause'].forEach(type => audio.addEventListener(type, update));
   audio.addEventListener('playing', () => sleeve?.classList.add('is-music-playing'));
   ['pause','ended','waiting','emptied','error'].forEach(type => audio.addEventListener(type, stopVinyl));
   audio.addEventListener('seeked', () => {
     sleeve?.classList.toggle('is-music-playing', !audio.paused && !audio.ended && audio.readyState >= 3);
+    updateProgress();
+  });
+  audio.addEventListener('ended', () => {
+    if (index < tracks.length - 1) selectTrack(index + 1, true);
+    else update();
   });
   audio.addEventListener('error', () => { update(); status.textContent = 'Music could not load. Press play to try again.'; });
-  play.addEventListener('click', () => { if (audio.paused) start(); else audio.pause(); });
-  replay.addEventListener('click', () => start(true));
+  play.addEventListener('click', () => {
+    interacted();
+    if (audio.paused) { if (audio.ended) pendingSeek = tracks[index].start; start(); }
+    else audio.pause();
+  });
+  next.addEventListener('click', () => { interacted(); selectTrack(index + 1, !audio.paused); });
+  previous.addEventListener('click', () => {
+    interacted();
+    if (audio.currentTime > tracks[index].start + 3) {
+      pendingSeek = tracks[index].start; applySeek(); updateProgress();
+    } else selectTrack(index - 1, !audio.paused);
+  });
+  seek.addEventListener('input', () => {
+    interacted(); pendingSeek = null;
+    audio.currentTime = Number(seek.value);
+    updateProgress();
+  });
   addEventListener('pagehide', () => audio.pause());
   update();
 })();
