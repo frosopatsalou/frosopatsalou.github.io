@@ -53,3 +53,35 @@
   reduced.addEventListener('change', () => { manuallyPaused = reduced.matches; sync(); });
   sync();
 })();
+
+(() => {
+  const track = document.querySelector('.sncb-journey-track');
+  if (track) {
+    const copy = track.firstElementChild.cloneNode(true);
+    copy.setAttribute('aria-hidden', 'true');
+    track.append(copy);
+  }
+  const ticket = document.querySelector('.sncb-ticket');
+  if (!ticket) return;
+  const main = ticket.querySelector('.sncb-ticket__main');
+  const stub = ticket.querySelector('.sncb-ticket__stub');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  let frame = 0;
+  function update() {
+    frame = 0;
+    const rect = ticket.getBoundingClientRect();
+    const start = Math.max(0, rect.top + scrollY - 190);
+    const progress = reduced.matches ? 0 : Math.max(0, Math.min(1, (scrollY - start) / Math.max(300, rect.height * .9)));
+    const p = progress * progress * (3 - 2 * progress);
+    const mobile = innerWidth <= 640;
+    ticket.classList.toggle('is-tearing', p > .001);
+    main.style.transform = `translate(${-p * (mobile ? 5 : 12)}px, ${-p * 6}px) rotate(${-p * (mobile ? .8 : 1.5)}deg)`;
+    stub.style.transform = `translate(${p * (mobile ? 6 : 34)}px, ${p * (mobile ? 48 : 64)}px) rotate(${p * (mobile ? 3 : 8)}deg)`;
+  }
+  function schedule() { if (!frame) frame = requestAnimationFrame(update); }
+  addEventListener('scroll', schedule, { passive: true });
+  addEventListener('resize', schedule, { passive: true });
+  reduced.addEventListener('change', schedule);
+  document.fonts.ready.then(schedule);
+  schedule();
+})();

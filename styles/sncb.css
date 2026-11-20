@@ -111,7 +111,7 @@
 @font-face { font-family: 'Antebas'; src: url('../assets/fonts/antebas-bold.otf') format('opentype'); font-style: normal; font-weight: 700; font-display: swap; }
 .sncb-antebas { font-family: 'Antebas',sans-serif; font-weight: 700; }
 .sncb-phone { margin: 0; min-width: 0; }
-.sncb-phone > a { display: block; width: 100%; max-width: 280px; margin: auto; border-radius: 16%; cursor: zoom-in; }
+.sncb-phone > .sncb-device { display: block; width: 100%; max-width: 280px; margin: auto; border-radius: 16%; }
 .sncb-phone img { display: block; width: 100%; height: auto; filter: drop-shadow(3px 9px 8px rgb(25 33 75 / .15)); }
 .sncb-phone figcaption { display: grid; gap: 8px; margin: 22px auto 0; max-width: 280px; font-size: 13px; font-weight: 400; line-height: 1.5; }
 .sncb-phone figcaption strong { font: 700 20px/1.25 var(--font-heading); }
@@ -125,12 +125,49 @@
 .sncb-phone--cover { align-self: center; }
 .sncb-phone--cover:nth-child(1) { rotate: -7deg; }.sncb-phone--cover:nth-child(2) { translate: 0 -10px; }.sncb-phone--cover:nth-child(3) { rotate: 7deg; }
 .sncb-comparison .sncb-phone { padding: 24px; border-radius: 12px; background: var(--color-sky-200); }
-.sncb-comparison .sncb-phone > a { max-width: 250px; }
+.sncb-comparison .sncb-phone > .sncb-device { max-width: 250px; }
 @media (max-width: 1100px) { .sncb-flow { grid-template-columns: 1fr; } .sncb-cover__phones { padding: 24px; gap: 28px; } }
 @media (max-width: 640px) { .sncb-phone-gallery { grid-template-columns: 1fr; gap: 36px; }.sncb-flow { padding: 24px; }.sncb-cover { padding: 12px; }.sncb-cover__phones { padding: 24px 14px; gap: 12px; }.sncb-handnote { bottom: -10px; font-size: 19px; } }
 
 .sncb-confirmation-detail { display: grid; grid-template-columns: 1fr .7fr; align-items: center; gap: 40px; margin-top: 32px; padding: 32px; border-radius: 14px; background: var(--color-sky-200); }
 .sncb-confirmation-detail h3 { font-size: 32px; line-height: 1.2; margin-bottom: 20px; }
 .sncb-confirmation-detail p { font-size: 15px; }
-.sncb-confirmation-detail .sncb-phone > a { max-width: 240px; }
+.sncb-confirmation-detail .sncb-phone > .sncb-device { max-width: 240px; }
 @media (max-width: 640px) { .sncb-confirmation-detail { grid-template-columns: 1fr; padding: 24px; } }
+
+/* Each half remains a separate paper surface throughout the reversible tear. */
+.sncb-ticket { background: transparent; box-shadow: none; isolation: isolate; }
+.sncb-ticket__main, .sncb-ticket__stub { background: var(--sncb-paper); filter: drop-shadow(4px 6px 0 rgb(25 33 75 / .13)); }
+.sncb-ticket__main { border-radius: 28px 0 0 28px; transform-origin: 95% 50%; }
+.sncb-ticket__stub { border-radius: 0 28px 28px 0; transform-origin: 5% 50%; }
+.sncb-ticket.is-tearing .sncb-ticket__main { clip-path: polygon(0 0,100% 0,99.4% 8%,100% 15%,99.3% 23%,100% 31%,99.5% 39%,100% 47%,99.2% 55%,100% 63%,99.4% 71%,100% 79%,99.3% 87%,100% 94%,99.5% 100%,0 100%); }
+.sncb-ticket.is-tearing .sncb-ticket__stub { clip-path: polygon(0 0,100% 0,100% 100%,0 100%,1.6% 94%,0 87%,2% 79%,0 71%,1.8% 63%,0 55%,2.2% 47%,0 39%,1.5% 31%,0 23%,2% 15%,0 8%); }
+.sncb-journey-marquee { overflow: hidden; border-radius: 12px; background: var(--color-sky-200); margin-block: 24px; }
+.sncb-journey-track { display: flex; width: max-content; animation: sncb-journey-run 24s linear infinite; }
+.sncb-journey-stages { flex: none; flex-wrap: nowrap; gap: 30px; padding: 20px 15px; background: none; }
+.sncb-journey-stages li { white-space: nowrap; font-size: 16px; }
+.sncb-journey-marquee:hover .sncb-journey-track, .sncb-journey-marquee:focus-within .sncb-journey-track { animation-play-state: paused; }
+@keyframes sncb-journey-run { to { transform: translateX(-50%); } }
+.sncb-app-reference { margin-top: 40px; padding-top: 32px; border-top: 1px dashed var(--sncb-blue); }
+.sncb-app-reference h3 { font-size: 32px; line-height: 1.2; margin-bottom: 18px; }
+.sncb-app-reference p { font-size: 15px; }
+.sncb-app-reference__grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 22px; margin-block: 30px; }
+.sncb-app-reference__grid figure { margin: 0; min-width: 0; }
+.sncb-app-reference__grid img { display: block; width: 100%; height: 320px; object-fit: contain; }
+.sncb-app-reference figcaption { display: grid; gap: 6px; margin-top: 18px; font-size: 13px; line-height: 1.5; }
+.sncb-app-reference figcaption strong { font: 700 19px/1.3 var(--font-heading); }
+.sncb-app-reference .sncb-reference-note { font-size: 12px; }
+@media (max-width: 1100px) { .sncb-app-reference__grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 640px) {
+ .sncb-ticket__main { border-radius: 28px 28px 0 0; }
+ .sncb-ticket__stub { border-radius: 0 0 28px 28px; }
+ .sncb-ticket.is-tearing .sncb-ticket__main { clip-path: polygon(0 0,100% 0,100% 100%,92% 99%,84% 100%,76% 99%,68% 100%,60% 99%,52% 100%,44% 99%,36% 100%,28% 99%,20% 100%,12% 99%,4% 100%,0 99%); }
+ .sncb-ticket.is-tearing .sncb-ticket__stub { clip-path: polygon(0 0,4% 1%,12% 0,20% 1%,28% 0,36% 1%,44% 0,52% 1%,60% 0,68% 1%,76% 0,84% 1%,92% 0,100% 1%,100% 100%,0 100%); }
+ .sncb-app-reference__grid { gap: 24px 14px; }
+ .sncb-app-reference__grid img { height: 240px; }
+}
+@media (prefers-reduced-motion: reduce) {
+ .sncb-journey-track { animation: none; width: auto; }
+ .sncb-journey-stages { flex-wrap: wrap; gap: 12px 24px; }
+ .sncb-journey-stages[aria-hidden] { display: none; }
+}
