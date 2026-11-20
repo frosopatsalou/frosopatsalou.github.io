@@ -174,7 +174,7 @@
 /* Size the image box to the artwork so its visible corners are rounded. */
 .sncb-app-reference__grid figure { display: grid; grid-template-rows: 320px auto; }
 .sncb-app-reference__grid img { width: auto; height: auto; max-height: 320px; max-width: 100%; margin-inline: auto; align-self: center; border-radius: 18px; }
-.sncb-app-reference__grid figure:nth-child(n+3) img { border-radius: 14px; }
+.sncb-app-reference__grid figure:nth-child(n+3) img { border-radius: 0; filter: drop-shadow(2px 5px 5px rgb(25 33 75 / .12)); }
 @media (prefers-reduced-motion: reduce) {
  .sncb-journey-group[aria-hidden], .sncb-journey-group > [aria-hidden] { display: none; }
  .sncb-journey-group { width: 100%; }
