@@ -120,81 +120,40 @@
 (() => {
   const root = document.querySelector('.spotify-music');
   if (!root) return;
-  const launcher = root.querySelector('.spotify-music__launcher');
-  const panel = root.querySelector('.spotify-music__panel');
-  const close = root.querySelector('.spotify-music__close');
+  const audio = root.querySelector('audio');
   const play = root.querySelector('.spotify-music__play');
   const replay = root.querySelector('.spotify-music__replay');
   const status = root.querySelector('.spotify-music__status');
-  let player, loading, ready = false, playing = false, wantsPlay = false;
-  function state(isPlaying, message) {
-    playing = isPlaying;
-    root.classList.toggle('is-playing', isPlaying);
-    play.setAttribute('aria-label', isPlaying ? 'Pause Swing Lynn' : 'Play Swing Lynn');
-    play.querySelector('span').textContent = isPlaying ? 'Pause' : 'Play';
-    if (message) status.textContent = message;
+  let started = false, seekOnReady = false;
+  audio.volume = .3;
+  function update() {
+    const playing = !audio.paused && !audio.ended;
+    root.classList.toggle('is-playing', playing);
+    play.setAttribute('aria-label', playing ? 'Pause Swing Lynn' : 'Play Swing Lynn');
+    play.setAttribute('aria-pressed', String(playing));
+    status.textContent = playing ? 'Playing Swing Lynn.' : 'Music is paused.';
   }
-  function fail() { state(false, 'The video could not play here. Open it on YouTube.'); }
-  function load() {
-    if (loading) return loading;
-    loading = new Promise((resolve, reject) => {
-      function create() {
-        player = new YT.Player('spotify-youtube-player', {
-          width: '100%', height: '210', videoId: 'Xwx2JrspsC0',
-          host: 'https://www.youtube-nocookie.com',
-          playerVars: { playsinline: 1, controls: 1, rel: 0, origin: location.origin },
-          events: {
-            onReady: () => {
-              ready = true; play.disabled = false; replay.disabled = false;
-              const iframe = player.getIframe();
-              iframe.title = 'Harmless, Swing Lynn instrumental, selected by Froso';
-              iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; fullscreen');
-              iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
-              player.setVolume(30);
-              state(false, 'Press play to listen.');
-              if (wantsPlay && !panel.hidden) player.playVideo();
-              resolve();
-            },
-            onStateChange: event => {
-              if (event.data === 1) {
-                if (panel.hidden || document.hidden) { player.pauseVideo(); return; }
-                state(true, 'Playing Swing Lynn, instrumental.');
-              } else if (event.data === 2) state(false, 'Paused.');
-              else if (event.data === 0) state(false, 'Finished. Press replay to listen again.');
-              else if (event.data === 3) status.textContent = 'Loading audio…';
-            },
-            onAutoplayBlocked: () => state(false, 'Press play in the video to start.'),
-            onError: fail
-          }
-        });
-      }
-      if (window.YT?.Player) { create(); return; }
-      const previous = window.onYouTubeIframeAPIReady;
-      window.onYouTubeIframeAPIReady = () => { previous?.(); create(); };
-      const script = document.createElement('script');
-      script.src = 'https://www.youtube.com/iframe_api'; script.async = true;
-      script.onerror = () => { fail(); reject(new Error('YouTube player unavailable')); };
-      document.head.append(script);
+  function seekToStart() {
+    seekOnReady = audio.readyState < 1;
+    try { audio.currentTime = 2; } catch (_) { seekOnReady = true; }
+  }
+  function start(restart = false) {
+    if (restart || !started || audio.ended) seekToStart();
+    started = true;
+    // Call play directly from the button gesture, including on mobile Safari.
+    audio.play().catch(error => {
+      if (error.name === 'AbortError') return;
+      update();
+      status.textContent = 'Music could not start. Press play to try again.';
     });
-    return loading;
   }
-  launcher.addEventListener('click', () => {
-    panel.hidden = false; launcher.hidden = true; launcher.setAttribute('aria-expanded', 'true');
-    wantsPlay = true;
-    load().then(() => { if (!panel.hidden && wantsPlay) player.playVideo(); }).catch(() => {});
-    close.focus({ preventScroll: true });
+  audio.addEventListener('loadedmetadata', () => {
+    if (seekOnReady) { audio.currentTime = Math.min(2, Math.max(0, audio.duration - .1)); seekOnReady = false; }
   });
-  function hide() {
-    wantsPlay = false;
-    if (ready) player.pauseVideo();
-    state(false, 'Paused.');
-    panel.hidden = true; launcher.hidden = false; launcher.setAttribute('aria-expanded', 'false');
-    launcher.focus({ preventScroll: true });
-  }
-  close.addEventListener('click', hide);
-  root.addEventListener('keydown', event => { if (event.key === 'Escape' && !panel.hidden) { event.preventDefault(); hide(); } });
-  play.addEventListener('click', () => { if (ready) { wantsPlay = !playing; if (playing) player.pauseVideo(); else player.playVideo(); } });
-  replay.addEventListener('click', () => { if (ready) { wantsPlay = true; player.seekTo(0, true); player.playVideo(); } });
-  document.addEventListener('visibilitychange', () => { if (document.hidden && ready) { wantsPlay = false; player.pauseVideo(); } });
-  addEventListener('pagehide', () => { if (ready) player.pauseVideo(); });
+  ['play','playing','pause','ended'].forEach(type => audio.addEventListener(type, update));
+  audio.addEventListener('error', () => { update(); status.textContent = 'Music could not load. Press play to try again.'; });
+  play.addEventListener('click', () => { if (audio.paused) start(); else audio.pause(); });
+  replay.addEventListener('click', () => start(true));
+  addEventListener('pagehide', () => audio.pause());
+  update();
 })();
