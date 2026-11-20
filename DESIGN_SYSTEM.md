@@ -310,3 +310,5 @@ SNCB refinement, 20 November 2026: the scroll tear now has a travelling tear fro
 SNCB overview follow up: restored the original supplied iPhone hardware around both redesigned journey screens. Full screenshots retain their aspect ratios and remain noninteractive. Verified the rendered frames and desktop layout.
 
 SNCB overview frame fitting: both redesigned screens now fill the supplied phone display at uniform scale, clipped as a top aligned viewport. This removes side gaps without stretching the screenshots. Verified the rendered artwork and image loading.
+
+SNCB overview bottom navigation fix: both phone composites now use a full width, uniformly scaled content viewport plus a separate bottom navigation crop pinned to the display bottom. The navigation crop uses the same scale as the content, preserving proportions and eliminating side gaps. Only the scrollable middle is clipped. Verified both rendered navigation bars and image loading.
