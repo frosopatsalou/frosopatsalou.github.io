@@ -142,8 +142,10 @@
   const effects = new WeakMap();
   let index = 0, pendingSeek = tracks[0].start;
   let feedbackUntil = 0, visibilityTimer = 0, scrollFrame = 0;
+  let lastScroll = Math.max(0, scrollY), scrollDirection = 0, scrollTravel = 0;
+  let scrollRevealed = lastScroll <= 96;
   function syncVisibility() {
-    const hide = scrollY > 96 && (audio.paused || audio.ended) &&
+    const hide = scrollY > 96 && !scrollRevealed && (audio.paused || audio.ended) &&
       performance.now() >= feedbackUntil && !root.querySelector(':focus-visible');
     root.classList.toggle('is-hidden', hide);
     root.inert = hide;
@@ -172,7 +174,22 @@
     if (scrollFrame) return;
     scrollFrame = requestAnimationFrame(() => {
       scrollFrame = 0;
-      if (scrollY > 24) root.classList.add('has-scrolled');
+      const y = Math.max(0, scrollY);
+      const delta = y - lastScroll;
+      lastScroll = y;
+      if (y > 24) root.classList.add('has-scrolled');
+      if (y <= 96) {
+        scrollRevealed = true;
+        scrollTravel = 0;
+      } else if (delta !== 0) {
+        const direction = Math.sign(delta);
+        if (direction !== scrollDirection) { scrollDirection = direction; scrollTravel = 0; }
+        scrollTravel += Math.abs(delta);
+        if (scrollTravel >= 12) {
+          scrollRevealed = direction < 0;
+          scrollTravel = 0;
+        }
+      }
       syncVisibility();
     });
   }
