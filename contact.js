@@ -143,7 +143,7 @@
       started = true;
       if (reduced.matches) { completeIntro(); return; }
       const began = performance.now();
-      const passDuration = 410, pause = 130;
+      const passDuration = 220, pause = 65;
       const last = [0, 0, 0];
       function swipe(now) {
         const elapsed = now - began;
