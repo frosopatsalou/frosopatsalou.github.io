@@ -69,7 +69,7 @@
 
 /* Both sets of controls share one row beneath the text and photo. */
 .contact-body { padding-bottom: 0; }
-.contact-footer { display: grid; grid-template-columns: minmax(0,1.4fr) minmax(0,1fr); gap: clamp(40px,7vw,100px); align-items: center; margin-top: 38px; }
+.contact-footer { display: grid; grid-template-columns: minmax(0,1.4fr) minmax(0,1fr); gap: clamp(40px,7vw,100px); align-items: center; margin-top: 76px; }
 .contact-footer .contact-bottom { position: relative; top: auto; left: auto; right: auto; margin: 0; padding-left: 12px; }
 .contact-footer .contact-photo-actions { position: static; top: auto; left: auto; transform: none; justify-self: center; }
 @media(max-width:900px) { .contact-footer { grid-template-columns: minmax(0,1.2fr) minmax(0,1fr); gap: 35px; } }
