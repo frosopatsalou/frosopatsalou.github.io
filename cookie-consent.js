@@ -82,7 +82,15 @@
   settings.setAttribute('data-drag-block', 'true');
   settings.setAttribute('aria-controls', 'cookie-banner'); settings.setAttribute('aria-expanded', 'false');
   settings.innerHTML = cookieIcon + '<span>Cookie settings</span>';
-  document.body.append(banner, settings);
+  document.body.append(banner);
+  const socialFooter = document.querySelector('.contact-bottom');
+  if (socialFooter) socialFooter.prepend(settings);
+  else {
+    const footer = document.createElement('footer');
+    footer.className = 'cookie-footer';
+    footer.append(settings);
+    (document.getElementById('portfolio') || document.body).append(footer);
+  }
   function showBanner(focus = false) {
     banner.hidden = false; settings.setAttribute('aria-expanded', 'true');
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) banner.animate([{ opacity: 0, translate: '0 10px', scale: .98 }, { opacity: 1, translate: '0 0', scale: 1 }], { duration: 180, easing: 'cubic-bezier(.2,.8,.2,1)' });
@@ -91,7 +99,8 @@
   function hideBanner() {
     const hadFocus = banner.contains(document.activeElement);
     banner.hidden = true; settings.setAttribute('aria-expanded', 'false');
-    if (hadFocus) settings.focus({ preventScroll: true });
+    // The settings button lives in the footer, so accepting must not jump there.
+    if (hadFocus) document.activeElement.blur();
   }
   settings.addEventListener('click', () => { if (banner.hidden) showBanner(true); else if (choice) hideBanner(); });
   banner.querySelectorAll('[data-cookie-choice]').forEach(button => button.addEventListener('click', () => save(button.dataset.cookieChoice === 'yes')));
@@ -102,14 +111,20 @@
   });
   banner.addEventListener('keydown', event => { if (event.key === 'Escape' && choice) { hideBanner(); settings.focus({ preventScroll: true }); } });
   let ready = false;
+  const readiness = new MutationObserver(revealUI);
   function revealUI() {
     if (ready || document.getElementById('portfolio')?.inert || document.documentElement.classList.contains('is-navigation-busy')) return;
     ready = true; settings.hidden = false;
+    readiness.disconnect();
     if (!choice || new URLSearchParams(location.search).get('cookies') === 'settings') showBanner();
   }
   document.addEventListener('portfolio:intro-complete', revealUI);
+  document.addEventListener('portfolio:ready', revealUI);
   document.addEventListener('portfolio:navigation-revealed', revealUI);
   window.addEventListener('load', revealUI, { once: true });
+  readiness.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+  const portfolio = document.getElementById('portfolio');
+  if (portfolio) readiness.observe(portfolio, { attributes: true, attributeFilter: ['inert'] });
   revealUI(); startAnalytics();
   window.addEventListener('storage', event => {
     if (event.key !== key) return;

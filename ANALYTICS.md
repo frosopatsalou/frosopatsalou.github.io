@@ -8,7 +8,7 @@ The site loads the Google tag directly after consent. Do not also add the GTM sc
 
 ## Consent behaviour
 
-The Google tag is blocked until a visitor accepts optional analytics. Rejection produces no Google Analytics requests. The choice is saved in localStorage for 180 days. Cookie settings is always available after the page introduction. Withdrawing consent disables tracking, removes analytics cookies at the configured host and path, and reloads the page to unload Google's runtime. Other tabs receive the preference change.
+The Google tag is blocked until a visitor accepts optional analytics. Rejection produces no Google Analytics requests. The choice is saved in localStorage for 180 days. Cookie settings is available in the page footer after the page introduction, to the left of the social icons on Home and Contact. It does not follow the visitor while scrolling. Withdrawing consent disables tracking, removes analytics cookies at the configured host and path, and reloads the page to unload Google's runtime. Other tabs receive the preference change.
 
 Advertising storage, advertising user data and advertising personalisation remain denied. Google Signals and advertising personalisation are disabled. Analytics cookies are configured for 30 days.
 
