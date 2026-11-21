@@ -37,27 +37,79 @@
   const film = document.getElementById('world-film');
   if (!film) return;
   const buttons = [...document.querySelectorAll('[data-film-time]')];
+  const controls = document.querySelector('.world-player');
+  const toggle = document.querySelector('[data-film-toggle]');
+  const label = document.querySelector('[data-film-toggle-label]');
+  const progress = document.getElementById('world-film-progress');
+  const clock = document.querySelector('[data-film-clock]');
+  const status = document.querySelector('[data-film-status]');
   let requestedTime = null;
-  const seek = () => {
-    if (requestedTime === null || film.readyState < 1) return;
-    film.currentTime = requestedTime;
-    requestedTime = null;
-  };
-  buttons.forEach(button => button.addEventListener('click', () => {
-    buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-    requestedTime = Number(button.dataset.filmTime);
-    if (film.readyState < 1) film.load();
-    else seek();
-  }));
-  film.addEventListener('loadedmetadata', seek);
-  film.addEventListener('timeupdate', () => {
+  const formatTime = value => `${Math.floor(value / 60)}:${String(Math.floor(value % 60)).padStart(2, '0')}`;
+  function sync() {
+    const duration = Number.isFinite(film.duration) ? film.duration : 49;
     const time = film.currentTime;
+    const playing = !film.paused && !film.ended;
+    const action = playing ? 'Pause' : film.ended ? 'Replay' : 'Play';
+    toggle.setAttribute('aria-label', `${action} film`);
+    label.textContent = action;
+    toggle.querySelector('[data-play-symbol]').toggleAttribute('hidden', playing);
+    toggle.querySelector('[data-pause-symbol]').toggleAttribute('hidden', !playing);
+    controls.classList.toggle('is-playing', playing);
+    progress.max = String(duration);
+    progress.value = String(time);
+    progress.style.setProperty('--played', `${time / duration * 100}%`);
+    progress.setAttribute('aria-valuetext', `${Math.floor(time)} seconds of ${Math.round(duration)} seconds`);
+    clock.replaceChildren(document.createTextNode(`${formatTime(time)} `));
+    const total = document.createElement('span');
+    total.textContent = `/ ${formatTime(duration)}`;
+    clock.append(total);
     let active = buttons[0];
     buttons.forEach(button => { if (Number(button.dataset.filmTime) <= time + .15) active = button; });
     buttons.forEach(button => button.setAttribute('aria-pressed', String(button === active)));
+  }
+  function seek() {
+    if (requestedTime === null || film.readyState < 1) return;
+    film.currentTime = requestedTime;
+    requestedTime = null;
+    sync();
+  }
+  function requestSeek(time) {
+    requestedTime = time;
+    if (film.readyState < 1) {
+      if (film.networkState !== HTMLMediaElement.NETWORK_LOADING) film.load();
+    } else seek();
+  }
+  async function play() {
+    try {
+      status.hidden = true;
+      await film.play();
+    } catch (error) {
+      if (error.name === 'AbortError') return;
+      status.textContent = 'The film could not play. Please try again, or explore the live world below.';
+      status.hidden = false;
+      sync();
+    }
+  }
+  toggle.addEventListener('click', () => {
+    if (!film.paused) film.pause();
+    else { if (film.ended) film.currentTime = 0; play(); }
+  });
+  document.querySelector('[data-film-restart]').addEventListener('click', () => { requestSeek(0); play(); });
+  progress.addEventListener('input', () => { requestSeek(Number(progress.value)); });
+  buttons.forEach(button => button.addEventListener('click', () => requestSeek(Number(button.dataset.filmTime))));
+  film.addEventListener('loadedmetadata', () => { seek(); sync(); });
+  ['timeupdate', 'play', 'pause', 'ended', 'seeked'].forEach(event => film.addEventListener(event, sync));
+  film.addEventListener('waiting', () => { if (!film.paused) label.textContent = 'Loading'; });
+  film.addEventListener('playing', sync);
+  film.addEventListener('error', () => {
+    status.textContent = 'The film could not load. You can explore the live world below.';
+    status.hidden = false;
   });
   new IntersectionObserver(entries => {
     if (!entries[0].isIntersecting && !film.paused) film.pause();
   }).observe(film);
   document.addEventListener('visibilitychange', () => { if (document.hidden) film.pause(); });
+  film.controls = false;
+  controls.hidden = false;
+  sync();
 })();
