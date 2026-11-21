@@ -4,6 +4,14 @@
   const names = [...document.querySelectorAll('.hero-name:not(.hero-role)')];
   const role = document.querySelector('.hero-role');
   const face = document.querySelector('.hero-face');
+  if (face?.querySelector('.hero-sticker-hint')) {
+    const picked = new MutationObserver(() => {
+      if (!face.classList.contains('is-held')) return;
+      face.classList.add('has-been-picked');
+      picked.disconnect();
+    });
+    picked.observe(face, { attributes: true, attributeFilter: ['class'] });
+  }
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const nav = document.getElementById('primary-navigation');
   const toggle = header.querySelector('.nav-toggle');

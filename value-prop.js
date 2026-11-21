@@ -24,10 +24,50 @@
   document.fonts.ready.then(fitCloud);
   fitCloud();
 
+  const burstTimes = new WeakMap();
+  const doodles = [
+    '<path d="M12 2L14.5 8L21 8.5L16 13L17.5 20L12 16.5L6 20L7.5 13L2.5 8.5L9 8Z" fill="currentColor"/>',
+    '<path d="M3 18C2 10 13 18 12 10S22 12 20 3"/>',
+    '<circle cx="12" cy="12" r="4"/><path d="M12 1V4M12 20V23M1 12H4M20 12H23M4 4L6 6M18 18L20 20M4 20L6 18M18 6L20 4"/>',
+    '<path d="M5 3L10 19M12 2L17 18M19 3L22 14"/>',
+    '<path d="M14 13C9 19 3 11 8 7C14 1 22 8 19 15C15 25 1 20 2 9"/>'
+  ];
+  function burst(button) {
+    if (motion.matches || performance.now() - (burstTimes.get(button) || -1000) < 140) return;
+    burstTimes.set(button, performance.now());
+    const colors = ['#FC5698', '#546FFA', '#FFFF60', '#7300ED', '#B9E342'];
+    const layer = document.createElement('span');
+    layer.className = 'doodle-burst'; layer.setAttribute('aria-hidden', 'true');
+    button.querySelectorAll('.doodle-burst').forEach(old => old.remove());
+    button.append(layer);
+    const animations = [];
+    for (let i = 0; i < 18; i++) {
+      const particle = document.createElement('span');
+      particle.className = 'doodle-burst__piece';
+      particle.style.color = colors[i % colors.length];
+      particle.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">${doodles[i % doodles.length]}</svg>`;
+      layer.append(particle);
+      const angle = i / 18 * Math.PI * 2 + Math.random() * .25;
+      const distance = button.clientWidth * (.60 + Math.random() * .25);
+      const x = Math.cos(angle) * distance, y = Math.sin(angle) * distance;
+      const rotation = Math.random() * 260 - 130;
+      const pose = (x, y, rotate, scale) => `translate(${x}px,${y}px) rotate(${rotate}deg) scale(${scale})`;
+      const animation = particle.animate([
+        { transform: pose(0, 0, 0, .2), opacity: 0 },
+        { transform: pose(x * .75, y * .75, rotation * .6, 1.15), opacity: 1, offset: .35 },
+        { transform: pose(x, y + 18, rotation, 1), opacity: 1, offset: .65 },
+        { transform: pose(x * 1.1, y + 70, rotation + 50, .65), opacity: 0 }
+      ], { duration: 850 + Math.random() * 250, easing: 'cubic-bezier(.16,.75,.35,1)', fill: 'both' });
+      animations.push(animation.finished.catch(() => {}));
+    }
+    Promise.all(animations).then(() => layer.remove());
+  }
+
   section.querySelectorAll('.value-link').forEach(button => {
     button.addEventListener('click', event => {
       const lettering = event.target.closest('svg');
       const target = lettering || button.querySelector('img');
+      burst(button);
       const matrix = new DOMMatrix(getComputedStyle(target).transform);
       const angle = (Math.atan2(matrix.b, matrix.a) * 180 / Math.PI + 360) % 360;
       spins.get(target)?.cancel();
