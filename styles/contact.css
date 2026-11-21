@@ -1,0 +1,30 @@
+/* Confetti drawn in the portfolio palette, with a quiet centre for the content. */
+.contact-section { position: relative; z-index: 0; isolation: isolate; min-height: 100svh; margin-top: calc(-1 * var(--connector-height)); padding: calc(var(--connector-height) + 120px) 5vw 70px; background: var(--color-white); color: var(--color-blue-900); scroll-margin-top: 100px; }
+.contact-section::before { content: ''; position: absolute; z-index: -2; inset: 0; background: url('../assets/contact/doodles.svg') center top / 760px auto; opacity: .72; pointer-events: none; }
+.contact-section::after { content: ''; position: absolute; z-index: -1; inset: 0; background: radial-gradient(ellipse at 49% 49%,rgb(255 255 255 / .99) 0 30%,rgb(255 255 255 / .9) 49%,rgb(255 255 255 / .15) 85%); pointer-events: none; }
+.contact-inner { max-width: 1250px; margin-inline: auto; }
+.contact-body { display: grid; grid-template-columns: minmax(0,1.4fr) minmax(0,1fr); gap: clamp(40px,7vw,100px); align-items: start; }
+.contact-copy { min-width: 0; padding-top: clamp(30px,4.4vw,64px); }
+.contact-copy h1,.contact-copy h2 { margin: 0 0 30px; color: var(--color-blue-900); font: 700 clamp(48px,6.67vw,96px)/1.18 var(--font-heading); letter-spacing: -.025em; }
+.contact-copy h1 > span,.contact-copy h2 > span { display: block; }
+.contact-email { display: inline-block; max-width: 100%; color: var(--color-blue-900); font: 400 clamp(24px,2.5vw,36px)/1.4 var(--font-display); text-decoration: none; text-underline-offset: 7px; overflow-wrap: anywhere; }
+.contact-email:hover { text-decoration: underline; text-decoration-color: var(--color-rose); text-decoration-thickness: 3px; }
+.contact-photo { margin: 0; border: 9px solid white; border-radius: 7px; outline: 1.5px solid var(--color-blue-900); background: white; box-shadow: 7px 9px 0 var(--color-blue-200); }
+.contact-photo img { display: block; width: 100%; height: auto; aspect-ratio: 3/4; object-fit: cover; }
+.contact-bottom { display: flex; align-items: center; justify-content: space-between; gap: 30px; margin-top: clamp(60px,7.2vw,104px); }
+.contact-socials { display: flex; gap: 17px; align-items: center; }
+.contact-social { display: inline-grid; place-items: center; flex: 0 0 58px; width: 58px; height: 58px; border: 1.5px solid var(--color-blue-900); border-radius: 50%; color: var(--color-blue-900); background: white; box-shadow: 3px 4px 0 var(--color-blue-900); cursor: pointer; transition: translate 160ms ease,rotate 160ms ease,box-shadow 160ms ease; }
+.contact-social--linkedin { background: var(--color-blue-200); }.contact-social--instagram { background: var(--color-rose-200); }.contact-social--email { background: var(--color-yellow-300); }
+.contact-social:hover { translate: 0 -4px; rotate: -7deg; box-shadow: 4px 7px 0 var(--color-blue-900); }.contact-social:active { translate: 0 1px; rotate: 0deg; box-shadow: 1px 2px 0 var(--color-blue-900); }
+.contact-cv { display: inline-flex; align-items: center; gap: 13px; padding: 12px 20px; color: var(--color-blue-900); border: 1.5px solid var(--color-blue-900); border-radius: 999px; background: white; font: 400 28px/1.25 var(--font-display); text-decoration: none; box-shadow: 3px 4px 0 var(--color-blue-200); cursor: pointer; transition: translate 160ms ease; }.contact-cv:hover { translate: 0 -3px; background: var(--color-yellow-200); }
+.contact-social:focus-visible,.contact-email:focus-visible,.contact-cv:focus-visible { outline: 3px solid var(--color-fuchsia); outline-offset: 6px; }
+.contact-social:disabled,.contact-cv:disabled { cursor: default; }
+.contact-page .contact-section { margin-top: 0; padding-top: 170px; }
+/* Keep the purple graph paper intact until its full width torn edge. */
+.case-studies:has(+ .contact-section) { z-index: 1; padding-bottom: calc(72px + var(--connector-height)); mask-image: linear-gradient(#000 0 0),url('../assets/desk/torn-paper-mask.svg'); mask-size: 100% calc(100% - var(--connector-height)),100% var(--connector-height); mask-position: top,bottom; mask-repeat: no-repeat; }
+.contact-tear { position: absolute; left: 0; right: 0; bottom: 0; height: var(--connector-height); pointer-events: none; }.contact-tear .desk__tear { bottom: 0; height: 100%; }.contact-tear .desk__tear-grain { stroke: var(--color-purple-100); }
+@media(max-width:900px) { .contact-section { padding-top: calc(var(--connector-height) + 80px); padding-bottom: 60px; }.contact-body { grid-template-columns: minmax(0,1.2fr) minmax(0,1fr); gap: 35px; }.contact-copy { padding-top: 22px; }.contact-copy h1,.contact-copy h2 { font-size: clamp(44px,6.4vw,64px); }.contact-email { font-size: clamp(23px,2.8vw,29px); }.contact-photo { border-width: 7px; }.contact-bottom { margin-top: 64px; }.contact-page .contact-section { padding-top: 155px; } }
+@media(max-width:640px) { .contact-section { padding-inline: 26px; padding-top: calc(var(--connector-height) + 60px); padding-bottom: 48px; }.contact-section::before { background-size: 600px auto; opacity: .6; }.contact-section::after { background: radial-gradient(ellipse at center,rgb(255 255 255 / .97) 0 40%,rgb(255 255 255 / .4) 80%); }.contact-body { grid-template-columns: 1fr; gap: 38px; }.contact-copy { padding-top: 0; }.contact-copy h1,.contact-copy h2 { font-size: clamp(44px,10.8vw,66px); margin-bottom: 22px; }.contact-email { font-size: clamp(24px,6vw,31px); }.contact-photo { width: min(340px,90%); justify-self: end; }.contact-bottom { flex-wrap: wrap; gap: 35px; margin-top: 48px; }.contact-socials { gap: 16px; }.contact-social { width: 52px; height: 52px; flex-basis: 52px; }.contact-cv { margin-left: auto; font-size: 25px; }.contact-page .contact-section { padding-top: 145px; } }
+@media(prefers-reduced-motion:reduce) { .contact-social,.contact-cv { transition: none; } }
+.case-studies:has(+ .contact-section) .case-tidy { bottom: calc(var(--connector-height) + var(--page-padding-block) + env(safe-area-inset-bottom,0px)); }
+.contact-social:disabled:hover,.contact-cv:disabled:hover { translate: none; rotate: none; }
