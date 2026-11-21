@@ -37,6 +37,7 @@ a.case-card { display: block; color: inherit; text-decoration: none; }
 .case-card__word--left { left: 7%; }
 .case-card__word--right { right: 7%; }
 /* Match the lettering scale within each pair rather than stretching every SVG into the same box. */
+.case-card--lush .case-card__word--left { width: 9%; height: 64%; left: 8.5%; }
 .case-card--moonlight .case-card__word--left { width: 9.4%; }
 .case-card--sncb .case-card__word--left { width: 8.5%; }
 .case-card--scroll-world .case-card__image { container-type: inline-size; }
