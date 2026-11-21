@@ -3,9 +3,11 @@
   document.querySelectorAll('.contact-section').forEach(section => {
     const socials = section.querySelector('.contact-socials');
     const status = section.querySelector('.contact-copy-status');
+    document.body.append(status);
+    status.setAttribute('aria-atomic', 'true');
     const expanders = [...socials.querySelectorAll('[data-contact-expand]')];
     const suppressed = new WeakSet();
-    let feedbackTimer;
+    let feedbackTimer, feedbackAnimation;
     function closeAll() { expanders.forEach(button => button.classList.remove('is-expanded')); }
     expanders.forEach(button => {
       function open() {
@@ -48,10 +50,14 @@
       clearTimeout(feedbackTimer);
       status.textContent = copied ? 'Email copied!' : `Please copy: ${email}`;
       button.classList.toggle('is-copied', copied);
+      feedbackAnimation?.cancel();
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        feedbackAnimation = status.animate([{ opacity: 0, translate: '0 7px', scale: .95 }, { opacity: 1, translate: '0 0', scale: 1 }], { duration: 170, easing: 'cubic-bezier(.2,.8,.2,1)' });
+      }
       feedbackTimer = setTimeout(() => {
         status.textContent = '';
         section.querySelectorAll('.is-copied').forEach(item => item.classList.remove('is-copied'));
-      }, 2400);
+      }, 3000);
     }));
   });
 })();
