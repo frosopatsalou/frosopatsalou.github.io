@@ -105,7 +105,7 @@
   function revealUI() {
     if (ready || document.getElementById('portfolio')?.inert || document.documentElement.classList.contains('is-navigation-busy')) return;
     ready = true; settings.hidden = false;
-    if (!choice) showBanner();
+    if (!choice || new URLSearchParams(location.search).get('cookies') === 'settings') showBanner();
   }
   document.addEventListener('portfolio:intro-complete', revealUI);
   document.addEventListener('portfolio:navigation-revealed', revealUI);

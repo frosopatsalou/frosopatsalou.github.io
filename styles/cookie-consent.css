@@ -25,3 +25,7 @@
 
 .cookie-banner { pointer-events: auto; }
 @media(min-width:641px) { .cookie-banner__actions { display: flex; justify-content: flex-end; gap: 10px; }.cookie-banner__actions button { flex: 0 0 auto; white-space: nowrap; } }
+
+.cookie-settings { left: 24px; bottom: calc(28px + env(safe-area-inset-bottom,0px)); z-index: 1100; min-height: 46px; gap: 9px; padding: 7px 16px 7px 10px; border-width: 1.5px; background: var(--color-yellow-200); box-shadow: 3px 4px 0 var(--color-blue-900); font-size: 20px; }
+.cookie-settings svg { width: 29px; height: 29px; }
+@media(max-width:640px) { .cookie-settings { left: 16px; bottom: calc(22px + env(safe-area-inset-bottom,0px)); font-size: 19px; } }
