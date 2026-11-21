@@ -2,23 +2,23 @@
    Touch devices keep their normal behaviour. Text and the photo eraser retain
    their specialised cursors. No overlay can intercept a click or drag. */
 @media (hover: hover) and (pointer: fine) {
-  :root { --sticker-cursor: url('../assets/cursors/origami-cursor.cur?v=2'), default; }
+  :root { --sticker-cursor: url('../assets/cursors/origami-cursor.cur?v=3'), default; }
   html, body, body * { cursor: var(--sticker-cursor) !important; }
 
   :where(a[href], button, summary, [role='button'], input[type='range'], label[for], .value-prop__highlight) {
-    --sticker-cursor: url('../assets/cursors/origami-pointer.cur?v=2'), pointer;
+    --sticker-cursor: url('../assets/cursors/origami-pointer.cur?v=3'), pointer;
   }
 
   :is(.is-draggable, [data-movable], .bunny-card, .name-tag-ribbon, .case-card, .crew-stage, .crew-member, model-viewer, .value-prop__cloud, .cloud-fluff-control) {
-    --sticker-cursor: url('../assets/cursors/origami-pointer.cur?v=2'), grab;
+    --sticker-cursor: url('../assets/cursors/origami-pointer.cur?v=3'), grab;
   }
 
   :is(.is-held, .is-tugging, .is-pulling, .is-dragging, .is-plucking),
   :is(.bunny-card, .name-tag-ribbon, .case-card, .crew-stage, model-viewer):active {
-    --sticker-cursor: url('../assets/cursors/origami-grip.svg?v=1') 12 9, grabbing;
+    --sticker-cursor: url('../assets/cursors/origami-pointer.cur?v=3'), grabbing;
   }
   html:has(.is-held, .is-tugging, .is-pulling, .crew-stage.is-dragging, .is-plucking) body * {
-    cursor: url('../assets/cursors/origami-grip.svg?v=1') 12 9, grabbing !important;
+    cursor: url('../assets/cursors/origami-pointer.cur?v=3'), grabbing !important;
   }
 
   :is(input:not([type='range'],[type='button'],[type='submit'],[type='checkbox'],[type='radio']), textarea, [contenteditable='true']) {
