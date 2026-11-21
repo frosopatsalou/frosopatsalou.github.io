@@ -79,6 +79,7 @@
     const reveal = document.createElement('button');
     reveal.type = 'button'; reveal.className = 'contact-photo-reveal';
     reveal.setAttribute('aria-label', 'Reveal whole photo'); reveal.title = 'Reveal whole photo';
+    reveal.setAttribute('aria-pressed', 'false');
     reveal.innerHTML = '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2 12C7 3 17 3 22 12C17 21 7 21 2 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/></svg>';
     hint.setAttribute('role', 'status');
     actions.append(hint, reveal); group.append(actions); figure.append(canvas);
@@ -88,7 +89,7 @@
     figure.setAttribute('role', 'button');
     figure.setAttribute('aria-label', 'Erase to reveal more of Froso’s photo. Press Enter to reveal the full photo.');
     let width = 0, height = 0, ratio = 1;
-    let started = false, intersecting = false, introFrame = 0, pointer = null, previous = null;
+    let started = false, intersecting = false, introFrame = 0, startFrame = 0, fullPhoto = false, pointer = null, previous = null;
     function render() {
       context.globalCompositeOperation = 'source-over';
       context.clearRect(0, 0, canvas.width, canvas.height);
@@ -149,11 +150,23 @@
       render(); figure.dataset.wipes = '3'; figure.classList.add('has-erased');
     }
     function start() {
-      if (started || !intersecting || document.getElementById('portfolio')?.inert || document.documentElement.classList.contains('is-navigation-busy')) return;
+      if (started || !intersecting || document.getElementById('portfolio')?.inert) return;
+      // Begin as soon as the photo is exposed by the page transition.
+      const cover = document.querySelector('.page-transition');
+      if (cover) {
+        const clip = getComputedStyle(cover).clipPath.match(/circle\(([\d.]+)px at ([\d.]+)px ([\d.]+)px\)/);
+        const rect = figure.getBoundingClientRect();
+        const probe = { x: rect.left + rect.width * .15, y: rect.top + rect.height * .4 };
+        const exposed = clip && Number(clip[1]) < Math.hypot(probe.x - Number(clip[2]), probe.y - Number(clip[3])) - rect.width * .12;
+        if (!exposed) {
+          if (!startFrame) startFrame = requestAnimationFrame(() => { startFrame = 0; start(); });
+          return;
+        }
+      }
       started = true;
       if (reduced.matches) { completeIntro(); return; }
-      const began = performance.now();
-      const passDuration = 165, pause = 45;
+      const began = performance.now() - 16;
+      const passDuration = 145, pause = 30;
       const last = [0, 0, 0];
       function swipe(now) {
         const elapsed = now - began;
@@ -168,18 +181,33 @@
         if (last[2] < 1) introFrame = requestAnimationFrame(swipe);
         else { introFrame = 0; figure.classList.add('has-erased'); }
       }
-      introFrame = requestAnimationFrame(swipe);
+      swipe(performance.now());
     }
     function revealWholePhoto() {
-      cancelAnimationFrame(introFrame); introFrame = 0; started = true;
+      cancelAnimationFrame(introFrame); cancelAnimationFrame(startFrame); introFrame = startFrame = 0; started = true;
       if (pointer !== null && figure.hasPointerCapture(pointer)) figure.releasePointerCapture(pointer);
       pointer = null; previous = null;
       brush.fillStyle = '#fff'; brush.fillRect(0, 0, width, height); render();
       figure.classList.add('has-erased');
       hint.textContent = 'Photo revealed';
-      reveal.disabled = true;
+      fullPhoto = true;
+      reveal.classList.add('is-full');
+      reveal.setAttribute('aria-pressed', 'true');
+      reveal.setAttribute('aria-label', 'Hide photo and replay three wipes');
+      reveal.title = 'Hide photo and replay three wipes';
     }
-    reveal.addEventListener('click', revealWholePhoto);
+    function replayWipes() {
+      cancelAnimationFrame(introFrame); cancelAnimationFrame(startFrame); introFrame = startFrame = 0;
+      if (pointer !== null && figure.hasPointerCapture(pointer)) figure.releasePointerCapture(pointer);
+      pointer = null; previous = null; fullPhoto = false; started = false;
+      brush.clearRect(0, 0, width, height); render();
+      figure.dataset.wipes = '0'; hint.textContent = 'Drag to reveal more';
+      reveal.classList.remove('is-full');
+      reveal.setAttribute('aria-pressed', 'false');
+      reveal.setAttribute('aria-label', 'Reveal whole photo'); reveal.title = 'Reveal whole photo';
+      start();
+    }
+    reveal.addEventListener('click', () => { if (fullPhoto) replayWipes(); else revealWholePhoto(); });
     function point(event) {
       const rect = figure.getBoundingClientRect();
       return { x: event.clientX - rect.left, y: event.clientY - rect.top };
@@ -216,7 +244,7 @@
       intersecting = entries[0].isIntersecting;
       if (!intersecting && introFrame) return;
       start();
-    }, { threshold: .05 });
+    }, { threshold: 0 });
     observer.observe(figure);
     document.addEventListener('portfolio:intro-complete', start, { once: true });
     document.addEventListener('portfolio:navigation-revealed', start, { once: true });
