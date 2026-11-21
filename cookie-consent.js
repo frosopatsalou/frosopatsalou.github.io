@@ -74,10 +74,12 @@
   const cookieIcon = '<svg width="56" height="56" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M51 27C42 29 35 22 38 14C31 17 24 10 26 5C12 8 4 20 7 35C10 50 25 59 40 54C52 50 59 38 56 27C54 28 52 28 51 27Z" fill="#FFFF60" stroke="#19214B" stroke-width="1.8" stroke-linejoin="round"/><circle cx="20" cy="25" r="3" fill="#FC5698"/><circle cx="33" cy="38" r="3.5" fill="#546FFA"/><circle cx="19" cy="42" r="2.5" fill="#19214B"/><circle cx="44" cy="43" r="2.5" fill="#FC5698"/><path d="M44 5V11M41 8H47M55 12V18M52 15H58" stroke="#546FFA" stroke-width="2" stroke-linecap="round"/></svg>';
   const banner = document.createElement('section');
   banner.className = 'cookie-banner'; banner.id = 'cookie-banner'; banner.hidden = true;
+  banner.setAttribute('data-drag-block', 'true');
   banner.setAttribute('aria-labelledby', 'cookie-banner-title');
   banner.innerHTML = `${cookieIcon}<div class="cookie-banner__content"><h2 id="cookie-banner-title">Cookies &amp; analytics</h2><p>Optional Google Analytics helps me understand which pages and projects visitors explore. You choose whether to allow it.</p><div class="cookie-banner__actions"><button type="button" data-cookie-choice="no">Essential only</button><button type="button" data-cookie-choice="yes">Accept analytics</button></div><button class="cookie-banner__details-toggle" type="button" aria-expanded="false" aria-controls="cookie-details">What gets stored?</button><div class="cookie-banner__details" id="cookie-details" hidden><p><strong>Essential:</strong> this website saves your cookie choice in this browser for six months.</p><p><strong>Optional analytics:</strong> Google Analytics uses cookies to measure visits, page views and clicks. Analytics cookies last up to 30 days. No advertising features are enabled. Names, email addresses and anything you type are not sent by this website.</p><p>You can change your choice anytime using Cookie settings. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google’s privacy policy ↗</a></p></div></div>`;
   const settings = document.createElement('button');
   settings.type = 'button'; settings.className = 'cookie-settings'; settings.hidden = true;
+  settings.setAttribute('data-drag-block', 'true');
   settings.setAttribute('aria-controls', 'cookie-banner'); settings.setAttribute('aria-expanded', 'false');
   settings.innerHTML = cookieIcon + '<span>Cookie settings</span>';
   document.body.append(banner, settings);
