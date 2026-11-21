@@ -12,11 +12,11 @@
 /* Cookie preferences stay in the footer rather than following the viewport. */
 .cookie-settings { position: relative; flex: 0 0 auto; display: inline-flex; align-items: center; gap: 9px; height: 58px; min-height: 58px; padding: 7px 16px 7px 10px; border: 1.5px solid var(--color-blue-900); border-radius: 999px; background: var(--color-yellow-200); color: var(--color-blue-900); box-shadow: 3px 4px 0 var(--color-blue-900); font: 400 20px/1.2 var(--font-display); cursor: pointer; }
 .cookie-settings svg { width: 29px; height: 29px; }
-.contact-footer .contact-bottom { display: flex; flex-wrap: wrap; align-items: center; gap: 26px 42px; padding-left: 0; }
+.contact-footer .contact-bottom { display: flex; flex-wrap: wrap; align-items: center; gap: 17px; padding-left: 0; }
 .contact-footer .contact-socials { flex: 1 1 auto; width: auto; }
 .contact-footer { grid-template-columns: minmax(0,1fr); }
 .cookie-footer { position: relative; padding: 32px var(--page-padding-inline,24px); }
-@media(max-width:640px) { .contact-footer .contact-bottom { gap: 24px; }.cookie-settings { height: 50px; min-height: 50px; font-size: 19px; } }
+@media(max-width:640px) { .contact-footer .contact-bottom { gap: 13px; }.cookie-settings { height: 50px; min-height: 50px; font-size: 19px; } }
 .cookie-banner button:focus-visible,.cookie-banner a:focus-visible,.cookie-settings:focus-visible { outline: 3px solid var(--color-fuchsia); outline-offset: 4px; }
 @media(max-width:640px) { .cookie-banner { left: 50%; right: auto; bottom: calc(14px + env(safe-area-inset-bottom,0px)); width: calc(100vw - 32px); max-height: calc(100svh - 40px - env(safe-area-inset-bottom,0px)); padding: 20px; grid-template-columns: 1fr; gap: 12px; }.cookie-banner > svg { position: absolute; width: 40px; height: 40px; top: 18px; right: 18px; }.cookie-banner h2 { padding-right: 40px; font-size: 25px; }.cookie-banner__actions { gap: 9px; }.cookie-banner__actions button { font-size: 18px; padding: 8px 10px; } }
 @media(prefers-reduced-motion:reduce) { .cookie-banner__actions button { transition: none; } }
