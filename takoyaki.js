@@ -35,22 +35,42 @@
 })();
 
 (() => {
-  const buttons = [...document.querySelectorAll('[data-cart-view]')];
-  const stage = document.querySelector('.cart-model__stage');
-  if (!stage) return;
-  const caption = document.querySelector('[data-cart-caption]');
-  const preview = document.querySelector('[data-cart-model-preview]');
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  let animation;
-  buttons.forEach(button => button.addEventListener('click', () => {
-    if (button.getAttribute('aria-pressed') === 'true') return;
-    const view = button.dataset.cartView;
-    buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-    stage.querySelectorAll('img').forEach(img => { img.hidden = img.dataset.cartImage !== view; });
-    caption.textContent = view === 'solid' ? 'Solid view of the final scene' : 'Final textured render';
-    preview.href = `./assets/takoyaki/${view === 'solid' ? 'solid' : 'hero'}.png`;
-    animation?.cancel();
-    if (!reduced.matches) animation = stage.animate([{ opacity: .5 }, { opacity: 1 }], { duration: 220, easing: 'ease-out' });
-  }));
-  reduced.addEventListener('change', () => { if (reduced.matches) animation?.cancel(); });
+  const viewer = document.getElementById('cart-viewer');
+  if (!viewer) return;
+  const reset = document.querySelector('.cart-reset-view');
+  const status = document.querySelector('[data-cart-caption]');
+  const fallback = document.querySelector('.cart-model-fallback');
+  let started = false;
+  async function loadModel() {
+    if (started) return;
+    started = true;
+    status.textContent = 'Loading the 3D cart…';
+    try {
+      const { ModelViewerElement } = await import('./assets/vendor/model-viewer.min.js');
+      ModelViewerElement.dracoDecoderLocation = new URL('./assets/vendor/draco/', location.href).href;
+      await customElements.whenDefined('model-viewer');
+      viewer.src = './assets/takoyaki/cart.glb';
+    } catch (error) { showFallback(); }
+  }
+  function showFallback() {
+    status.textContent = 'Full render available below';
+    fallback.hidden = false;
+  }
+  viewer.addEventListener('load', () => {
+    viewer.dismissPoster();
+    reset.disabled = false;
+    status.textContent = 'Drag to rotate, scroll or pinch to zoom';
+  });
+  viewer.addEventListener('error', showFallback);
+  viewer.querySelector('[slot="poster"]').addEventListener('click', loadModel);
+  reset.addEventListener('click', () => {
+    viewer.cameraOrbit = '-108deg 76deg 80%';
+    viewer.cameraTarget = 'auto auto auto';
+    viewer.fieldOfView = 'auto';
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) viewer.jumpCameraToGoal();
+  });
+  const observer = new IntersectionObserver(entries => {
+    if (entries.some(entry => entry.isIntersecting)) { loadModel(); observer.disconnect(); }
+  }, { rootMargin: '350px' });
+  observer.observe(viewer);
 })();
