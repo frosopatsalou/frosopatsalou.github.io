@@ -48,3 +48,18 @@
 @media(max-width:640px) { .contact-copy { padding: 0; }.contact-text { padding: 22px 17px; border-radius: 25px; }.contact-copy h1,.contact-copy h2 { font-size: clamp(35px,9.6vw,54px); }.contact-email { font-size: clamp(18px,4.9vw,24px); }.contact-page { background-size: 600px auto; } }
 @media(min-width:641px) { .contact-copy { position: relative; }.contact-bottom { position: absolute; top: calc(100% + 28px); left: 12px; right: 0; margin-top: 0; } }
 .contact-page .page-shell { background: transparent; }
+
+/* A little more breathing room below the text, with quick social feedback. */
+.contact-socials { gap: 20px; }
+.contact-social__label { transition-duration: 160ms,160ms,100ms; }
+.contact-photo-group { position: relative; width: min(100%,430px); justify-self: end; }
+.contact-photo-group .contact-photo { width: 100%; }
+.contact-photo-actions { position: absolute; top: calc(100% + 38px); left: 50%; transform: translateX(-50%); display: flex; align-items: center; justify-content: center; gap: 12px; width: max-content; max-width: 100%; }
+.contact-photo-actions .contact-photo__hint { position: static; left: auto; bottom: auto; transform: none; width: auto; max-width: none; margin: 0; padding: 11px 15px; opacity: 1; flex: 1 1 auto; }
+.contact-photo-reveal { flex: 0 0 44px; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; color: var(--color-blue-900); background: var(--color-rose-200); border: 1.5px solid var(--color-blue-900); border-radius: 50%; box-shadow: 3px 4px 0 var(--color-blue-200); cursor: pointer; transition: translate 120ms ease,rotate 120ms ease; }
+.contact-photo-reveal:hover { translate: 0 -2px; rotate: 8deg; }.contact-photo-reveal:active { translate: 0 1px; }.contact-photo-reveal:focus-visible { outline: 3px solid var(--color-fuchsia); outline-offset: 5px; }
+@media(min-width:641px) { .contact-bottom { top: calc(100% + 56px); } }
+@media(max-width:640px) { .contact-bottom { margin-top: 44px; }.contact-socials { gap: 16px; }.contact-photo-group { width: min(340px,90%); }.contact-photo-actions { gap: 9px; }.contact-photo-actions .contact-photo__hint { font-size: 20px; padding: 10px 11px; }.contact-photo-reveal { width: 40px; height: 40px; flex-basis: 40px; } }
+@media(prefers-reduced-motion:reduce) { .contact-photo-reveal { transition: none; } }
+
+.contact-photo-reveal:disabled { cursor: default; opacity: .6; }.contact-photo-reveal:disabled:hover { translate: none; rotate: none; }

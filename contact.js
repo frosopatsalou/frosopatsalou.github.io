@@ -68,10 +68,20 @@
     const mask = document.createElement('canvas');
     const brush = mask.getContext('2d');
     if (!context || !brush) { image.style.opacity = '1'; return; }
-    const hint = document.createElement('figcaption');
+    const hint = document.createElement('p');
     hint.className = 'contact-photo__hint';
     hint.textContent = 'Drag to reveal more';
-    figure.append(canvas, hint);
+    const group = document.createElement('div');
+    group.className = 'contact-photo-group';
+    figure.before(group); group.append(figure);
+    const actions = document.createElement('div');
+    actions.className = 'contact-photo-actions';
+    const reveal = document.createElement('button');
+    reveal.type = 'button'; reveal.className = 'contact-photo-reveal';
+    reveal.setAttribute('aria-label', 'Reveal whole photo'); reveal.title = 'Reveal whole photo';
+    reveal.innerHTML = '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2 12C7 3 17 3 22 12C17 21 7 21 2 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/></svg>';
+    hint.setAttribute('role', 'status');
+    actions.append(hint, reveal); group.append(actions); figure.append(canvas);
     image.draggable = false;
     figure.classList.add('is-erasable');
     figure.tabIndex = 0;
@@ -139,11 +149,11 @@
       render(); figure.dataset.wipes = '3'; figure.classList.add('has-erased');
     }
     function start() {
-      if (started || !intersecting || document.getElementById('portfolio')?.inert) return;
+      if (started || !intersecting || document.getElementById('portfolio')?.inert || document.documentElement.classList.contains('is-navigation-busy')) return;
       started = true;
       if (reduced.matches) { completeIntro(); return; }
       const began = performance.now();
-      const passDuration = 220, pause = 65;
+      const passDuration = 165, pause = 45;
       const last = [0, 0, 0];
       function swipe(now) {
         const elapsed = now - began;
@@ -160,6 +170,16 @@
       }
       introFrame = requestAnimationFrame(swipe);
     }
+    function revealWholePhoto() {
+      cancelAnimationFrame(introFrame); introFrame = 0; started = true;
+      if (pointer !== null && figure.hasPointerCapture(pointer)) figure.releasePointerCapture(pointer);
+      pointer = null; previous = null;
+      brush.fillStyle = '#fff'; brush.fillRect(0, 0, width, height); render();
+      figure.classList.add('has-erased');
+      hint.textContent = 'Photo revealed';
+      reveal.disabled = true;
+    }
+    reveal.addEventListener('click', revealWholePhoto);
     function point(event) {
       const rect = figure.getBoundingClientRect();
       return { x: event.clientX - rect.left, y: event.clientY - rect.top };
@@ -171,6 +191,7 @@
       figure.setPointerCapture(pointer);
       figure.focus({ preventScroll: true });
       event.preventDefault();
+      hint.textContent = 'Drag to reveal more';
       previous = point(event);
       stroke(previous, { x: previous.x + .01, y: previous.y }, Math.max(42, width * .19));
       render(); figure.classList.add('has-erased');
@@ -188,18 +209,17 @@
     ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(type => figure.addEventListener(type, release));
     figure.addEventListener('keydown', event => {
       if (event.key !== 'Enter' && event.key !== ' ') return;
-      event.preventDefault(); cancelAnimationFrame(introFrame); introFrame = 0; started = true;
-      brush.fillStyle = '#fff'; brush.fillRect(0, 0, width, height); render();
-      figure.classList.add('has-erased'); hint.textContent = 'Photo revealed';
+      event.preventDefault(); revealWholePhoto();
     });
     resize(); new ResizeObserver(resize).observe(figure);
     const observer = new IntersectionObserver(entries => {
       intersecting = entries[0].isIntersecting;
       if (!intersecting && introFrame) return;
       start();
-    }, { threshold: .25 });
+    }, { threshold: .05 });
     observer.observe(figure);
     document.addEventListener('portfolio:intro-complete', start, { once: true });
+    document.addEventListener('portfolio:navigation-revealed', start, { once: true });
     reduced.addEventListener('change', () => {
       if (reduced.matches && introFrame) {
         cancelAnimationFrame(introFrame); introFrame = 0;
