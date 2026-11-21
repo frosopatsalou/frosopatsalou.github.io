@@ -82,7 +82,10 @@
     reveal.setAttribute('aria-pressed', 'false');
     reveal.innerHTML = '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2 12C7 3 17 3 22 12C17 21 7 21 2 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/></svg>';
     hint.setAttribute('role', 'status');
-    actions.append(hint, reveal); group.append(actions); figure.append(canvas);
+    actions.append(hint, reveal);
+    const controlCell = document.createElement('div');
+    controlCell.className = 'contact-photo-controls'; controlCell.append(actions);
+    figure.closest('.contact-section').querySelector('.contact-footer').append(controlCell); figure.append(canvas);
     image.draggable = false;
     figure.classList.add('is-erasable');
     figure.tabIndex = 0;
