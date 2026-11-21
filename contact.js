@@ -2,17 +2,35 @@
   const email = 'frosopatsalou@gmail.com';
   document.querySelectorAll('.contact-section').forEach(section => {
     const socials = section.querySelector('.contact-socials');
-    const emailButton = socials.querySelector('[data-copy-email]');
     const status = section.querySelector('.contact-copy-status');
+    const expanders = [...socials.querySelectorAll('[data-contact-expand]')];
+    const suppressed = new WeakSet();
     let feedbackTimer;
-    const openEmail = () => socials.classList.add('is-email-open');
-    emailButton.addEventListener('pointerenter', openEmail);
-    emailButton.addEventListener('focus', openEmail);
-    socials.addEventListener('pointerleave', () => {
-      if (document.activeElement !== emailButton) socials.classList.remove('is-email-open');
+    function closeAll() { expanders.forEach(button => button.classList.remove('is-expanded')); }
+    expanders.forEach(button => {
+      function open() {
+        if (button.disabled || suppressed.has(button)) return;
+        closeAll(); button.classList.add('is-expanded');
+      }
+      button.addEventListener('pointerenter', open);
+      button.addEventListener('focus', open);
+      button.addEventListener('pointerleave', () => suppressed.delete(button));
+      button.addEventListener('blur', () => {
+        button.classList.remove('is-expanded'); suppressed.delete(button);
+      });
+      button.addEventListener('click', () => {
+        suppressed.add(button); closeAll();
+      });
     });
-    emailButton.addEventListener('blur', () => socials.classList.remove('is-email-open'));
+    socials.addEventListener('pointerleave', () => {
+      expanders.forEach(button => {
+        if (document.activeElement !== button || suppressed.has(button)) button.classList.remove('is-expanded');
+      });
+    });
     section.querySelectorAll('[data-copy-email]').forEach(button => button.addEventListener('click', async () => {
+      closeAll();
+      const socialEmail = socials.querySelector('[data-copy-email]');
+      suppressed.add(socialEmail);
       let copied = false;
       try {
         await navigator.clipboard.writeText(email);
@@ -101,22 +119,43 @@
       }
       brush.restore();
     }
-    function introPoint(t) {
-      return { x: width * (.16 + .68 * t), y: height * (.72 - .45 * t + Math.sin(t * Math.PI * 2) * .08) };
+    // Three distinct rubbed strokes, with a brief pause between each pass.
+    function introPoint(pass, t) {
+      const paths = [
+        { x: .15, y: .40, dx: .67, dy: -.18 },
+        { x: .82, y: .40, dx: -.66, dy: .20 },
+        { x: .16, y: .78, dx: .65, dy: -.18 }
+      ];
+      const p = paths[pass];
+      return { x: width * (p.x + p.dx * t), y: height * (p.y + p.dy * t + Math.sin(t * Math.PI) * .025) };
+    }
+    function revealPass(pass, from = 0, to = 1) {
+      for (let t = from; t < to; t += .012) {
+        stroke(introPoint(pass, t), introPoint(pass, Math.min(t + .012, to)), width * .24);
+      }
+    }
+    function completeIntro() {
+      for (let pass = 0; pass < 3; pass++) revealPass(pass);
+      render(); figure.dataset.wipes = '3'; figure.classList.add('has-erased');
     }
     function start() {
       if (started || !intersecting || document.getElementById('portfolio')?.inert) return;
       started = true;
-      const duration = reduced.matches ? 0 : 1050;
+      if (reduced.matches) { completeIntro(); return; }
       const began = performance.now();
-      let last = 0;
+      const passDuration = 410, pause = 130;
+      const last = [0, 0, 0];
       function swipe(now) {
-        const t = duration ? Math.min(1, (now - began) / duration) : 1;
-        const eased = t * t * (3 - 2 * t);
-        for (let f = last; f < eased; f += .012) stroke(introPoint(f), introPoint(Math.min(f + .012, eased)), width * .31);
-        last = eased;
+        const elapsed = now - began;
+        for (let pass = 0; pass < 3; pass++) {
+          const t = Math.max(0, Math.min(1, (elapsed - pass * (passDuration + pause)) / passDuration));
+          const eased = t * t * (3 - 2 * t);
+          if (eased > last[pass]) revealPass(pass, last[pass], eased);
+          last[pass] = eased;
+          if (t === 1) figure.dataset.wipes = String(pass + 1);
+        }
         render();
-        if (t < 1) introFrame = requestAnimationFrame(swipe);
+        if (last[2] < 1) introFrame = requestAnimationFrame(swipe);
         else { introFrame = 0; figure.classList.add('has-erased'); }
       }
       introFrame = requestAnimationFrame(swipe);
@@ -164,8 +203,7 @@
     reduced.addEventListener('change', () => {
       if (reduced.matches && introFrame) {
         cancelAnimationFrame(introFrame); introFrame = 0;
-        for (let t = 0; t < 1; t += .012) stroke(introPoint(t), introPoint(Math.min(t + .012, 1)), width * .31);
-        render(); figure.classList.add('has-erased');
+        completeIntro();
       }
     });
   });
