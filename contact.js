@@ -85,7 +85,7 @@
     actions.append(hint, reveal);
     const controlCell = document.createElement('div');
     controlCell.className = 'contact-photo-controls'; controlCell.append(actions);
-    figure.closest('.contact-section').querySelector('.contact-footer').append(controlCell); figure.append(canvas);
+    group.append(controlCell); figure.append(canvas);
     image.draggable = false;
     figure.classList.add('is-erasable');
     figure.tabIndex = 0;

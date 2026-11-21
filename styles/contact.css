@@ -67,12 +67,15 @@
 .contact-text { width: min(100%,560px); }
 .contact-photo-reveal.is-full { background: var(--color-blue); color: white; }
 
-/* Both sets of controls share one row beneath the text and photo. */
+/* Social links sit lower; picture controls stay attached to the photo. */
 .contact-body { padding-bottom: 0; }
-.contact-footer { display: grid; grid-template-columns: minmax(0,1.4fr) minmax(0,1fr); gap: clamp(40px,7vw,100px); align-items: center; margin-top: 116px; }
+.contact-footer { display: grid; grid-template-columns: minmax(0,1.4fr) minmax(0,1fr); gap: clamp(40px,7vw,100px); align-items: center; margin-top: 156px; }
 .contact-footer .contact-bottom { position: relative; top: auto; left: auto; right: auto; margin: 0; padding-left: 12px; }
 .contact-footer .contact-photo-actions { position: static; top: auto; left: auto; transform: none; justify-self: center; }
 @media(max-width:900px) { .contact-footer { grid-template-columns: minmax(0,1.2fr) minmax(0,1fr); gap: 35px; } }
 @media(max-width:640px) { .contact-body { padding-bottom: 0; }.contact-footer { grid-template-columns: 1fr; gap: 24px; }.contact-footer .contact-bottom { padding-left: 0; }.contact-footer .contact-photo-actions { justify-self: end; } }
 .contact-photo-controls { display: flex; justify-content: center; width: min(100%,430px); justify-self: end; }@media(max-width:640px) { .contact-photo-controls { width: min(340px,90%); } }
 @media(prefers-reduced-motion:reduce) { .contact-section::before,.contact-page { background-image: url('../assets/contact/doodles-static.svg'); } }
+
+.contact-photo-group > .contact-photo-controls { position: absolute; top: calc(100% + 28px); left: 0; width: 100%; }
+.contact-photo-group .contact-photo-actions { position: static; top: auto; left: auto; transform: none; }
