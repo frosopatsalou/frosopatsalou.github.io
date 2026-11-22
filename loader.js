@@ -38,7 +38,7 @@
       resolve();
     };
     image.onerror = resolve;
-    image.src = name === 'smiling' ? './assets/stickers/loading-smiling.svg' : `./assets/stickers/${name}.webp`;
+    image.src = name === 'smiling' ? './assets/stickers/loading-smiling.svg?v=2' : `./assets/stickers/${name}.webp`;
   })));
   const pageImages = images.map(image => task(image.complete ? image.decode().catch(() => {}) : new Promise(resolve => {
     image.addEventListener('load', resolve, { once: true });
