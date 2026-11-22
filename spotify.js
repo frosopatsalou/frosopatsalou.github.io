@@ -120,6 +120,8 @@
 (() => {
   const root = document.querySelector('.spotify-music');
   if (!root) return;
+  if (parent !== window && parent.portfolioMusicHost) { root.remove(); return; }
+  window.portfolioMusicSession = { root, audio: root.querySelector('audio') };
   const tracks = [
     { title: 'Swing Lynn', artist: 'Harmless', src: './assets/spotify/swing-lynn-instrumental.mp3', start: 3 },
     { title: 'Saturn', artist: 'SZA', src: './assets/spotify/saturn-instrumental.mp3', start: 0 },
@@ -144,8 +146,22 @@
   let feedbackUntil = 0, visibilityTimer = 0, scrollFrame = 0;
   let lastScroll = Math.max(0, scrollY), scrollDirection = 0, scrollTravel = 0;
   let scrollRevealed = lastScroll <= 96;
+  let onSpotify = true, dismissedAway = false, viewScroll = lastScroll;
+  function setHidden(hide) { root.classList.toggle('is-hidden', hide); root.inert=hide; if(hide)root.setAttribute('aria-hidden','true');else root.removeAttribute('aria-hidden'); }
+  addEventListener('portfolio:music-location', event => {
+    const wasSpotify=onSpotify; onSpotify=event.detail.spotify; viewScroll=event.detail.y; lastScroll=viewScroll;
+    if(onSpotify) { dismissedAway=false; scrollRevealed=true; }
+    else if(wasSpotify) dismissedAway=false;
+    syncVisibility();
+  });
+  addEventListener('portfolio:music-scroll', event => {
+    viewScroll=event.detail.y;
+    if(!onSpotify && (audio.paused||audio.ended)) dismissedAway=true;
+    scrollVisibility();
+  });
   function syncVisibility() {
-    const hide = scrollY > 96 && !scrollRevealed && (audio.paused || audio.ended) &&
+    if(!onSpotify) { setHidden(dismissedAway); return; }
+    const hide = viewScroll > 96 && !scrollRevealed && (audio.paused || audio.ended) &&
       performance.now() >= feedbackUntil && !root.querySelector(':focus-visible');
     root.classList.toggle('is-hidden', hide);
     root.inert = hide;
@@ -174,7 +190,8 @@
     if (scrollFrame) return;
     scrollFrame = requestAnimationFrame(() => {
       scrollFrame = 0;
-      const y = Math.max(0, scrollY);
+      const y = Math.max(0, document.body.classList.contains('is-music-host') ? viewScroll : scrollY);
+      viewScroll=y;
       const delta = y - lastScroll;
       lastScroll = y;
       if (y > 24) root.classList.add('has-scrolled');
@@ -229,6 +246,7 @@
     next.setAttribute('aria-label', `Next song, ${tracks[(index + 1) % tracks.length].title}`);
     status.textContent = `${tracks[index].title} by ${tracks[index].artist}. ${playing ? 'Playing.' : 'Paused.'}`;
     updateProgress();
+    window.portfolioMusicHost?.syncVinyl();
     syncVisibility();
   }
   function applySeek() {
@@ -293,7 +311,7 @@
     audio.currentTime = Number(seek.value);
     updateProgress();
   });
-  addEventListener('pagehide', () => audio.pause());
+  addEventListener('pagehide', () => { if(!document.body.classList.contains('is-music-host')) audio.pause(); });
   scrollVisibility();
   update();
 })();

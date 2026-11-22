@@ -89,7 +89,9 @@
     const footer = document.createElement('footer');
     footer.className = 'cookie-footer';
     footer.append(settings);
-    (document.getElementById('portfolio') || document.body).append(footer);
+    const notebook = document.querySelector('.projects');
+    if (notebook && document.body.dataset.page === 'about') notebook.before(footer);
+    else (document.getElementById('portfolio') || document.body).append(footer);
   }
   function showBanner(focus = false) {
     banner.hidden = false; settings.setAttribute('aria-expanded', 'true');

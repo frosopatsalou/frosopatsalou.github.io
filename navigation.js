@@ -26,10 +26,22 @@
     return url;
   }
   document.addEventListener('click', event => {
+    const link = event.target.closest('a[data-no-transition][href^="#"]');
+    if (!link || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const target = document.getElementById(decodeURIComponent(link.hash.slice(1)));
+    if (!target) return;
+    event.preventDefault(); event.stopImmediatePropagation();
+    const from = scrollY;
+    const to = Math.max(0,Math.min(document.documentElement.scrollHeight-innerHeight,from+target.getBoundingClientRect().top-(parseFloat(getComputedStyle(target).scrollMarginTop)||0)));
+    history.replaceState(null,'',link.hash);
+    dispatchEvent(new Event('portfolio:anchor-navigation'));
+    scrollTo({ top: to, behavior: motion.matches ? 'instant' : 'smooth' });
+  },true);
+  document.addEventListener('click', event => {
     if (event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
     const link = event.target.closest('a[href]');
     const url = destination(link);
-    if (!url || motion.matches || !window.portfolioPageTransition) return;
+    if (!url || !window.portfolioPageTransition) return;
     event.preventDefault();
     const rect = link.getBoundingClientRect();
     const point = event.detail ? { x: event.clientX, y: event.clientY } : { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };

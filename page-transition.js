@@ -130,6 +130,10 @@
       navigating = false;
       return;
     }
+    if (url.origin === location.origin && parent === window && window.portfolioMusicHost?.canCarry()) {
+      await window.portfolioMusicHost.open(url);
+      await uncover(); navigating=false; return;
+    }
     if (url.origin === location.origin) {
       try {
         sessionStorage.setItem(key, JSON.stringify({
@@ -138,6 +142,7 @@
         }));
       } catch (_) {}
     }
+    if(parent !== window && parent.portfolioMusicHost) { parent.portfolioMusicHost.navigateFrame(url); return; }
     location.assign(url.href);
   }
   if (arrival) {

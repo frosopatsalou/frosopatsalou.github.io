@@ -231,3 +231,5 @@
 .moon-phone img[src$="home-screen.svg"], .moon-phone img[src$="post-comment.svg"] { border-radius: 18% / 9%; }
 @media (min-width: 901px) { .moon-index { translate: calc(6px - max(12px, (100vw - 1480px) / 2 + 12px)) 0; } }
 @media (prefers-reduced-motion: reduce) { .moon-structure summary i { transition: none; } }
+
+.moon-hero-actions { display:flex; flex-wrap:wrap; gap:12px; }

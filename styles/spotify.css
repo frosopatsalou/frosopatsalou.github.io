@@ -114,3 +114,8 @@
  .spotify-music, .spotify-music.is-hidden, .spotify-music.has-scrolled .spotify-music__hint { transition: none; }
  .spotify-music__hint { animation: none; }
 }
+
+body.is-music-host { overflow: hidden; }
+body.is-music-host > :not(.spotify-music):not(.portfolio-music-frame) { display: none !important; }
+.portfolio-music-frame { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; z-index: 0; background: white; }
+body.is-music-host > .spotify-music { z-index: 10000; }
