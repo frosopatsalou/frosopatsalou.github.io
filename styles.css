@@ -5,7 +5,7 @@ body.is-loading{overflow:hidden}
 .loader{position:fixed;inset:0;z-index:var(--z-loader);display:grid;place-items:center;min-height:100svh;background:var(--loading-background);opacity:1;transition:opacity var(--duration-slow) var(--ease-standard)}
 .loader__content{display:flex;flex-direction:column;align-items:center;gap:var(--space-64);width:min(100% - 48px,486px);transform:translateY(-14px)}
 .loader__sticker-stage{display:grid;place-items:center;width:min(100%,460px);aspect-ratio:1.2}
-.loader__sticker{display:block;width:100%;height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none}
+.loader__sticker{grid-area:1/1;display:block;width:100%;height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none}
 .loader__progress-row{display:flex;align-items:center;gap:var(--space-18);width:100%}
 .loader__track{flex:1;min-width:0;height:44px;padding:var(--space-4);overflow:hidden;border-radius:var(--radius-pill);background:var(--loading-track);isolation:isolate}
 .loader__fill{position:relative;width:0;height:100%;border-radius:inherit;background:var(--loading-gradient);will-change:width}

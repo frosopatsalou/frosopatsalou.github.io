@@ -18,6 +18,7 @@
   let displayed = 0;
   let lastAria = -1;
   let activeExpression = 'smiling';
+  let activeSticker = sticker;
 
   // New page assets are automatically included as more of the portfolio is built.
   const images = [...document.querySelectorAll('#portfolio img')];
@@ -34,6 +35,11 @@
     const image = new Image();
     image.onload = async () => {
       try { await image.decode(); } catch { /* A loaded image can still be displayed. */ }
+      image.className = 'loader__sticker';
+      image.alt = ''; image.draggable = false;
+      image.style.opacity = '0';
+      image.style.zIndex = '0';
+      sticker.parentElement.append(image);
       decoded.set(name, image);
       resolve();
     };
@@ -51,7 +57,21 @@
   function showExpression(elapsed) {
     const name = expressions[Math.floor(elapsed / 900) % expressions.length];
     if (name !== activeExpression && decoded.has(name)) {
-      sticker.src = decoded.get(name).src;
+      const previous = activeSticker;
+      const next = decoded.get(name);
+      previous.style.zIndex = '0';
+      next.style.zIndex = '1';
+      // Keep the previous, already painted expression beneath the incoming one.
+      // No source swaps or empty frames while the browser decodes a new image.
+      const fade = next.animate([{ opacity: 0 }, { opacity: 1 }], {
+        duration: 180, easing: 'ease-in-out', fill: 'forwards'
+      });
+      fade.finished.then(() => {
+        next.style.opacity = '1';
+        previous.style.opacity = '0';
+        fade.cancel();
+      }).catch(() => {});
+      activeSticker = next;
       activeExpression = name;
     }
   }
