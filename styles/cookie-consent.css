@@ -34,3 +34,6 @@
   .cookie-banner__details-toggle { grid-column: 1; grid-row: 3; justify-self: start; margin-top: 14px; }
   .cookie-banner__details { grid-column: 1 / -1; grid-row: 4; }
 }
+
+.cookie-footer--notebook { position:absolute; left:24px; bottom:28px; z-index:100; padding:0; }
+@media(max-width:640px) { .cookie-footer--notebook { left:16px; bottom:22px; } }

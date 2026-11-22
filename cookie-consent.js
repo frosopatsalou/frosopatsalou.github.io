@@ -90,7 +90,10 @@
     footer.className = 'cookie-footer';
     footer.append(settings);
     const notebook = document.querySelector('.projects');
-    if (notebook && document.body.dataset.page === 'about') notebook.before(footer);
+    if (notebook && document.body.dataset.page === 'about') {
+      footer.classList.add('cookie-footer--notebook');
+      notebook.append(footer);
+    }
     else (document.getElementById('portfolio') || document.body).append(footer);
   }
   function showBanner(focus = false) {
