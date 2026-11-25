@@ -16,15 +16,16 @@
 
   function syncAccess() {
     const open = book.dataset.notebookState === 'open';
+    const opening = book.dataset.notebookState === 'opening';
     spreads.forEach(spread => {
       const active = open && !turning && spread.dataset.spread === currentSpread;
       spread.inert = !active;
       spread.setAttribute('aria-hidden', String(!active));
     });
     bookmarks.forEach(mark => {
-      const active = open && !turning && mark.closest('.notebook-spread').dataset.spread === currentSpread;
-      mark.disabled = !active;
-      mark.hidden = !active;
+      const visible = (open || opening) && !turning && mark.closest('.notebook-spread').dataset.spread === currentSpread;
+      mark.disabled = !open || turning;
+      mark.hidden = !visible;
     });
   }
   function showSpread(name) {
@@ -90,6 +91,11 @@
     const state = book.dataset.notebookState;
     if (turning || !['closed', 'open'].includes(state) || book.querySelector('.is-held')) return;
     targetOpen = state === 'closed';
+    if (targetOpen) {
+      button.setAttribute('aria-label', 'Close notebook');
+      button.querySelector('.notebook__hint').textContent = 'Close';
+      button.querySelector('.notebook__arrow').textContent = '›';
+    }
     if (targetOpen) openingPrint.replaceChildren(printedCopy(currentSpread === 'interests' ? interestsLeft : education));
     book.dataset.notebookState = targetOpen ? 'opening' : 'closing';
     book.dataset.expanded = String(targetOpen);

@@ -20,6 +20,8 @@
 .interests-doodle--games { left: calc(383.1 / 1181 * 100%); top: calc(587.85 / 840 * 100%); width: calc(34.5 / 1181 * 100%); }
 .interests-doodle--travel { left: calc(879.35 / 1181 * 100%); top: calc(441.8 / 840 * 100%); width: calc(49.1 / 1181 * 100%); }
 .notebook-bookmark--general { left: 0; top: calc(40 / 840 * 100%); background: var(--color-rose); border-radius: 0 calc(20 / 1181 * 100cqw) calc(20 / 1181 * 100cqw) 0; writing-mode: vertical-rl; rotate: 180deg; }
+.notebook[data-notebook-state="opening"] .notebook-bookmark--general { backface-visibility: hidden; transform-origin: calc(var(--spread-width) * .5) center; animation: unfold-notebook-bookmark var(--notebook-hinge-duration) var(--notebook-hinge-ease) both; }
+@keyframes unfold-notebook-bookmark { from { transform: rotateY(180deg); } to { transform: rotateY(0); } }
 .notebook-interests__left { transform-origin: 50% 50%; transform: rotateY(180deg); backface-visibility: hidden; transition: transform var(--notebook-hinge-duration, 480ms) var(--notebook-hinge-ease, cubic-bezier(.3,0,.2,1)); }
 .notebook[data-expanded="true"] .notebook-interests__left { transform: rotateY(0); }
 .notebook__page-print .notebook-interests__left { transform: none; transition: none; }

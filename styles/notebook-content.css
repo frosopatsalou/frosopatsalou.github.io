@@ -64,7 +64,7 @@
 .notebook-bookmark:focus-visible { outline: 3px dashed var(--color-purple); outline-offset: 4px; }
 .notebook-bookmark:disabled { cursor: default; }
 .notebook-bookmark[hidden] { display: none !important; }
-.notebook:not([data-notebook-state="open"]) .notebook-bookmark { visibility: hidden; pointer-events: none; }
+.notebook:not(:is([data-notebook-state="open"], [data-notebook-state="opening"])) .notebook-bookmark { visibility: hidden; pointer-events: none; }
 .notebook-bookmark--education { background: var(--color-blue); }
 .notebook[data-active-spread="interests"] .notebook__printed-back { display: none; }
 .notebook[data-spread-turn] .notebook-spread[data-spread="education"] > .notebook-spread__right { visibility: hidden; }
