@@ -81,6 +81,8 @@
 /* Shared, compositor-driven hinge motion keeps the cover, paper and spiral in sync. */
 .notebook { --notebook-hinge-duration: 480ms; --notebook-hinge-ease: cubic-bezier(.3,0,.2,1); }
 .notebook[data-notebook-state="closing"] { --notebook-hinge-duration: 840ms; --notebook-hinge-ease: cubic-bezier(.32,0,.22,1); }
-.notebook__scene, .notebook__cover, .notebook__left-page, .notebook__binding, .notebook__pages i { will-change: transform; }
+.notebook:is([data-notebook-state="opening"], [data-notebook-state="closing"]) :is(.notebook__scene, .notebook__cover, .notebook__left-page, .notebook__binding, .notebook__pages i) { will-change: transform; }
+/* Avoid rerasterizing individual SVG shadows while their whole page rotates. */
+.notebook:is([data-notebook-state="opening"], [data-notebook-state="closing"], [data-spread-turn]) .is-draggable { filter: none; transition: none; }
 /* Turning leaves use i elements for structure, not italic typography. */
 .notebook__pages i { font-style: normal; }

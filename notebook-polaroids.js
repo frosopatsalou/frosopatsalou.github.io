@@ -15,9 +15,16 @@
       }, { once: true });
       video.addEventListener('error', () => resolve(false), { once: true });
     });
-    video.src = video.dataset.src;
     return [video, loaded];
   }));
+  // Prepare clips shortly before the notebook enters view, rather than competing
+  // with the About introduction, sticker artwork and first paint on page load.
+  const prepareClips = new IntersectionObserver(entries => {
+    if (!entries.some(entry => entry.isIntersecting)) return;
+    videos.forEach(video => { if (!video.getAttribute('src')) video.src = video.dataset.src; });
+    prepareClips.disconnect();
+  }, { rootMargin: '400px' });
+  prepareClips.observe(book);
   let inView = false;
   function syncPlayback() {
     book.classList.toggle('is-interests-visible', inView && !document.hidden &&

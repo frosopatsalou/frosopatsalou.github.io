@@ -55,7 +55,7 @@
 @keyframes reveal-landed-education { from { visibility: hidden; } to { visibility: visible; } }
 
 .notebook__page-print { font-style: normal; }
-.notebook-spread > .notebook-spread__left { will-change: transform; }
+.notebook:is([data-notebook-state="opening"], [data-notebook-state="closing"]) .notebook-spread > .notebook-spread__left { will-change: transform; }
 
 /* Bookmarks switch between two preserved spreads. Interests stays blank for now. */
 .notebook-spread[hidden] { display: none; }
@@ -63,6 +63,8 @@
 .notebook-bookmark:hover { filter: brightness(1.06); }
 .notebook-bookmark:focus-visible { outline: 3px dashed var(--color-purple); outline-offset: 4px; }
 .notebook-bookmark:disabled { cursor: default; }
+.notebook-bookmark[hidden] { display: none !important; }
+.notebook:not([data-notebook-state="open"]) .notebook-bookmark { visibility: hidden; pointer-events: none; }
 .notebook-bookmark--education { background: var(--color-blue); }
 .notebook[data-active-spread="interests"] .notebook__printed-back { display: none; }
 .notebook[data-spread-turn] .notebook-spread[data-spread="education"] > .notebook-spread__right { visibility: hidden; }

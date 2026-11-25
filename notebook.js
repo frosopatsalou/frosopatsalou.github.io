@@ -21,7 +21,11 @@
       spread.inert = !active;
       spread.setAttribute('aria-hidden', String(!active));
     });
-    bookmarks.forEach(mark => { mark.disabled = !open || turning; });
+    bookmarks.forEach(mark => {
+      const active = open && !turning && mark.closest('.notebook-spread').dataset.spread === currentSpread;
+      mark.disabled = !active;
+      mark.hidden = !active;
+    });
   }
   function showSpread(name) {
     currentSpread = name;
@@ -36,11 +40,21 @@
   openingBack.className = 'notebook__printed-back';
   const openingPrint = document.createElement('span');
   openingPrint.className = 'notebook__page-print';
-  openingPrint.append(printedCopy(education));
   openingBack.append(openingPrint);
   openingLeaf.append(openingBack);
   function printedCopy(source) {
-    const copy = source.cloneNode(true);
+    // Print the visible artwork, not interactive peel SVGs or video decoders.
+    // Skipping them before cloning avoids building thousands of discarded nodes.
+    function copyArtwork(node) {
+      if (node.nodeType === 1 && (node.matches('.peel-art, video'))) return null;
+      const copy = node.cloneNode(false);
+      for (const child of node.childNodes) {
+        const artwork = copyArtwork(child);
+        if (artwork) copy.append(artwork);
+      }
+      return copy;
+    }
+    const copy = copyArtwork(source);
     const stickers = source.querySelectorAll('[data-movable]');
     copy.querySelectorAll('[data-movable]').forEach((sticker, index) => {
       sticker.querySelectorAll('.peel-art').forEach(art => art.remove());
@@ -50,6 +64,8 @@
       ['data-movable', 'tabindex', 'role', 'aria-pressed', 'aria-describedby'].forEach(attribute => sticker.removeAttribute(attribute));
     });
     copy.removeAttribute('aria-labelledby');
+    copy.inert = true;
+    copy.setAttribute('aria-hidden', 'true');
     copy.querySelectorAll('[id]').forEach(node => node.removeAttribute('id'));
     return copy;
   }
@@ -61,6 +77,7 @@
     book.dataset.notebookState = targetOpen ? 'open' : 'closed';
     book.setAttribute('aria-label', `${targetOpen ? 'Open' : 'Closed'} A Work in Progress notebook`);
     closed.inert = targetOpen;
+    openingPrint.replaceChildren();
     syncAccess();
     button.setAttribute('aria-disabled', 'false');
     button.setAttribute('aria-expanded', String(targetOpen));
