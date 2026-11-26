@@ -62,3 +62,5 @@
 .cart-load-model:focus-visible,.cart-reset-view:focus-visible { outline: 3px solid var(--cart-ink); outline-offset: 4px; }
 .cart-model-fallback { padding: 16px; border: 1px solid var(--cart-accent); border-radius: 12px; }
 @media(max-width:640px) { .cart-model__stage { height: 350px; } .cart-model__figure figcaption { font-size: 17px; } }
+
+@media (pointer: coarse) { #cart-viewer { touch-action: none; } }

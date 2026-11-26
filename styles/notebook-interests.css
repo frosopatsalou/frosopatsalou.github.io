@@ -74,3 +74,4 @@
 @media (prefers-reduced-motion: reduce) { .interests-doodle { animation: none; } }
 
 .interests-sticker-area .interests-heading { left: calc(69 / 551.5 * 100%); top: calc(21 / 778 * 100%); width: calc(426 / 551.5 * 100%); }
+@media (max-width: 640px) { .notebook[data-notebook-state="opening"] .notebook-spread > .notebook-interests__left { animation: none; } }

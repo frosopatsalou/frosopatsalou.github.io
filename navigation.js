@@ -1,17 +1,17 @@
 (() => {
   if (!document.body.dataset.page && location.hash === '#work') history.replaceState(null, '', '#case-studies');
-  const legacy = { '#about': 'about.html', '#contact': 'contact.html' };
+  const legacy = { '#about': 'about.html' };
   if (!document.body.dataset.page && legacy[location.hash]) {
     location.replace(new URL(legacy[location.hash], location.href)); return;
   }
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   function syncHomeNavigation() {
     if (document.body.dataset.page) return;
-    const isWork = location.hash === '#case-studies';
+    const active = location.hash === '#contact' ? 'Contact' : location.hash === '#case-studies' ? 'Work' : 'Home';
     document.querySelectorAll('#primary-navigation a').forEach(link => {
       const label = link.textContent.trim();
-      if (label !== 'Home' && label !== 'Work') return;
-      if ((label === 'Work') === isWork) link.setAttribute('aria-current', 'page');
+      if (!['Home', 'Work', 'Contact'].includes(label)) return;
+      if (label === active) link.setAttribute('aria-current', 'page');
       else link.removeAttribute('aria-current');
     });
   }

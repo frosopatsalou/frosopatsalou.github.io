@@ -84,3 +84,7 @@
 .notebook-title-area .notebook-spread__education { left: calc(79 / 551.5 * 100%); top: calc(21 / 778 * 100%); width: calc(270 / 551.5 * 100%); }
 .notebook-title-area .notebook-spread__extracurricular { left: calc(76 / 551.5 * 100%); top: calc(579 / 778 * 100%); width: calc(360 / 551.5 * 100%); }
 .notebook-title-area .notebook-spread__skills { left: calc(79.5 / 551.5 * 100%); top: calc(26 / 778 * 100%); width: calc(156 / 551.5 * 100%); }
+
+/* Explicitly hide descendants that otherwise override inherited visibility. */
+.notebook[data-notebook-state="closed"] .notebook-spread { visibility: hidden; }
+@media (max-width: 640px) { .notebook[data-notebook-state="opening"] .notebook-spread > .notebook-spread__left { animation: none; } }

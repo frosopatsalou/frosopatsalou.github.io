@@ -11,6 +11,7 @@
   const bookmarks = [...book.querySelectorAll('[data-notebook-page]')];
   const status = book.querySelector('.notebook__status');
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const compact = matchMedia('(max-width: 640px)');
   let timer, targetOpen = false, currentSpread = 'education', turning = false;
   let turnAnimation = null, finishTurn = null;
 
@@ -96,7 +97,7 @@
       button.querySelector('.notebook__hint').textContent = 'Close';
       button.querySelector('.notebook__arrow').textContent = '›';
     }
-    if (targetOpen) openingPrint.replaceChildren(printedCopy(currentSpread === 'interests' ? interestsLeft : education));
+    if (targetOpen && !compact.matches) openingPrint.replaceChildren(printedCopy(currentSpread === 'interests' ? interestsLeft : education));
     book.dataset.notebookState = targetOpen ? 'opening' : 'closing';
     book.dataset.expanded = String(targetOpen);
     closed.inert = true;
@@ -105,7 +106,7 @@
     if (motion.matches) finish();
     else {
       const closingDuration = parseFloat(getComputedStyle(book).getPropertyValue('--notebook-hinge-duration')) || 840;
-      timer = setTimeout(finish, targetOpen ? 1200 : closingDuration + 40);
+      timer = setTimeout(finish, targetOpen ? (compact.matches ? 540 : 1200) : closingDuration + 40);
     }
   });
 
@@ -118,8 +119,9 @@
     const destination = spreads.find(spread => spread.dataset.spread === name);
     if (!destination) return;
     const forward = name === 'interests';
-    if (motion.matches) {
+    if (motion.matches || compact.matches) {
       showSpread(name);
+      if (!motion.matches) destination.animate([{ opacity: .45 }, { opacity: 1 }], { duration: 180, easing: 'ease-out' });
       destination.querySelector('[data-notebook-page]').focus({preventScroll: true});
       status.textContent = name === 'interests' ? 'Interests: games, creativity and travel.' : 'Education and Skills pages.';
       return;

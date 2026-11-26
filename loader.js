@@ -90,7 +90,7 @@
       portfolio.inert = false;
       portfolio.removeAttribute('aria-hidden');
       document.body.classList.remove('is-loading');
-      if (location.hash === '#case-studies') document.getElementById('case-studies')?.scrollIntoView({ block: 'start', behavior: 'instant' });
+      if (['#case-studies', '#contact'].includes(location.hash)) document.getElementById(location.hash.slice(1))?.scrollIntoView({ block: 'start', behavior: 'instant' });
       loader.remove();
       window.portfolioPageTransition.reveal().then(() => {
         document.dispatchEvent(new Event('portfolio:ready'));
@@ -101,7 +101,7 @@
       portfolio.inert = false;
       portfolio.removeAttribute('aria-hidden');
       document.body.classList.remove('is-loading');
-      if (location.hash === '#case-studies') document.getElementById('case-studies')?.scrollIntoView({ block: 'start', behavior: 'instant' });
+      if (['#case-studies', '#contact'].includes(location.hash)) document.getElementById(location.hash.slice(1))?.scrollIntoView({ block: 'start', behavior: 'instant' });
       loader.classList.add('is-finished');
       setTimeout(() => {
         loader.remove();

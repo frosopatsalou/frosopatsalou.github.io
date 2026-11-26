@@ -91,3 +91,12 @@
 .notebook:is([data-notebook-state="opening"], [data-notebook-state="closing"], [data-spread-turn]) .is-draggable { filter: none; transition: none; }
 /* Turning leaves use i elements for structure, not italic typography. */
 .notebook__pages i { font-style: normal; }
+
+/* Closed pages cannot leak through before the cover artwork has decoded. */
+.notebook[data-notebook-state="closed"] .notebook__open { visibility: hidden; opacity: 0; }
+@media (max-width: 640px) {
+ .notebook { --notebook-hinge-duration: 480ms; }
+ .notebook[data-notebook-state="closing"] { --notebook-hinge-duration: 580ms; }
+ .notebook__pages { display: none; }
+ .notebook[data-notebook-state="opening"] .notebook-spread > :is(.notebook-spread__left, .notebook-interests__left) { animation: none; }
+}

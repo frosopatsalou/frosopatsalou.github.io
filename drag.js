@@ -263,7 +263,7 @@
     const bookStickers = items.filter(item => item.classList.contains('project-sticker') || item.classList.contains('notebook-skill'));
     const clover = bookStickers.find(item => item.dataset.object === 'book-clover');
     if (clover) {
-      const sampleSize = 96;
+      const sampleSize = matchMedia('(max-width: 640px)').matches ? 32 : 96;
       function samplesFor(item) {
         const map = hitMaps.get(item), rect = item.getBoundingClientRect(), samples = [];
         for (let row=0; row<sampleSize; row++) for (let col=0; col<sampleSize; col++) {

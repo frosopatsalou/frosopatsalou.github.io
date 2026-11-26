@@ -41,6 +41,7 @@
   const status = document.querySelector('[data-cart-caption]');
   const fallback = document.querySelector('.cart-model-fallback');
   let started = false;
+  const mobile = matchMedia('(max-width: 760px), (pointer: coarse)').matches;
   async function loadModel() {
     if (started) return;
     started = true;
@@ -49,10 +50,12 @@
       const { ModelViewerElement } = await import('./assets/vendor/model-viewer.min.js');
       ModelViewerElement.dracoDecoderLocation = new URL('./assets/vendor/draco/', location.href).href;
       await customElements.whenDefined('model-viewer');
-      viewer.src = './assets/takoyaki/cart.glb';
+      if (mobile) viewer.setAttribute('shadow-intensity', '0');
+      viewer.src = mobile ? './assets/takoyaki/cart-mobile.glb' : './assets/takoyaki/cart.glb';
     } catch (error) { showFallback(); }
   }
   function showFallback() {
+    started = false;
     status.textContent = 'Full render available below';
     fallback.hidden = false;
   }

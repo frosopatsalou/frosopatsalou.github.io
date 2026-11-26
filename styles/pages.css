@@ -8,3 +8,13 @@
 
 html.is-navigation-busy { cursor: progress; }
 .page-transition { isolation: isolate; }
+
+/* Keep phone layouts clear of the main navigation. */
+@media (max-width: 640px) {
+ .case-progress, .moon-index, .sncb-index, .spotify-index, .cart-index, .world-index { display: none !important; }
+ .work-layout, .moon-layout, .sncb-layout, .spotify-layout, .cart-layout, .world-layout { grid-template-columns: minmax(0, 1fr) !important; }
+ [data-work-section] { scroll-margin-top: 110px; }
+ .moon-context__notes { padding-inline: 0; }
+ .moon-context__notes .moon-conversation { translate: none; width: 100%; }
+ .spotify-music { right: auto !important; left: 50%; translate: -50% 0; }
+}

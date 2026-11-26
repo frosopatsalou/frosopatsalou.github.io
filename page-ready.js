@@ -6,8 +6,11 @@
     about.style.setProperty('--about-drag-x-unit', `${rect.width / 100}px`);
     about.style.setProperty('--about-drag-y-unit', `${rect.height / 100}px`);
   }).observe(about);
-  const loaded = document.readyState === 'complete' ? Promise.resolve() : new Promise(resolve => window.addEventListener('load', resolve, { once: true }));
-  const assetsReady = Promise.all([loaded, document.fonts.ready,...[...main.querySelectorAll('img')].map(img => img.decode().catch(() => {}))]);
+  // Lazy screenshots below the fold must never keep a visible page inert.
+  const images = [...main.querySelectorAll('img')].filter(img =>
+    img.matches('.notebook__base, .notebook__binding, .notebook__left-page, .notebook__right-page') ||
+    (img.loading !== 'lazy' && img.getBoundingClientRect().top < innerHeight));
+  const assetsReady = Promise.all([document.fonts.ready, ...images.map(img => img.decode().catch(() => {}))]);
   Promise.race([assetsReady, new Promise(resolve => setTimeout(resolve, 12000))]).then(async () => {
     main.inert = false;
     main.removeAttribute('aria-hidden');
